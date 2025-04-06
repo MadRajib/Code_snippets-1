@@ -100,3 +100,19 @@ vector<int> firstNegInt(vector<int>& arr, int k) {
         return res;
     }
 ```
+
+### 3. Count Occurences of Anagrams
+> Given a word pat and a text txt. Return the count of the occurrences of anagrams of the word in the text.
+```bash
+Input: txt = "forxxorfxdofr", pat = "for"
+Output: 3
+Explanation: for, orf and ofr appears in the txt, hence answer is 3.
+
+Input: txt = "aabaabaa", pat = "aaba"
+Output: 4
+Explanation: aaba is present 4 times in txt.
+```
+
+```cpp
+
+```
