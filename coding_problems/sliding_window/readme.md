@@ -112,7 +112,49 @@ Input: txt = "aabaabaa", pat = "aaba"
 Output: 4
 Explanation: aaba is present 4 times in txt.
 ```
-
+1. Use map to 
 ```cpp
+int search(string &pat, string &txt) {
+        // code here
+        unordered_map<int, int> mp;
+        
+        int letter_count = 0;
+        int l = 0;
+        int res = 0;
+        
+        for (int i =0; i < pat.length(); i++)
+            mp[pat[i]]++;
+        
+        /* Count is to indicated total nof chars already seen */
+        letter_count = mp.size();
+        
+        for (int i = 0; i < txt.length(); i++) {
 
+            /* Process only those chars present in the pattern */
+            if (mp.find(txt[i]) != mp.end()) {
+                mp[txt[i]]--;
+                if (mp[txt[i]] == 0)
+                    letter_count--;
+            }
+            
+            if (i - l + 1 ==  pat.length()) {
+                if (letter_count == 0)
+                    res++;
+                /* process only chars present in pattern */
+                if (mp.find(txt[l]) != mp.end()) {
+
+                    /* only increment the count if removed char count was zero */
+                    if (mp[txt[l]] == 0 ){
+                        letter_count++;
+                    }
+                    
+                    mp[txt[l]]++;
+                }
+                
+                l++;
+            }
+        }
+        
+        return res;
+    }
 ```
