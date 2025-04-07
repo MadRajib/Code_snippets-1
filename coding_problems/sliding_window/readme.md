@@ -208,3 +208,53 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         return res;
     }
 ```
+
+## Variable size sliding win problems
+### Aproach
+    1. Have a counter or hash-map to count specific array input and keep on increasing the window toward right using outer loop.
+    2. Have a while loop inside to reduce the window side by sliding toward right. Movement will be based on constraints of problem.
+    3. Store the current maximum window size or minimum window size or number of windows based on problem requirement.
+
+### 1. Longest Substring with K Uniques
+> Given a string s, you need to print the size of the longest possible substring with exactly k unique characters. If no possible substring exists, print -1.
+
+```bash
+Examples:
+
+Input: s = "aabacbebebe", k = 3
+Output: 7
+Explanation: "cbebebe" is the longest substring with 3 distinct characters.
+
+Input: s = "aaaa", k = 2
+Output: -1
+Explanation: There's no substring with 2 distinct characters.
+
+Input: s = "aabaaab", k = 2
+Output: 7
+Explanation: "aabaaab" is the longest substring with 2 distinct characters.
+```
+
+```cpp
+ int longestKSubstr(string &s, int k) {
+        // your code here
+        int res = -1;
+        int l = 0;
+        unordered_map<int, int> mp;
+        
+        for (int i = 0; i< s.length(); i++) {
+            mp[s[i]]++;
+            /* check for condition if invalid reduce the window */
+            while (mp.size() > k) {
+                mp[s[l]]--;
+                if (mp[s[l]] == 0)
+                    mp.erase(s[l]);
+                l++;
+            }
+            /* if condition is valid store the result and increase window */
+            if (mp.size() == k)
+                res = max(res, i - l + 1);
+        }
+        
+        return res;
+    }
+```
