@@ -158,3 +158,53 @@ int search(string &pat, string &txt) {
         return res;
     }
 ```
+
+### 4. (239.) Sliding Window Maximum
+> You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.
+
+Return the max sliding window.
+```bash
+Example 1:
+
+Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+Output: [3,3,5,5,6,7]
+Explanation: 
+Window position                Max
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
+
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+```
+1. Use map to 
+```cpp
+vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int> l_max;
+        vector<int> res;
+        int s = 0;
+        int i = 0;
+        for (; i < nums.size(); i++) {
+            /* Remove no that are smaller than current element since they dont have the chance to be part of the result*/
+            while(!l_max.empty() && (l_max.back() < nums[i]))
+                l_max.pop_back();
+            /* save the current element > or less than stack back */
+            l_max.push_back(nums[i]);
+
+            if (i - s + 1 == k) {
+                res.push_back(l_max.front());
+                /* check if removed element is first in the dequeue */
+                if (l_max.front() == nums[s])
+                        l_max.pop_front();
+                s++;
+            }
+        }
+        return res;
+    }
+```
