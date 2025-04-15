@@ -19,7 +19,7 @@ Output: 7 .
 
 ```cpp
     KthSmallest(int k, vector<int>& nums) {
-        priority_queue<int, vector<int>, less<int>> maxheap;
+        priority_queue<int> maxheap;
         for (int i = 0; i < nums.size(); i++) {
             maxheap.push(nums[i]);
             if (maxheap.size() > k) {
