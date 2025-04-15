@@ -117,4 +117,5 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
         return res;
     }
 ```
+Note: If sorrted array is given better to use binary search.
  
