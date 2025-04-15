@@ -27,7 +27,7 @@ Output: 7 .
             }
         }
 
-        return heap.pop();
+        return heap.top();
     }
 
     KthLargest(int k, vector<int>& nums) {
@@ -38,7 +38,7 @@ Output: 7 .
                 minheap.pop();
         }
 
-        return heap.pop();
+        return heap.top();
     }
 ```
 
@@ -62,13 +62,15 @@ Output : arr[] = {2, 3, 5, 6, 8, 9, 10} .
         for (int i = 0; i < nums.size(); i++){
             minheap.push(nums[i]);
             if (minheap.size() > k) {
-                nums[j] = minheap.pop();
+                nums[j] = minheap.top();
                 j++;
+                minheap.pop();
             }
         }
 
         while (minheap.size > 0) {
-            nums[j++] = minheap.pop();
+            nums[j++] = minheap.top();
+            minheap.pop();
         }
     }
 ```
