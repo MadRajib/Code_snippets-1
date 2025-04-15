@@ -74,3 +74,47 @@ Output : arr[] = {2, 3, 5, 6, 8, 9, 10} .
         }
     }
 ```
+### 3. K closest elements in an unsoreted array
+>  Given a integer array arr, two integers k and x, return the k closest integers to x in the array.
+The result should also be sorted in ascending order.
+
+An integer a is closer to x than an integer b if:
+
+|a - x| < |b - x|, or
+|a - x| == |b - x| and a < b
+ 
+```bash
+Example 1:
+
+Input: arr = [1,2,3,4,5], k = 4, x = 3
+
+Output: [1,2,3,4]
+
+Example 2:
+
+Input: arr = [1,1,2,3,4,5], k = 4, x = -1
+
+Output: [1,1,2,3]
+```
+```cpp
+vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        priority_queue<pair<int, int>> maxheap;
+        vector<int> res;
+
+        for (auto n: arr) {
+            maxheap.push({abs(x - n), n});
+            if (maxheap.size() > k) {
+                maxheap.pop();
+            }
+        }
+
+       
+        while (maxheap.size() > 0) {
+            res.push_back(maxheap.top().second);
+            maxheap.pop();
+        }
+        sort(res.begin(), res.end());
+        return res;
+    }
+```
+ 
