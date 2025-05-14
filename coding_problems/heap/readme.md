@@ -122,3 +122,41 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
 ```
 Note: If sorrted array is given better to use binary search.
  
+### 347. Top K Frequent Elements
+> Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+```bash
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+```
+
+```cpp
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        vector<int> result;
+        unordered_map<int, int> map;
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> min_heap;
+
+
+        //build a number count table
+        for(auto x: nums)
+            map[x]++;
+        
+        for(auto x: map) {
+            min_heap.push({x.second, x.first});
+            if(min_heap.size() > k)
+                min_heap.pop();
+        }
+        
+        while(!min_heap.empty()){
+            result.push_back(min_heap.top().second);
+            min_heap.pop();
+        }
+        return result;
+    }
+```
