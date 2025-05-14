@@ -3,7 +3,10 @@
 ## Heap problems
 ### Aproach
     1. if find k largest -> min heap
-    2. if find k smallest -> max heap 
+    2. if find k smallest -> max heap
+
+    - kth largest means  -> smallest element in k len array
+    - kth smallest means -> largest element in k len array
 
 ### 1. Kth Smallest Element
 > Given an array and a number k where k is smaller than size of array,
