@@ -402,3 +402,66 @@ int minSubArrayLen(int target, vector<int>& nums) {
         return res == INT_MAX? 0 : res;
     }
 ```
+
+### 5. 76. Minimum Window Substring
+>Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+```bash
+Example 1:
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+
+Example 2:
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+
+Example 3:
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+```
+
+```cpp
+    string minWindow(string s, string t) {
+        unordered_map<char, int> mp, win;
+        int l_min = 0;
+        int r_min = 0;
+        int match_count = 0;
+        int min_len = s.length() + 1;
+        int l = 0;
+
+        if (t.length() > s.length() || s == "")
+            return "";
+
+        for (auto c: t)
+            mp[c]++;
+        
+        for (int r = 0; r < s.length(); r++) {
+            win[s[r]]++;
+
+            /* increase matched chars if needed no.of letter found */
+            if (mp.find(s[r]) != mp.end() && win[s[r]] == mp[s[r]])
+                match_count++;
+            
+            while (match_count ==  mp.size()) {
+                if (r - l + 1 < min_len) {
+                    l_min = l;
+                    r_min = r;
+                    min_len = r_min - l_min + 1;
+                }
+
+                win[s[l]]--;
+                if (mp.find(s[l]) != mp.end() && win[s[l]] < mp[s[l]])
+                    match_count--;
+                l++;
+            }
+        }
+
+        if (min_len < s.length() + 1)
+            return s.substr(l_min, min_len);
+        return "";
+    }
+```
