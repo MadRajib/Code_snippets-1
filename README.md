@@ -1,4 +1,6 @@
 # Code_snippets
+- [Sliding Window](coding_problems/sliding_window/readme.md)
+- [heap](coding_problems/heap/readme.md)
 
 # Contents
 - [STL Usage](#stl-usage)
