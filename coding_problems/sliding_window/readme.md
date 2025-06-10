@@ -1,6 +1,19 @@
 # Sliding window Problems
 
-## Fixed size sliding win problems
+### [Fixed size sliding win problems](#fixed-size-sliding-win)
+ 1. [Max Sum Subarray of size K](#1-max-sum-subarray-of-size-k)
+ 1. [First negative in every window of size k](#2-first-negative-in-every-window-of-size-k)
+ 1. [Count Occurences of Anagrams](#3-count-occurences-of-anagrams)
+ 1. [(239.) Sliding Window Maximum](#4-239-sliding-window-maximum)
+### [Variable size sliding win problems](#variable-size-sliding-win)
+ 1. [Longest Substring with K Uniques](#1-longest-substring-with-k-uniques)
+ 1. [(3.) Longest Substring Without Repeating Characters](#2-3-longest-substring-without-repeating-characters)
+ 1. [(904.) Fruit Into Baskets](#3-904-fruit-into-baskets)
+ 1. [(209.) Minimum Size Subarray Sum](#4-209-minimum-size-subarray-sum)
+ 1. [76. Minimum Window Substring](#5-76-minimum-window-substring)
+ 1. [424. Longest Repeating Character Replacement](#6-424-longest-repeating-character-replacement)
+ 
+## Fixed size sliding win
 ### Aproach
     1. While iterating save the value or index
     2. if win size if reached store the res based on conditon and reduce win size
@@ -209,7 +222,7 @@ vector<int> maxSlidingWindow(vector<int>& nums, int k) {
     }
 ```
 
-## Variable size sliding win problems
+## Variable size sliding win
 ### Aproach
     1. Have a counter or hash-map to count specific array input and keep on increasing the window toward right using outer loop.
     2. Have a while loop inside to reduce the window side by sliding toward right. Movement will be based on constraints of problem.
