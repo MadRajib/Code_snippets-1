@@ -4,6 +4,7 @@
  1. [Print 1 to N](#1-print-1-to-n)
  1. [Sort an array](#2-sort-an-array)
  1. [Sort an stack](#3-sort-an-stack)
+ 1. [Delete middle element from a stack](#4-delete-middle-element-of-a-stack)
 
 
 ## Aproach
@@ -77,7 +78,7 @@ Step 3: __base__:
 ```
 
 ### 3. Sort an stack
-tep 1. __HYpothesis__:
+Step 1. __HYpothesis__:
 ```bash
 sort(stk) -> sort stack in accending order.
 sort(stk) (removing top) -> sorts stack in accessending order.
@@ -109,4 +110,30 @@ Step 3: __base__:
     if (stk.size() == 0 || stk.top() < elem):
         stk.push(elem)
         return;
+```
+
+### 4. Delete Middle Element of a Stack
+Step 1. __HYpothesis__:
+```bash
+delete(stk, K) -> Delete middle element k is middle element index
+delete(stk, k - 1) -> remove the top and delete the midle element
+```
+
+Step 2: __Induction__:
+```bash
+delete(stk, k):
+    elem = stk.pop;
+    delete(stk, k - 1)
+    stk.push(elem)
+
+```
+
+Step 3: __base__:
+```bash
+    if (stk.size() == 0)
+        return;
+    else if ( k == 1)
+        stk.pop();
+        return;
+
 ```
