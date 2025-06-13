@@ -5,6 +5,7 @@
  1. [Sort an array](#2-sort-an-array)
  1. [Sort an stack](#3-sort-an-stack)
  1. [Delete middle element from a stack](#4-delete-middle-element-of-a-stack)
+ 1. [Reverse a stack](#5-reverse-a-stack)
 
 
 ## Aproach
@@ -134,6 +135,40 @@ Step 3: __base__:
         return;
     else if ( k == 1)
         stk.pop();
+        return;
+
+```
+
+### 5. Reverse a stack
+Step 1. __HYpothesis__:
+```bash
+reverse(stk) -> reverses the stack
+reverse(stk) -> reverse the stack with top element poped
+```
+
+Step 2: __Induction__:
+```bash
+reverse(stk):
+    elem =  stk.pop()
+    reverse(stk)
+
+    insert(stk, elem)
+
+insert(stk, elem)
+    _elem =  stk.pop()
+    insert(stk, elem)
+    stk.push(_elem)
+```
+
+Step 3: __base__:
+```bash
+------- reverse ----
+    if (stk.size() == 1)
+        return;
+
+------ Insert -----
+    if (stk.size() == 0)
+        stk.push(elem)
         return;
 
 ```
