@@ -1,6 +1,7 @@
 # Code_snippets
 - [Sliding Window](coding_problems/sliding_window/readme.md)
 - [heap](coding_problems/heap/readme.md)
+- [recursion](coding_problems/recursion/readme.md)
 
 # Contents
 - [STL Usage](#stl-usage)
