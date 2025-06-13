@@ -3,6 +3,7 @@
 ### [Aproach](#Aproach)
  1. [Print 1 to N](#1-print-1-to-n)
  1. [Sort an array](#2-sort-an-array)
+ 1. [Sort an stack](#3-sort-an-stack)
 
 
 ## Aproach
@@ -18,7 +19,6 @@
     * __Induction__  -> How it works is added in induction step
     * __Base condtion__ ->  Smallest valid i/p  or largest invalid input
 
-Example: 
 ### 1 Print 1 to N
 
 Step 1. __Hypothesis__:
@@ -40,7 +40,6 @@ Step 3: __base__:
         return;
 ```
 
-Example:
 ### 2 Sort an array
 
 Step 1. __HYpothesis__:
@@ -75,5 +74,39 @@ Step 3: __base__:
     if (arr.size() == 0 || arr[arr.size() - 1] < elem):
         arr.push_back(elem)
         return;
+```
 
+### 3. Sort an stack
+tep 1. __HYpothesis__:
+```bash
+sort(stk) -> sort stack in accending order.
+sort(stk) (removing top) -> sorts stack in accessending order.
+insert(stk, elem) -> inserts an element to its correct location in sorted stk.
+```
+
+Step 2: __Induction__:
+```bash
+sort(stk):
+
+    elem = rr.pop();
+    sort(stk)
+
+    insert(stk, elem)
+
+insert(stk, elem):
+    _elem = stk.pop()
+    insert(stk, elem)
+    stk.push(_elem)
+```
+
+Step 3: __base__:
+```bash
+    ----- sort  -----
+    if (stk.size() == 1)
+        return;
+
+    ---- insert -----
+    if (stk.size() == 0 || stk.top() < elem):
+        stk.push(elem)
+        return;
 ```
