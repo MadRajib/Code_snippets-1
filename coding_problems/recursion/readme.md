@@ -276,3 +276,49 @@ int towerOfHanoi(int n, int from, int to, int aux) {
         return count;
 }
 ```
+### 8 Subsets
+> Given an integer array nums of unique elements, return all possible subsets (the power set).
+
+> The solution set must not contain duplicate subsets. Return the solution in any order.
+```bash
+Example 1:
+
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+
+Example 2:
+
+Input: nums = [0]
+Output: [[],[0]]
+```
+
+Aproach:
+    * I/p output 
+
+Code:
+```bash
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> subs;
+
+        subset(0, subs, nums, res);
+
+        return res;
+    }
+
+    void subset(int i, vector<int>& subs, vector<int>& nums, vector<vector<int>>& res) {
+
+        if (i >= nums.size()) {
+            res.push_back(subs);
+            return;
+        }
+
+        subs.push_back(nums[i]);
+        subset(i + 1, subs, nums, res);
+        subs.pop_back();
+        subset(i + 1, subs, nums, res);
+    }
+};
+```
