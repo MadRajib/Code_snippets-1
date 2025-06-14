@@ -233,5 +233,44 @@ Step 3: __base__:
 ```bash
 if ( n == 1 || k == 1)
     return 0;
+```
 
+### 7. Tower of Hanoi
+Observation :
+
+* large plates cannot be kept in top of small plate.
+* for n - 1 items, we will consider all the plates other than the lowest plate
+
+```bash
+TOH(n, {dst: d, helper: h}) - > Moves n plates from s to d using h
+TOH(n - 1, {dst: h, helper:d})  - > Move n - 1 to h then place nth plate to d then move move n-1 to d. 
+```
+
+Step 2: __Induction__:
+```bash
+TOH(n, {dst: d, helper: h})
+    //base
+    TOH(n - 1, {dst: h, helper: d})
+    move(n, d)
+    TOH(n - 1, {dst: d, helper: s})
+```
+
+Step 3: __base__:
+```bash
+    if (n == 0)
+        return;
+```
+Code:
+```cpp
+int towerOfHanoi(int n, int from, int to, int aux) {
+        // Your code here
+        int count = 0;
+        if (n == 0)
+            return count;
+        
+        count += towerOfHanoi(n - 1 , from, aux, to);
+        count++;
+        count += towerOfHanoi(n - 1 , aux, to, from);
+        return count;
+}
 ```
