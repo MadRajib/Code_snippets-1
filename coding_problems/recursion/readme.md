@@ -13,6 +13,7 @@
  1. [Letter Case Permutation](#10-letter-case-permutation)
  1. [Generate Parentheses](#11-generate-parentheses)
  1. [Print N-bit binary numbers having more 1s than 0s](#12-print-n-bit-binary-numbers-having-more-1s-than-0s)
+ 1. [Find the Safe Position](#13-find-the-safe-position)
 
 ## Aproach
 * In Recursion we will be given some __choices__ on which we have to make some __decisions__.
@@ -544,4 +545,64 @@ class Solution {
             recursive(one, zero + 1, s + "0", res, n);
     }
 };
+```
+
+### 13. Find the Safe Position
+> There are n people standing in a circle (numbered clockwise 1 to n) waiting to be executed. The counting begins at point 1 in the circle and proceeds around the circle in a fixed direction (clockwise). In each step, a certain number of people are skipped and the next person is executed. The elimination proceeds around the circle (which is becoming smaller and smaller as the executed people are removed), until only the last person remains, who is given freedom.
+Given the total number of persons n and a number k which indicates that k-1 persons are skipped and kth person is killed in circle. The task is to choose the place in the initial circle so that you are the last one remaining and so survive.
+
+```bash
+Example 1:
+
+Input:
+n = 2, k = 1
+Output:
+2
+Explanation:
+Here, n = 2 and k = 1, then safe position is
+2 as the person at 1st position will be killed.
+Example 2:
+
+Input:
+n = 4, k = 2
+Output:
+1
+Explanation:
+The safe position is 1.
+```
+
+Step 1. __HYpothesis__:
+```bash
+solve(n, k) -> safe postion
+solve(n - 1, k) -> safe position starting from k + 1 till next kth
+```
+
+Step 2: __Induction__:
+```bash
+solve(n, k):
+    //base condition
+    // why + (k - 1) boz next elimination will happen from k+th position
+    // so whatever is returned from solve(n -1, ..) will have index  k - 1 + location 
+    return (k -1 + solve(n - 1, k)) % (n + 1)
+```
+
+Step 3: __base__:
+```bash
+if ( n == 1)
+            return 1;
+```
+code:
+
+```cpp
+class Solution {
+  public:
+    int safePos(int n, int k) {
+        // code here
+        if (n == 1)
+            return 1;
+        
+        return ((k -1) + safePos(n - 1, k)) % n + 1;
+    }
+};
+
 ```
