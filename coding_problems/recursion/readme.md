@@ -11,6 +11,7 @@
  1. [Subsets](#8-subsets)
  1. [Permutation with Spaces](#9-permutation-with-spaces)
  1. [Letter Case Permutation](#10-letter-case-permutation)
+ 1. [Generate Parentheses](#11-generate-parentheses)
 
 ## Aproach
 * In Recursion we will be given some __choices__ on which we have to make some __decisions__.
@@ -430,4 +431,53 @@ public:
         recursion(i + 1, sub + (char)tolower(s[i]), s, res);
     }
 };
+```
+
+### 11. Generate Parentheses
+> Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+```bash
+Example 1:
+
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+Example 2:
+
+Input: n = 1
+Output: ["()"]
+```
+Apporach:
+
+* Total length will be 2*n
+* we can choose to add open bracket if less than n
+* we can choose to ignore open bracket and add close bracket if close is less than open.  
+
+Code: 
+
+```cpp
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        string sub  = "";
+        recursion(0, 0, sub, res, n);
+
+        return res;
+    }
+
+    void recursion(int open, int close, string sub, vector<string>& res, int n) {
+
+        if (open + close >= 2*n) {
+            res.push_back(sub);
+            return;
+        }
+
+        if (open < n)
+            recursion(open + 1, close, sub + "(", res, n);
+        
+        if (close < open)
+            recursion(open, close + 1, sub + ")", res, n);
+    }
+};
+
 ```
