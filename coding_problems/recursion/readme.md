@@ -12,6 +12,7 @@
  1. [Permutation with Spaces](#9-permutation-with-spaces)
  1. [Letter Case Permutation](#10-letter-case-permutation)
  1. [Generate Parentheses](#11-generate-parentheses)
+ 1. [Print N-bit binary numbers having more 1s than 0s](#12-print-n-bit-binary-numbers-having-more-1s-than-0s)
 
 ## Aproach
 * In Recursion we will be given some __choices__ on which we have to make some __decisions__.
@@ -480,4 +481,67 @@ public:
     }
 };
 
+```
+
+### 12. Print N-bit binary numbers having more 1s than 0s
+> Given a positive integer n. Your task is to generate a string list of all n-bit binary numbers where, for any prefix of the number, there are more or an equal number of 1's than 0's. The numbers should be sorted in decreasing order of magnitude.
+
+```bash
+Example 1:
+
+Input:  
+n = 2
+Output: 
+{"11", "10"}
+Explanation: Valid numbers are those where each prefix has more 1s than 0s:
+11: all its prefixes (1 and 11) have more 1s than 0s.
+10: all its prefixes (1 and 10) have more 1s than 0s.
+So, the output is "11, 10".
+Example 2:
+
+Input:  
+n = 3
+Output: 
+{"111", "110", "101"}
+Explanation: Valid numbers are those where each prefix has more 1s than 0s.
+111: all its prefixes (1, 11, and 111) have more 1s than 0s.
+110: all its prefixes (1, 11, and 110) have more 1s than 0s.
+101: all its prefixes (1, 10, and 101) have more 1s than 0s.
+So, the output is "111, 110, 101".
+
+```
+Obervation:
+
+* 1 will always be included. 
+
+Code:
+
+```cpp
+class Solution {
+  public:
+    unordered_map<int, int> mp;
+    vector<string> NBitBinary(int n) {
+        // Your code goes here
+        vector<string> res;
+        string sub = "";
+        
+        recursive(0, 0, sub, res, n);
+    
+        return res;
+    }
+    
+    
+    void recursive(int one, int zero, string s, vector<string>& res, const int n) {
+        
+       if (zero + one == n) {
+            res.push_back(s);
+            return;
+        }
+        
+        recursive(one + 1, zero, s + "1", res, n);
+        
+        if (zero < one)
+            recursive(one, zero + 1, s + "0", res, n);
+    }
+};
 ```
