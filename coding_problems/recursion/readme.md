@@ -9,7 +9,7 @@
  1. [K-th Symbol in Grammar](#6-k-th-symbol-in-grammar)
  1. [Tower of Hanoi](#7-tower-of-hanoi)
  1. [Subsets](#8-subsets)
-
+ 1. [Permutation with Spaces](#9-permutation-with-spaces)
 
 ## Aproach
 * In Recursion we will be given some __choices__ on which we have to make some __decisions__.
@@ -320,6 +320,62 @@ public:
         subset(i + 1, subs, nums, res);
         subs.pop_back();
         subset(i + 1, subs, nums, res);
+    }
+};
+```
+
+### 9. Permutation with Spaces
+> Given a string s, you need to print all possible strings that can be made by placing spaces (zero or one) in between them. The output should be printed in sorted increasing order of strings.
+
+```bash
+Example 1:
+
+Input:
+s = "ABC"
+Output: (A B C)(A BC)(AB C)(ABC)
+Explanation:
+ABC
+AB C
+A BC
+A B C
+These are the possible combination of "ABC".
+
+Example 2:
+
+Input:
+s = "BBR"
+Output: (B B R)(B BR)(BB R)(BBR)
+```
+Apporach:
+    
+    * Start with index 1,
+Code :
+
+```cpp
+class Solution {
+  public:
+
+    vector<string> permutation(string s) {
+        // Code Here
+        vector<string> res;
+            
+        string sub = "";
+        recursion(1, s[0] + sub, s, res);
+        
+        return res;
+    }
+    
+    void recursion(int i, string sub, string& s, vector<string>& res) {
+        if (i >= s.length()) {
+            res.push_back(sub);
+            return;
+        }
+        
+            
+        //add space
+        recursion(i + 1, sub + " " + s[i], s, res);
+        //not include space
+        recursion(i + 1, sub + s[i], s, res);
     }
 };
 ```
