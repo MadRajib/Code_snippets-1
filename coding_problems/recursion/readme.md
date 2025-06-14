@@ -8,6 +8,7 @@
  1. [Reverse a stack](#5-reverse-a-stack)
  1. [K-th Symbol in Grammar](#6-k-th-symbol-in-grammar)
  1. [Tower of Hanoi](#7-tower-of-hanoi)
+ 1. [Subsets](#8-subsets)
 
 
 ## Aproach
