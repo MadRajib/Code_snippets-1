@@ -10,6 +10,7 @@
  1. [Tower of Hanoi](#7-tower-of-hanoi)
  1. [Subsets](#8-subsets)
  1. [Permutation with Spaces](#9-permutation-with-spaces)
+ 1. [Letter Case Permutation](#10-letter-case-permutation)
 
 ## Aproach
 * In Recursion we will be given some __choices__ on which we have to make some __decisions__.
@@ -376,6 +377,57 @@ class Solution {
         recursion(i + 1, sub + " " + s[i], s, res);
         //not include space
         recursion(i + 1, sub + s[i], s, res);
+    }
+};
+```
+
+### 10. Letter Case Permutation
+> Given a string s, you can transform every letter individually to be lowercase or uppercase to create another string.
+> Return a list of all possible strings we could create. Return the output in any order.
+
+ 
+```bash
+Example 1:
+
+Input: s = "a1b2"
+Output: ["a1b2","a1B2","A1b2","A1B2"]
+Example 2:
+
+Input: s = "3z4"
+Output: ["3z4","3Z4"]
+```
+
+Apporach:
+
+* continiue if digit are seen.
+
+Code:
+
+```cpp
+class Solution {
+public:
+    vector<string> letterCasePermutation(string s) {
+        vector<string> res;
+        string sub = "";
+        recursion(0, sub, s, res);
+
+        return res;
+    }
+
+    void recursion(int i , string sub, string& s, vector<string> &res) {
+        if (i >= s.length()) {
+            res.push_back(sub);
+            return;
+        }
+
+        if (isdigit(s[i])) {
+            recursion(i + 1, sub + s[i], s, res);
+            return;
+        }
+
+
+        recursion(i + 1, sub + (char)toupper(s[i]), s, res);
+        recursion(i + 1, sub + (char)tolower(s[i]), s, res);
     }
 };
 ```
