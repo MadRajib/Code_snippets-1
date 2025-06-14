@@ -1,6 +1,5 @@
 # Recursion Problems
 
-### [Aproach](#Aproach)
  1. [Print 1 to N](#1-print-1-to-n)
  1. [Sort an array](#2-sort-an-array)
  1. [Sort an stack](#3-sort-an-stack)
