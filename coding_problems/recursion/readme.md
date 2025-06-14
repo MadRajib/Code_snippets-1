@@ -6,6 +6,8 @@
  1. [Sort an stack](#3-sort-an-stack)
  1. [Delete middle element from a stack](#4-delete-middle-element-of-a-stack)
  1. [Reverse a stack](#5-reverse-a-stack)
+ 1. [K-th Symbol in Grammar](#6-k-th-symbol-in-grammar)
+ 1. [Tower of Hanoi](#7-tower-of-hanoi)
 
 
 ## Aproach
