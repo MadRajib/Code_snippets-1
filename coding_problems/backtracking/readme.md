@@ -3,6 +3,7 @@
 ### Problems
 1. [Permutations of a String](#1-permutations-of-a-string)
 1. [Subsets](#2-subsets)
+1. [Subsets II](#3-subsets-ii)
 
 Identification :
     
@@ -117,6 +118,56 @@ public:
         subs.push_back(nums[i]);
         dfs(i + 1, nums);
         subs.pop_back();
+        dfs(i + 1, nums);
+    }
+};
+```
+### 3. Subsets II
+> Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+```bash
+Example 1:
+
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+Example 2:
+
+Input: nums = [0]
+Output: [[],[0]]
+```
+
+* Sort the array first, then skip the duplicated after traversing 
+
+```cpp
+class Solution {
+    vector<vector<int>> res;
+    vector<int> subs;
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        res.clear();
+        subs.clear();
+
+        dfs(0, nums);
+
+        return res;
+    }
+
+    void dfs(int i, vector<int>& nums) {
+
+        if (i >= nums.size()) {
+            res.push_back(subs);
+            return;
+        }
+
+        subs.push_back(nums[i]);
+        dfs(i + 1, nums);
+        subs.pop_back();
+
+        while (i + 1 < nums.size() && nums[i] == nums[i + 1])
+            i++;
+
         dfs(i + 1, nums);
     }
 };
