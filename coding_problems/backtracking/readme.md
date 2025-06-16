@@ -89,7 +89,9 @@ Output: [[],[0]]
 ```
 * Choices : either include s[i] or exclude and move to next num
 * While returning save the subsets.
-*  
+
+![example 1](problem_2.png)
+
 ```cpp
 class Solution {
     vector<int> subs;
