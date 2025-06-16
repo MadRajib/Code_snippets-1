@@ -2,6 +2,7 @@
 
 ### Problems
 1. [Permutations of a String](#1-permutations-of-a-string)
+1. [Subsets](#2-subsets)
 
 Identification :
     
@@ -71,4 +72,50 @@ class Solution {
     }
 };
 
+```
+
+### 2. Subsets
+> Given an integer array nums of unique elements, return all possible subsets (the power set).
+> The solution set must not contain duplicate subsets. Return the solution in any order.
+```bash
+Example 1:
+
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Example 2:
+
+Input: nums = [0]
+Output: [[],[0]]
+```
+* Choices : either include s[i] or exclude and move to next num
+* While returning save the subsets.
+*  
+```cpp
+class Solution {
+    vector<int> subs;
+    vector<vector<int>> res;
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        
+        res.clear();
+        subs.clear();
+
+        dfs(0, nums);
+
+        return res;
+    }
+
+    void dfs(int i, vector<int>& nums) {
+
+        if (i >= nums.size()) {
+            res.push_back(subs);
+            return;
+        }
+
+        subs.push_back(nums[i]);
+        dfs(i + 1, nums);
+        subs.pop_back();
+        dfs(i + 1, nums);
+    }
+};
 ```
