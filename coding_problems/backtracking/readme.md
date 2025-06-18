@@ -5,6 +5,7 @@
 1. [Subsets](#2-subsets)
 1. [Subsets II](#3-subsets-ii)
 1. [Palindrome Partitioning](#4-palindrome-partitioning)
+1. [Letter Combinations of a Phone Number](#5-letter-combinations-of-a-phone-number)
 
 Identification :
     
@@ -232,3 +233,49 @@ public:
 };
 
 ```
+### 5. Letter Combinations of a Phone Number
+```bash
+Example 1:
+
+Input: digits = "34"
+
+Output: ["dg","dh","di","eg","eh","ei","fg","fh","fi"]
+Example 2:
+
+Input: digits = ""
+
+Output: []
+```
+
+```cpp
+class Solution {
+public:
+    vector<string> res;
+    vector<string> digitToChar = {"", "", "abc", "def", "ghi", "jkl", 
+                                  "mno", "qprs", "tuv", "wxyz"};
+    vector<string> letterCombinations(string digits) {
+        res.clear();
+        if (digits == "")
+            return res;
+
+        dfs(0, "", digits);
+
+        return res;
+    }
+
+    void dfs(int s, string str, string& digits) {
+        if (s >= digits.length()) {
+            res.push_back(str);
+            return;
+        }
+
+        for (auto c: digitToChar[digits[s] - '0']) {
+            dfs(s + 1, str + c, digits);
+        }
+
+    }
+};
+
+```
+
+
