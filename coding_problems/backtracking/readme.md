@@ -6,7 +6,8 @@
 1. [Subsets II](#3-subsets-ii)
 1. [Palindrome Partitioning](#4-palindrome-partitioning)
 1. [Letter Combinations of a Phone Number](#5-letter-combinations-of-a-phone-number)
-1. [6 Combination Sum](#6-combination-sum)
+1. [Combination Sum](#6-combination-sum)
+1. [Combination Sum II](#7-combination-sum-ii) 
 
 Identification :
     
@@ -340,4 +341,63 @@ public:
     }
 };
 
+```
+### 7 Combination Sum II
+
+> You are given an array of integers candidates, which may contain duplicates, and a target integer target. Your task is to return a list of all unique combinations of candidates where the chosen numbers sum to target.
+> Each element from candidates may be chosen at most once within a combination. The solution set must not contain duplicate combinations.
+> You may return the combinations in any order and the order of the numbers in each combination can be in any order.
+
+```bash
+Example 1:
+
+Input: candidates = [9,2,2,4,6,1,5], target = 8
+
+Output: [
+  [1,2,5],
+  [2,2,4],
+  [2,6]
+]
+Example 2:
+
+Input: candidates = [1,2,3,4,5], target = 7
+
+Output: [
+  [1,2,4],
+  [2,5],
+  [3,4]
+]
+```
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> res;
+    vector<int> comb;
+    vector<vector<int>> combinationSum2(vector<int>& nums, int target) {
+        res.clear();
+        comb.clear();
+        sort(nums.begin(), nums.end());
+
+        dfs(0, target, nums);
+        return res;
+    }
+
+    void dfs(int s, int target, vector<int>& nums) {
+
+        if (target == 0) {
+            res.push_back(comb);
+            return;
+        }
+        for (int i = s; i < nums.size(); i++) {
+            if ( i > s && nums[i] == nums[i -1])
+                continue;
+            if (nums[i] <= target) {
+                comb.push_back(nums[i]);
+                dfs(i + 1, target - nums[i], nums);
+                comb.pop_back();
+            }
+        }
+    }
+};
 ```
