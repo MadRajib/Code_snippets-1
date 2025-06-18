@@ -4,6 +4,7 @@
 1. [Permutations of a String](#1-permutations-of-a-string)
 1. [Subsets](#2-subsets)
 1. [Subsets II](#3-subsets-ii)
+1. [Palindrome Partitioning](#4-palindrome-partitioning)
 
 Identification :
     
@@ -171,4 +172,63 @@ public:
         dfs(i + 1, nums);
     }
 };
+```
+
+### 4. Palindrome Partitioning
+> Given a string s, split s into substrings where every substring is a palindrome. Return all possible lists of palindromic substrings.
+> You may return the solution in any order.
+```bash
+Example 1:
+
+Input: s = "aab"
+
+Output: [["a","a","b"],["aa","b"]]
+Example 2:
+
+Input: s = "a"
+
+Output: [["a"]]
+```
+* Why pop > we want to resue one one partition list.
+```cpp
+class Solution {
+public:
+    vector<vector<string>> res;
+    vector<string> part;
+    vector<vector<string>> partition(string s) {
+        res.clear();
+        part.clear();
+
+        dfs(0, s);
+
+        return res;
+    }
+
+    void dfs( int p, string& s) {
+        if (p >= s.length()) {
+            res.push_back(part);
+            return;
+        }
+
+        for ( int i = p; i < s.length(); i++) {
+            if (isPalim(s, p, i)) {
+                part.push_back(s.substr(p, i - p + 1));
+                dfs(i + 1, s);
+                part.pop_back();
+            }
+        }
+    }
+
+    bool isPalim(string& str, int s, int l) {
+        while (s <= l) {
+            if (str[s] != str[l])
+                return false;
+            s++;
+            l--;
+        }
+
+        return true;
+    }
+};
+
 ```
