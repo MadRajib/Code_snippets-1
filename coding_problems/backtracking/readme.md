@@ -7,7 +7,8 @@
 1. [Palindrome Partitioning](#4-palindrome-partitioning)
 1. [Letter Combinations of a Phone Number](#5-letter-combinations-of-a-phone-number)
 1. [Combination Sum](#6-combination-sum)
-1. [Combination Sum II](#7-combination-sum-ii) 
+1. [Combination Sum II](#7-combination-sum-ii)
+1. [Word Search](#8-word-search) 
 
 Identification :
     
@@ -400,4 +401,83 @@ public:
         }
     }
 };
+```
+### 8 Word Search
+> Given a 2-D grid of characters board and a string word, return true if the word is present in the grid, otherwise return false.
+> For the word to be present it must be possible to form it with a path in the board with horizontally or vertically neighboring cells. The same cell may not be used more than once in a word.
+
+```bash
+Example 1:
+
+Input: 
+board = [
+  ["A","B","C","D"],
+  ["S","A","A","T"],
+  ["A","C","A","E"]
+],
+word = "CAT"
+
+Output: true
+Example 2:
+
+
+
+Input: 
+board = [
+  ["A","B","C","D"],
+  ["S","A","A","T"],
+  ["A","C","A","E"]
+],
+word = "BAT"
+
+Output: false
+```
+
+* dont visit the node already visited, that why changed the char to '#'
+
+```cpp
+class Solution {
+public:
+    int rCount;
+    int cCount;
+    vector<vector<char>> board;
+    string word;
+
+    bool exist(vector<vector<char>>& board, string word) {
+        this->board = board;
+        rCount = board.size();
+        cCount = board[0].size();
+        this->word = word;
+
+        for (int i = 0; i < rCount; i++) {
+            for (int j = 0; j < cCount; j++) {
+               if (dfs(i, j, 0))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    bool dfs(int r, int c, int i) {
+
+        if (i == word.size())
+            return true;
+
+        if (r < 0 || c < 0 || r >= rCount || c >= cCount ||
+            board[r][c] != word[i] || board[r][c] == '#')
+            return false;
+
+        board[r][c] = '#';
+
+        bool res = dfs(r - 1, c, i + 1 ) ||
+        dfs(r + 1, c, i + 1 ) ||
+        dfs(r , c - 1, i + 1 ) ||
+        dfs(r, c + 1, i + 1 );
+        
+        board[r][c] = word[i];
+
+        return res;
+    }
+};
+
 ```
