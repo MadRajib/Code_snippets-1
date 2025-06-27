@@ -136,3 +136,56 @@ vector <long long> prevLargerElement(long long arr[], int n){
 }
 
 ```
+
+### 3. Nearest Smaller to left
+
+```cpp
+vector <long long> prevSmallerElement(long long arr[], int n){
+    
+    stack<long long> stk;
+    vector<long long> res;
+    
+    for(int i = 0; i < n; i++){
+        
+        while(!stk.empty() && stk.top() > arr[i]){
+            stk.pop();
+        }
+        
+        if(stk.empty()){
+            res.push_back(-1);
+        }else{
+            res.push_back(stk.top());
+        }
+        stk.push(arr[i]);
+    }
+    
+    // return the reverse res
+    return res;
+}
+
+```
+### 4. Nearest Smaller to right
+```cpp
+vector <long long> nextSmallerElement(long long arr[], int n){
+    
+    stack<long long> stk;
+    vector<long long> res;
+    
+    for(int i = n-1; i>=0; i--){
+        
+        while(!stk.empty() && stk.top() > arr[i]){
+            stk.pop();
+        }
+        
+        if(stk.empty()){
+            res.push_back(-1);
+        }else{
+            res.push_back(stk.top());
+        }
+        stk.push(arr[i]);
+    }
+    
+    // return the reverse res
+    return reverse(res.begin(), res.end());
+}
+```
