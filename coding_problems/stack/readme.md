@@ -308,3 +308,45 @@ public:
     }
 };
 ```
+
+Aproach 2(One pass):
+
+* After poping the the element from the stack check what area it could have made.
+* store the current start index of element from which it can began
+* at last for the element remaining in stack, they can extend their area from their start to
+extreme end.
+
+```cpp
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        int maxArea = 0;
+        stack<pair<int, int>> stack; // pair: (index, height)
+
+        for (int i = 0; i < heights.size(); i++) {
+            int start = i;
+            while (!stack.empty() && stack.top().second > heights[i]) {
+                pair<int, int> top = stack.top();
+                int index = top.first;
+                int height = top.second;
+                maxArea = max(maxArea, height * (i - index));
+                start = index;
+                stack.pop();
+            }
+            /* since we pop elements larger than the current element
+            * current element area can start from the start index of poped element
+            */
+            stack.push({ start, heights[i] });
+        }
+
+        /* Check for the remaining elements */
+        while (!stack.empty()) {
+            int index = stack.top().first;
+            int height = stack.top().second;
+            maxArea = max(maxArea, height * (static_cast<int>(heights.size()) - index));
+            stack.pop();
+        }
+        return maxArea;
+    }
+};
+```
