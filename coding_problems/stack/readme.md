@@ -105,6 +105,34 @@ vector <long long> nextLargerElement(long long arr[], int n){
     }
     
     // return the reverse res
+    return reverse(res.begin(), res.end());
+}
+```
+
+### 2. Nearest Greater to left
+
+```cpp
+vector <long long> prevLargerElement(long long arr[], int n){
+    
+    stack<long long> stk;
+    vector<long long> res;
+    
+    for(int i = 0; i < n; i++){
+        
+        while(!stk.empty() && stk.top() < arr[i]){
+            stk.pop();
+        }
+        
+        if(stk.empty()){
+            res.push_back(-1);
+        }else{
+            res.push_back(stk.top());
+        }
+        stk.push(arr[i]);
+    }
+    
+    // return the reverse res
     return res;
 }
+
 ```
