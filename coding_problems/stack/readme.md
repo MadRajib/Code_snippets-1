@@ -6,7 +6,8 @@
 1. [Nearest Smaller to right](#4-nearest-smaller-to-right)
 1. [Stock Span Problem](#5-stock-span-problem)
 1. [Maximum Area of Histogram](#6-maximum-area-of-histogram)
-1. [Rain Water Trapping](#7-rain-water-trapping)
+1. [Max Area Rectangle in binary matrix](#7-max-area-rectangle-in-binary-matrix)
+1. [Rain Water Trapping](#8-rain-water-trapping)
 1. [Implementing min stack](#9-implementing-min-stack)
 1. [Implementing stack using heap](#10-implementing-stack-using-heap)
 1. [Longest Valid Parenthesis](#11-longest-valid-parenthesis)
@@ -349,4 +350,42 @@ public:
         return maxArea;
     }
 };
+```
+
+### 7. Max Area Rectangle in binary matrix
+> Given a rows x cols binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+```bash
+Example 1:
+Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+Output: 6
+Explanation: The maximal rectangle is shown in the above picture.
+
+Example 2:
+Input: matrix = [["0"]]
+Output: 0
+Example 3:
+
+Input: matrix = [["1"]]
+Output: 1
+```
+Apporach:
+
+* Calculate MAH for each row adding up the above row element if non zero.
+
+```cpp
+n -> rows;
+m -> cols
+
+for (int j = 0; j < m; j++)
+    v.push_back(arr[i][j])
+int mx = MAH(v);
+for (int i = 1; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+        if (arr[i][j] == 0)
+            v[j] = 0;
+        else
+            v[j] = v[j] + arr[i][k]
+    }
+    mx = max(mx, MAH(v));
+}
 ```
