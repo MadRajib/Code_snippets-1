@@ -233,3 +233,78 @@ class Solution {
     }
 };
 ```
+
+### 6. Maximum Area of Histogram
+> Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+
+```bash
+Input: heights = [2,1,5,6,2,3]
+Output: 10
+Explanation: The above is a histogram where width of each bar is 1.
+The largest rectangle is shown in the red area, which has an area = 10 units.
+Example 2:
+
+
+Input: heights = [2,4]
+Output: 4
+```
+
+Apporach
+
+* Areas for any element is lenght * breadth
+    * length: left min to right min
+    * breadth: height of that element
+
+```cpp
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+
+        stack<pair<int, int>> stk;
+        vector<int> lmin(heights.size(), 0);
+        vector<int> rmin(heights.size(), 0);
+
+        for(int i = 0; i < heights.size(); i++) {
+            while(!stk.empty() && stk.top().first >= heights[i]){
+                stk.pop();
+                continue;
+            }
+
+            if(stk.empty())
+                lmin[i] = -1;
+            else{
+                lmin[i] = stk.top().second;
+            }
+            
+            stk.push({heights[i], i });
+            
+        }
+        while(!stk.empty()) {
+            stk.pop();
+        }
+        
+        for(int i = heights.size() -1; i >=0; i--) {
+            while(!stk.empty() && stk.top().first >= heights[i]){
+                stk.pop();
+                continue;
+            }
+
+            if(stk.empty())
+                rmin[i] = heights.size();
+            else{
+                rmin[i] = stk.top().second;
+            }
+            
+            stk.push({heights[i], i });
+            
+        }
+
+        int max_res = 0;
+        for(int i = 0; i < heights.size(); i++) {
+            max_res =  max(heights[i] * (rmin[i] - lmin[i] - 1), max_res);
+        }
+
+        return max_res;
+    }
+};
+```
