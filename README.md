@@ -1,5 +1,6 @@
 # Code_snippets
 - [Sliding Window Problems](coding_problems/sliding_window/readme.md)
+- [Stack Problems](coding_problems/stack/readme.md)
 - [Heap Problems](coding_problems/heap/readme.md)
 - [Recursion Problems](coding_problems/recursion/readme.md)
 - [Backtracking Problems](coding_problems/backtracking/readme.md)
