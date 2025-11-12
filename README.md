@@ -1,4 +1,5 @@
 # Code_snippets
+- [Binary Search Problems](coding_problems/binary_search/readme.md)
 - [Sliding Window Problems](coding_problems/sliding_window/readme.md)
 - [Stack Problems](coding_problems/stack/readme.md)
 - [Heap Problems](coding_problems/heap/readme.md)
