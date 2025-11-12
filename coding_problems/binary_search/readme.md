@@ -4,6 +4,7 @@
 1. [Binary Search](#1-binary-search)
 1. [Order Agonostic Search](#2-order-agonostic-search)
 1. [First and Last occurrence of an element](#3-first-and-last-occurrence-of-an-element)
+1. [Count No of Elements in a Sorted Array](#4-count-no-of-elements-in-a-sorted-array)
 
 
 Identification :
@@ -76,7 +77,7 @@ Input: arr[] = [1, 2, 3], x = 4
 Output: -1 -1
 Explanation: No occurrence of 4 in the array, so, output is [-1, -1]
 ```
-
+Solution: 
 ```cpp
 vec find_first_occurence (arr, x) {
     int first_index = -1;
@@ -113,4 +114,10 @@ int find_last_occurence (arr, x) {
 
     return last_index;
 }
+```
+
+### 4. Count No of Elements in a Sorted Array
+Solution: 
+```bash
+    return find_last_occurence(arr, x) - find_first_occurence(arr, x) + 1;
 ```
