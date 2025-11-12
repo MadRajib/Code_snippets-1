@@ -43,3 +43,9 @@ int BS(int elem)
 
 return - 1;
 ```
+
+__Note:__
+
+What if Key is Absent ? 
+* *low* will point to the first element greater than the key.
+* *low* position where to place the element in the sorted array.
