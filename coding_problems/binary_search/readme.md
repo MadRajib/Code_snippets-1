@@ -79,7 +79,7 @@ Explanation: No occurrence of 4 in the array, so, output is [-1, -1]
 ```
 Solution: 
 ```cpp
-vec find_first_occurence (arr, x) {
+int find_first_occurence (arr, x) {
     int first_index = -1;
 
     while (s <=  e>) {
