@@ -408,6 +408,8 @@ return false;
 ```
 
 ### 12. Allocate min no of pages
+Same as __Painter's Partitions problem__ and __koko eating bananas__
+
 > Given an array arr[], where arr[i] represents the number of pages in the i-th book, and an integer k denoting the total number of students, allocate all books to the students such that:
 
 * Each student gets at least one book.
