@@ -11,6 +11,7 @@
 1. [Find pos in infinite soreted array](#8-find-pos-in-infinite-soreted-array)
 1. [Find index of 1st 1 in the Sorted Array](#9-find-index-of-1st-1-in-the-sorted-array)
 1. [Minimum Difference Element in a Sorted Array](#10-minimum-difference-element-in-a-sorted-array)
+1. [11. Search in row wise and col wise sorted matrix](#11-search-in-row-wise-and-col-wise-sorted-matrix)
 
 Identification :
 * sorted array
@@ -365,5 +366,42 @@ int bs(A, x) {
     }
     // s will point to ceil and e will point to floor
     return min(abs(a[s] - x), abs(a[e] - x))
+}
+```
+
+### 11. Search in row wise and col wise sorted matrix
+> Given a matrix mat[][] and an integer x, the task is to check if x is present in mat[][] or not. Every row and column of the matrix is sorted in increasing order.
+
+```cpp
+Input: x = 62, mat[][] = [[3, 30, 38],
+                                        [20, 52, 54],
+                                        [35, 60, 69]]
+Output: false
+Explanation: 62 is not present in the matrix.
+
+Input: x = 55, mat[][] = [[18, 21, 27],
+                                          [38, 55, 67]]
+Output: true
+Explanation: mat[1][1] is equal to 55.
+
+Input: x = 35, mat[][] = [[3, 30, 38],
+                                        [20, 52, 54],
+                                        [35, 60, 69]]
+Output: true
+Explanation: mat[2][0] is equal to 35.
+```
+
+* start from m(i, j) = (0, m-1)
+
+```cpp
+while (i < n && j >= 0) {
+    if (x > mat[i][j])
+        i++;
+    else if (x < mat[i][j])
+        j--;
+    else
+        return true;
+}
+return false;
 }
 ```
