@@ -10,6 +10,7 @@
 1. [Find floor or ceil of an element](#7-find-floor-or-ceil-of-an-element)
 1. [Find pos in infinite soreted array](#8-find-pos-in-infinite-soreted-array)
 1. [Find index of 1st 1 in the Sorted Array](#9-find-index-of-1st-1-in-the-sorted-array)
+1. [Minimum Difference Element in a Sorted Array](#10-minimum-difference-element-in-a-sorted-array)
 
 Identification :
 * sorted array
@@ -57,7 +58,8 @@ return - 1;
 __Note:__
 
 What if Key is Absent ? 
-* *low* will point to the first element greater than the key.
+* *low* will point to the first element greater than the key ie. ceil
+* *high* will point to the first ekement smaller than the key ie. floor
 * *low* position where to place the element in the sorted array.
 
 ### 2. Order Agonostic Search
@@ -338,4 +340,30 @@ while (A[h] == 0)
 
 find_first_occurence(A, 1);
 
+```
+
+### 10. Minimum Difference Element in a Sorted Array
+> Find the element which has min difference with the target
+
+* i,e min abs() diff element
+* if key is not present then: min(left, right) neighbors
+* BS(element), e and s will point to the nearest neighbours
+* mindiff =  min(abs(a[l] - key), abs(a[h] - key))
+* after the loop exits, s and e move past each other, which is actually what we want.
+
+```cpp
+int bs(A, x) {
+    while (s <= e) {
+        m = s + (e - s) /2;
+        if (A[m] == x)
+            return A[m];
+        else if (A[m] < x) {
+            s =  m + 1;
+        } else {
+            e = m - 1;
+        }
+    }
+    // s will point to ceil and e will point to floor
+    return min(abs(a[s] - x), abs(a[e] - x))
+}
 ```
