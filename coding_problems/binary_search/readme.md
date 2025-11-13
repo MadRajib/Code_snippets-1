@@ -5,14 +5,18 @@
 1. [Order Agonostic Search](#2-order-agonostic-search)
 1. [First and Last occurrence of an element](#3-first-and-last-occurrence-of-an-element)
 1. [Count No of Elements in a Sorted Array](#4-count-no-of-elements-in-a-sorted-array)
+1. [How many times a S Array is rotated](#5-how-many-times-a-s-array-is-rotated)
 
 
 Identification :
 * sorted array
 * Search in log(n)
 
-### 1. Binary Search
+Apporach:
+* find mid.
+* if not mid then where to jump left or right, determine the condition
 
+### 1. Binary Search
 
 > mid = (s + e) / 2; //Can cause OOB
 
@@ -120,4 +124,84 @@ int find_last_occurence (arr, x) {
 Solution: 
 ```bash
     return find_last_occurence(arr, x) - find_first_occurence(arr, x) + 1;
+```
+
+### 5. How many times a S Array is rotated
+> Given a sorted array arr[] (in strictly increasing order) that has been right-rotated k times. A right rotation means the last element is moved to the first position, and the remaining elements are shifted one position to the right. Find the value of k the number of times the array was right-rotated from its originally sorted form.
+
+```bash
+Input: arr[] = [15, 18, 2, 3, 6, 12]
+Output: 2
+Explanation: 
+Original sorted array = [2, 3, 6, 12, 15, 18]
+After 2 right rotations → [15, 18, 2, 3, 6, 12]  
+
+Input: arr[] = [7, 9, 11, 12, 5]
+Output: 4
+Explanation: 
+Original sorted array = [5, 7, 9, 11, 12]  
+After 4 right rotations → [7, 9, 11, 12, 5]
+
+Input: arr[] = [7, 9, 11, 12, 15]
+Output: 0
+Explanation: Array is already sorted, so k = 0  
+```
+__Obeservation:__
+* Index of the min element gives the rotation number.
+* Min elmenet will always be present in unorsted array side.
+* 3 cases:
+    * 1 2 3 (5) 6 7 8
+    * 6 7 8 (1) 2 3 5
+    * 5 6 7 (8) 1 2 3
+    * 7 8 1 (2) 3 5 6
+
+sol:
+```cpp
+int find_min(arr) {
+
+    while (s <= e) {
+        // if range is sorted then first is the min
+        //
+        if (A[s] <= A[e])
+            return s;
+
+        m = s + (e - s) / 2;
+        // if left is large then m is the smallest
+        if (m > 0 && A[m] < A[m - 1]) {
+            return m;
+        }
+        // if first half is sorted jump to unsorted
+        if (A[s] < A[m])
+            s = m + 1;
+        // else jump to first half which is not sorted
+        else
+            e = m - 1;
+    }
+
+    return 0;
+}
+
+// Better
+int find_min(arr) {
+
+    while (s < e) {
+        // if range is sorted then first is the min
+        // 1 2 3 (5) 6 7 8
+        if (A[s] <= A[e])
+            return s;
+
+        m = s + (e - s) / 2;
+        // if first half is sorted jump to unsorted half
+        // 5 6 7 (8) 9 1 2
+        if (A[s] < A[m])
+            s = m + 1;
+        // else jump to first half which is not sorted
+        // 7 8 1 (2) 3 5 6
+        else
+            e = m;
+    }
+
+    // s will always point to min element at the end
+    return s;
+}
 ```
