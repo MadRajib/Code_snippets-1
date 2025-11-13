@@ -11,8 +11,8 @@
 1. [Find pos in infinite soreted array](#8-find-pos-in-infinite-soreted-array)
 1. [Find index of 1st 1 in the Sorted Array](#9-find-index-of-1st-1-in-the-sorted-array)
 1. [Minimum Difference Element in a Sorted Array](#10-minimum-difference-element-in-a-sorted-array)
-1. [11. Search in row wise and col wise sorted matrix](#11-search-in-row-wise-and-col-wise-sorted-matrix)
-1. [12. Allocate min no of pages](#12-allocate-min-no-of-pages)
+1. [Search in row wise and col wise sorted matrix](#11-search-in-row-wise-and-col-wise-sorted-matrix)
+1. [Allocate min no of pages](#12-allocate-min-no-of-pages)
 
 Identification :
 * sorted array
