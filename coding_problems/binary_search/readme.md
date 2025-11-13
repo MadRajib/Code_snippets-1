@@ -12,6 +12,7 @@
 1. [Find index of 1st 1 in the Sorted Array](#9-find-index-of-1st-1-in-the-sorted-array)
 1. [Minimum Difference Element in a Sorted Array](#10-minimum-difference-element-in-a-sorted-array)
 1. [11. Search in row wise and col wise sorted matrix](#11-search-in-row-wise-and-col-wise-sorted-matrix)
+1. [12. Allocate min no of pages](#12-allocate-min-no-of-pages)
 
 Identification :
 * sorted array
@@ -403,5 +404,101 @@ while (i < n && j >= 0) {
         return true;
 }
 return false;
+}
+```
+
+### 12. Allocate min no of pages
+> Given an array arr[], where arr[i] represents the number of pages in the i-th book, and an integer k denoting the total number of students, allocate all books to the students such that:
+
+* Each student gets at least one book.
+* Books are allocated in a contiguous sequence.
+* The maximum number of pages assigned to any student is minimized.
+If it is not possible to allocate all books among k students under these conditions, return -1.
+
+```bash
+Input: arr[] = [12, 34, 67, 90], k = 2
+Output: 113
+Explanation: Books can be distributed in following ways:
+
+[12] and [34, 67, 90] - The maximum pages assigned to a student is  34 + 67 + 90 = 191.
+[12, 34] and [67, 90] - The maximum pages assigned to a student is 67 + 90 = 157.
+[12, 34, 67] and [90] - The maximum pages assigned to a student is 12 + 34 + 67 = 113.
+The third combination has the minimum pages assigned to a student which is 113.
+
+Input: arr[] = [15, 17, 20], k = 5
+Output: -1
+Explanation: Since there are more students than total books, it's impossible to allocate a book to each student.
+
+Input: arr[] = [22, 23, 67], k = 1
+Output: 112
+Explanation: Since there is only 1 student, all books are assigned to that student. So, maximum pages assigned to a student is 22 + 23 + 67 = 112
+```
+
+Observation
+* if a student has to read aleast one book and all the books has to given to read,
+then there will be one student who has to take the book with max no of pages.
+* total pages to read is total sum of the books's pages : S
+* min no pages that has to read for the solutuin to exit is the book with max no of pages.: A
+
+Apporach
+* Start by finding no of students required if max no of pages any student can read is A
+* allocate books to student and if book page allocated is more than max no pages select next student
+* do this untill all the books are allocated.
+* no check if nof students required to reads is less than or equal to students presents.
+* then increase pages one by one till S.
+
+```cpp
+minPage =  max(A);
+totalPages =  sum(A);
+
+for (p = minPage; p < totalPages; p++) {
+    if (validate_no_students(p,k))
+        return p;
+}
+
+validate_no_students(p,k) {
+    total_page_alloocated = 0;
+    studen_cnt = 1;
+
+    for each book:
+        if (total_page_allocated + book.page > p)
+            student_cnt++;
+            total_page_allocated = book.page
+        else
+            total_page_allocated += book.page
+
+    return student_count == k;
+}
+```
+
+BS:
+
+```cpp
+s =  max(A);
+e =  sum(A);
+
+while (s<=e ) {
+    m ...
+    if (validate_no_students(m,k))
+        res = m; // save and check for next min solution
+        e = m - 1;
+    else
+        s = m + 1;
+}
+
+return res;
+
+validate_no_students(p,k) {
+    total_page_alloocated = 0;
+    studen_cnt = 1;
+
+    for each book:
+        if (total_page_allocated + book.page > p)
+            student_cnt++;
+            total_page_allocated = book.page
+        else
+            total_page_allocated += book.page
+
+    return student_count == k;
 }
 ```
