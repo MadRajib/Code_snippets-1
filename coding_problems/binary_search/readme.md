@@ -9,6 +9,7 @@
 1. [Find an Element in a Rotated Sorted Array](#6-find-an-element-in-a-rotated-sorted-array)
 1. [Find floor or ceil of an element](#7-find-floor-or-ceil-of-an-element)
 1. [Find pos in infinite soreted array](#8-find-pos-in-infinite-soreted-array)
+1. [Find index of 1st 1 in the Sorted Array](#9-find-index-of-1st-1-in-the-sorted-array)
 
 Identification :
 * sorted array
@@ -317,4 +318,24 @@ while (key > A[h]) {
 }
 
 BS(low, high, A)
+```
+
+### 9. Find index of 1st 1 in the Sorted Array
+> Given an infinite sorted array consisting 0s and 1s. The problem is to find the index of first ‘1’ in that array. As the array is infinite, therefore it is guaranteed that number '1' will be present in the array.
+
+```bash
+Input : arr[] = {0, 0, 1, 1, 1, 1} 
+Output : 2
+
+Input : arr[] = {1, 1, 1, 1,, 1, 1}
+Output : 0
+```
+
+```cpp
+while (A[h] == 0)
+    l = h;
+    h = 2*h;
+
+find_first_occurence(A, 1);
+
 ```
