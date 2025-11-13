@@ -7,6 +7,7 @@
 1. [Count No of Elements in a Sorted Array](#4-count-no-of-elements-in-a-sorted-array)
 1. [How many times a S Array is rotated](#5-how-many-times-a-s-array-is-rotated)
 1. [Find an Element in a Rotated Sorted Array](#6-find-an-element-in-a-rotated-sorted-array)
+1. [Find floor or ceil of an element](#7-find-floor-or-ceil-of-an-element)
 
 Identification :
 * sorted array
@@ -264,3 +265,34 @@ public:
     return (A[l] == target) ? l : -1;
 };
 ```
+### 7. Find floor or Ceil of an element
+* Greteast element smaller than the target
+* Smallest element greater than the target
+
+```cpp
+int find_floor(A)
+    m = ...
+    if (A[m] <= x) {
+        s = m + 1;
+        res = m;
+    } else {
+        e = m - 1;
+    }
+
+    return res;
+}
+
+int find_ceil(A)
+    m = ...
+    if (A[m] >= x) {
+        e = m - 1;
+        res = m;
+    } else {
+        s = m + 1;
+    }
+
+    return res;
+}
+```
+
+
