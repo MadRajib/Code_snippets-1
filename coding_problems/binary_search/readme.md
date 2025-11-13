@@ -8,6 +8,7 @@
 1. [How many times a S Array is rotated](#5-how-many-times-a-s-array-is-rotated)
 1. [Find an Element in a Rotated Sorted Array](#6-find-an-element-in-a-rotated-sorted-array)
 1. [Find floor or ceil of an element](#7-find-floor-or-ceil-of-an-element)
+1. [Find pos in infinite soreted array](#8-find-pos-in-infinite-soreted-array)
 
 Identification :
 * sorted array
@@ -295,4 +296,25 @@ int find_ceil(A)
 }
 ```
 
+### 8. Find pos in infinite soreted array
+> Given a sorted array arr[] of infinite numbers. The task is to search for an element k in the array.
 
+```bash
+Input: arr[] = [3, 5, 7, 9, 10, 90, 100, 130, 140, 160, 170], k = 10
+Output: 4
+Explanation: 10 is at index 4 in array.
+
+Input: arr[] = [2, 5, 7, 9], k = 3
+Output: -1
+Explanation: 3 is not present in array.
+```
+
+```cpp
+// First find the actual range
+while (key > A[h]) {
+    low = h;
+    h = 2*h;
+}
+
+BS(low, high, A)
+```
