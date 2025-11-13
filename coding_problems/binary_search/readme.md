@@ -6,7 +6,7 @@
 1. [First and Last occurrence of an element](#3-first-and-last-occurrence-of-an-element)
 1. [Count No of Elements in a Sorted Array](#4-count-no-of-elements-in-a-sorted-array)
 1. [How many times a S Array is rotated](#5-how-many-times-a-s-array-is-rotated)
-
+1. [Find an Element in a Rotated Sorted Array](#6-find-an-element-in-a-rotated-sorted-array)
 
 Identification :
 * sorted array
@@ -193,10 +193,11 @@ int find_min(arr) {
         m = s + (e - s) / 2;
         // if first half is sorted jump to unsorted half
         // 5 6 7 (8) 9 1 2
-        if (A[s] < A[m])
+        if (A[s] <= A[m])
             s = m + 1;
         // else jump to first half which is not sorted
         // 7 8 1 (2) 3 5 6
+        // 6 7 8 (1) 2 3 5 so we keep e = m as m can be min
         else
             e = m;
     }
@@ -204,4 +205,62 @@ int find_min(arr) {
     // s will always point to min element at the end
     return s;
 }
+```
+
+### 6. Find an Element in a Rotated Sorted Array
+> There is an integer array nums sorted in ascending order (with distinct values).
+
+> Prior to being passed to your function, nums is possibly left rotated at an unknown index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be left rotated by 3 indices and become [4,5,6,7,0,1,2].
+
+> Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+
+> You must write an algorithm with O(log n) runtime complexity.
+
+```bash
+Example 1:
+
+Input: nums = [4,5,6,7,0,1,2], target = 0
+Output: 4
+Example 2:
+
+Input: nums = [4,5,6,7,0,1,2], target = 3
+Output: -1
+Example 3:
+
+Input: nums = [1], target = 0
+Output: -1
+```
+
+```cpp
+class Solution {
+public:
+    int search(vector<int>& A, int target) {
+        int l = 0, h = A.size()-1;
+        
+        while(l < h){
+            int m = l + (h-l)/2;
+            if(A[m] == target)
+                return m;
+            
+            // first half is sorted then find there first
+            if (A[l] <= A[m]) {
+                // if target is in between then make s to m the range
+                if (A[l] <= target && target < A[m] )
+                    h = m - 1;
+                else
+                    // jmp to unsorted half
+                    l = m + 1;
+            // second half is sorted
+            } else {
+                // make m + 1 to h the new range if target is in btw
+                if(A[m] < target && target <= A[h] )
+                    l = m + 1;
+                else
+                // jmp to unsorted half
+                    h = m - 1;
+            }
+    }
+
+    return (A[l] == target) ? l : -1;
+};
 ```
