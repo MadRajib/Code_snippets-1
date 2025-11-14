@@ -418,6 +418,8 @@ Same as __Painter's Partitions problem__ and __koko eating bananas__
 * The maximum number of pages assigned to any student is minimized.
 If it is not possible to allocate all books among k students under these conditions, return -1.
 
+The objective is to minimize the maximum number of pages assigned to any student. In other words, out of all possible allocations, find the arrangement where the student who receives the most pages still has the smallest possible maximum.
+
 ```bash
 Input: arr[] = [12, 34, 67, 90], k = 2
 Output: 113
