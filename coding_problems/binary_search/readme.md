@@ -14,6 +14,7 @@
 1. [Search in row wise and col wise sorted matrix](#11-search-in-row-wise-and-col-wise-sorted-matrix)
 1. [Allocate min no of pages](#12-allocate-min-no-of-pages)
 1. [Search a 2D Matrix](#13-search-a-2d-matrix)
+1. [Koko Eating Bananas](#14-koko-eating-bananas)
 
 Identification :
 * sorted array
@@ -613,6 +614,108 @@ public:
        }
 
        return false;
+    }
+};
+```
+
+### 14. Koko Eating Bananas
+> You are given an integer array piles where piles[i] is the number of bananas in the ith pile. You are also given an integer h, which represents the number of hours you have to eat all the bananas.
+
+> You may decide your bananas-per-hour eating rate of k. Each hour, you may choose a pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, you may finish eating the pile but you can not eat from another pile in the same hour.
+
+> Return the minimum integer k such that you can eat all the bananas within h hours.
+
+```bash
+Input: piles = [1,4,3,2], h = 9
+
+Output: 2
+
+Input: piles = [25,10,23,4], h = 4
+
+Output: 25
+```
+
+Observation:
+* Max rate can be the max item in the array.
+* start from rate 1 and keep on checking for valid rate till max rate.
+
+Brute Force
+```cpp
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int speed = 1;
+        while (true) {
+            long long totalTime = 0;
+            for (int pile : piles) {
+                // a/b = q or q + 1
+                totalTime += (pile + speed - 1) / speed;
+            }
+
+            if (totalTime <= h) {
+                return speed;
+            }
+            speed++;
+        }
+    }
+};
+```
+
+Why (a + b − 1) / b = ceil(a / b)
+```cpp
+in cpp: 
+a/b = floor(a/b)
+
+a/b = q*b + r;
+
+when r = 0 we want
+    a/b = q;
+
+and r > 0 we want
+    a/b = q + 1;
+
+a + b - 1 = b*q + r + (b - 1)
+
+if r = 0
+    (b*q + (b - 1))/ b
+    b + 0 // in cpp  
+
+when r > 0, 1 <= r <= b - 1 // intergers
+
+1 + (b - 1) = b // lower bound of r
+(b - 1) + (b -1) = 2b - 2 // higher bound of r
+
+b*q + b <= a + b - 1 <= q*b + 2b - 2
+dividng by b
+
+q + 1 <= (a + b - 1) / b <= q + 1 // (2b - 2 )/ b is 1 in cpp
+```
+
+binary search
+```cpp
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int l = 1;
+        int r = *max_element(piles.begin(), piles.end());
+        int res = r;
+
+        while (l <= r) {
+            int k = (l + r) / 2;
+
+            long long totalTime = 0;
+            for (int p : piles) {
+                totalTime += (p + k - 1) / k;
+            }
+
+            if (totalTime <= h) {
+                res = k;
+                r = k - 1;
+            } else {
+                l = k + 1;
+            }
+        }
+        return res;
     }
 };
 ```
