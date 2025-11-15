@@ -390,4 +390,42 @@ for (int i = 1; i < n; i++) {
     mx = max(mx, MAH(v));
 }
 ```
+### 8. Rain Water Trapping
+> Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+```bash
+Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
+Output: 6
+Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
+Example 2:
 
+Input: height = [4,2,0,3,2,5]
+Output: 9
+```
+
+Apporach:
+    * for any building, water at top of the building will be BW[i] =  min(MAX_L, MAX_R) - B_height;
+    * sum of building water will give the ans
+    * We will maintain two array maxl, maxr;  these track what was the max bound found on the left and right of that element.
+
+```cpp
+vector<int> maxl, maxr;
+
+    max = -1;
+    for (auto x: buildins){
+        if (x >= max)
+            max = x;
+        maxl.push_back(max);
+    }
+
+    max = -1;
+    for (auto x: buildins.reverse){
+        if (x >= max)
+            max = x;
+        maxr.push_front(max);
+    }
+
+    for (i = 0; i< n; i ++)
+        sm += min(maxl[i], maxr[i]) - B[i];
+
+    return 
+```
