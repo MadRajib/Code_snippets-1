@@ -83,6 +83,7 @@ Approach 2:
 
 * Start from last then two iteration can be coupled together
 * store only the greater element from last to first
+* here store element that can be the nearest largest element to future elements.
 
 Code: 
 ```cpp
