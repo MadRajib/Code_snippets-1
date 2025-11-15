@@ -312,7 +312,7 @@ public:
 ```
 
 Aproach 2(One pass):
-
+* From left store only the heights that can be possible low for future heights.
 * After poping the the element from the stack check what area it could have made.
 * store the current start index of element from which it can began
 * at last for the element remaining in stack, they can extend their area from their start to
@@ -390,3 +390,4 @@ for (int i = 1; i < n; i++) {
     mx = max(mx, MAH(v));
 }
 ```
+
