@@ -256,3 +256,48 @@ public:
     }
 };
 ```
+Variation: Rotate in alternate way
+```cpp
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int l =  0;
+        int r = matrix.size() - 1;
+        int t = l, b = r;
+        int tl;
+        bool toggle = false;
+        while (l < r) {
+            // i will iterate for n - 1 element in that boundary
+            // because last element is already rotated
+            // since i starts at 0 at max it can go till n - 2 i,e 0 < i < (r - l + 1) - 1
+            for (int i = 0; i < r - l; i++) {
+                tl = matrix[t][l + i];
+
+                // CW
+                if (!toggle) {
+                    matrix[t][l + i] = matrix[b - i][l];
+                    matrix[b - i][l] = matrix[b][r - i];
+                    matrix[b][r - i] = matrix[t + i][r];
+                    matrix[t + i][r] = tl;
+                } else {
+                    // CCW
+                    matrix[t][l + i] = matrix[t + i][r];
+                    matrix[t + i][r] = matrix[b][r - i];
+                    matrix[b][r - i] = matrix[b - i][l];
+                    matrix[b - i][l] = tl;
+                }
+            }
+
+            toggle = !toggle;
+
+            // reduce the boundary
+            l++;
+            r--;
+
+            t++;
+            b--;
+        }
+
+    }
+};
+```
