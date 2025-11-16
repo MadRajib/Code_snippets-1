@@ -1,6 +1,10 @@
 # Math and Geometry Problems
 
 1. [Non Cyclical Number](#1-no-cyclical-number)
+1. [POW(x, n)](#2-pow)
+
+TODO:
+🔲 Binary exponent
 
 ### 1. Non Cyclical Number
 > A non-cyclical number is an integer defined by the following algorithm:
@@ -100,6 +104,84 @@ public:
         }
 
         return slow == 1;
+    }
+};
+```
+
+### 2. POW
+> Pow(x, n) is a mathematical function to calculate the value of x raised to the power of n (i.e., x^n).
+
+Given a floating-point value x and an integer value n, implement the myPow(x, n) function, which calculates x raised to the power n.
+
+You may not use any built-in library functions.
+
+```bash
+Example 1:
+
+Input: x = 2.00000, n = 5
+
+Output: 32.00000
+Example 2:
+
+Input: x = 1.10000, n = 10
+
+Output: 2.59374
+Example 3:
+
+Input: x = 2.00000, n = -3
+
+Output: 0.12500
+```
+
+```cpp
+class Solution {
+public:
+    double myPow(double x, int n) {
+        if (x == 0) {
+            return 0;
+        }
+        if (n == 0) {
+            return 1;
+        }
+
+        double res = 1;
+        for (int i = 0; i < abs(n); i++) {
+            res *= x;
+        }
+        return n >= 0 ? res : 1 / res;
+    }
+};
+```
+* divide and conquor.
+* We caculate the half first then mult it with itself;
+
+Binary Exponentiation Recursion
+```cpp
+class Solution {
+public:
+
+    double helper(double x, int n) {
+        if (n == 0)
+            return 1;
+        if (n == 1)
+            return x;
+        
+        double half = helper(x, n / 2);
+        half *= half;
+        return (n % 2)? half * x: half;
+    }
+
+    double myPow(double x, int n) {
+        double res = 1;
+        if (x == 0)
+            return 0;
+
+        if (n == 0)
+            return 1;
+        
+        res = helper(x , n);
+
+        return (n < 0)? 1/res: res; 
     }
 };
 ```
