@@ -2,6 +2,7 @@
 
 1. [Non Cyclical Number](#1-no-cyclical-number)
 1. [POW(x, n)](#2-pow)
+1. [Rotate Image](#3-rotate-image)
 
 TODO:
 🔲 Binary exponent
@@ -182,6 +183,76 @@ public:
         res = helper(x , n);
 
         return (n < 0)? 1/res: res; 
+    }
+};
+```
+
+### 4. Rotate Image
+> Given a square n x n matrix of integers matrix, rotate it by 90 degrees clockwise.
+
+You must rotate the matrix in-place. Do not allocate another 2D matrix and do the rotation.
+
+```bash
+Input: matrix = [
+  [1,2],
+  [3,4]
+]
+
+Output: [
+  [3,1],
+  [4,2]
+]
+
+Input: matrix = [
+  [1,2,3],
+  [4,5,6],
+  [7,8,9]
+]
+
+Output: [
+  [7,4,1],
+  [8,5,2],
+  [9,6,3]
+]
+```
+Appirach:
+ * we will create a boundary t,b, l and r
+ * we will rotate 4 elements at a time of each corner
+ * for square we will rotate all the elements in side that boundary -1, since last element is already rotated.
+ * then reduce the boundary
+
+
+refer [video](https://neetcode.io/problems/rotate-matrix?list=neetcode150)
+
+```cpp
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int l =  0;
+        int r = matrix.size() - 1;
+        int t = l, b = r;
+        int tl;
+        while (l < r) {
+            // i will iterate for n - 1 element in that boundary
+            // because last element is already rotated
+            // since i starts at 0 at max it can go till n - 2 i,e 0 < i < (r - l + 1) - 1
+            for (int i = 0; i < r - l; i++) {
+                tl = matrix[t][l + i];
+
+                matrix[t][l + i] = matrix[b - i][l];
+                matrix[b - i][l] = matrix[b][r - i];
+                matrix[b][r - i] = matrix[t + i][r];
+                matrix[t + i][r] = tl;
+            }
+
+            // reduce the boundary
+            l++;
+            r--;
+
+            t++;
+            b--;
+        }
+
     }
 };
 ```
