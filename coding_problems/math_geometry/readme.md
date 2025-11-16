@@ -3,6 +3,7 @@
 1. [Non Cyclical Number](#1-no-cyclical-number)
 1. [POW(x, n)](#2-pow)
 1. [Rotate Image](#3-rotate-image)
+1. [Spiral Matrix](#4-spiral-matrix)
 
 TODO:
 🔲 Binary exponent
@@ -187,7 +188,7 @@ public:
 };
 ```
 
-### 4. Rotate Image
+### 3. Rotate Image
 > Given a square n x n matrix of integers matrix, rotate it by 90 degrees clockwise.
 
 You must rotate the matrix in-place. Do not allocate another 2D matrix and do the rotation.
@@ -298,6 +299,65 @@ public:
             b--;
         }
 
+    }
+};
+```
+
+### 4. Spiral Matrix
+> Given an m x n matrix of integers matrix, return a list of all elements within the matrix in spiral order.
+
+```bash
+Input: matrix = [[1,2],[3,4]]
+
+Output: [1,2,4,3]
+
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+
+Output: [1,2,3,6,9,8,7,4,5]
+
+Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+
+```
+
+```cpp
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int l =  0;
+        int r = matrix[0].size() - 1;
+
+        int t = 0, b = matrix.size() - 1;
+        vector<int> res;
+
+        while ( l <= r && t <= b) {
+
+            for (int i = l; i <= r; i++)
+                res.push_back(matrix[t][i]);
+            /* next itr will be next row */
+            t++;
+            
+            for (int i = t; i <= b; i++)
+                res.push_back(matrix[i][r]);
+            /* same condition */
+            r--;
+
+            // to handle single row or col matrix
+            // coz for them nothing more is required!
+            if (!((l <= r) && (t <= b)))
+                break;
+    
+            for (int i = r; i >= l; i--)
+                res.push_back(matrix[b][i]);
+            b--;
+
+            for (int i = b; i >= t; i--)
+                res.push_back(matrix[i][l]);
+            l++;
+        }
+
+        return res;
     }
 };
 ```
