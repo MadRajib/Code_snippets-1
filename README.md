@@ -5,6 +5,7 @@
 - [Heap Problems](coding_problems/heap/readme.md)
 - [Recursion Problems](coding_problems/recursion/readme.md)
 - [Backtracking Problems](coding_problems/backtracking/readme.md)
+- [Math And Geometry Porblems](coding_problems/math_geometry/readme.md)
 
 # Contents
 - [STL Usage](#stl-usage)
