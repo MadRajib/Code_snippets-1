@@ -4,6 +4,7 @@
 1. [POW(x, n)](#2-pow)
 1. [Rotate Image](#3-rotate-image)
 1. [Spiral Matrix](#4-spiral-matrix)
+1. [Set Matrix Zeroes](#5-set-matrix-zeroes)
 
 TODO:
 🔲 Binary exponent
@@ -360,4 +361,91 @@ public:
         return res;
     }
 };
+```
+
+### 5. Set Matrix Zeroes
+> Given an m x n matrix of integers matrix, if an element is 0, set its entire row and column to 0's.
+
+You must update the matrix in-place.
+
+Follow up: Could you solve it using O(1) space?
+
+```bash
+Input: matrix = [
+  [0,1],
+  [1,0]
+]
+
+Output: [
+  [0,0],
+  [0,0]
+]
+
+Input: matrix = [
+  [1,2,3],
+  [4,0,5],
+  [6,7,8]
+]
+
+Output: [
+  [1,0,3],
+  [0,0,0],
+  [6,0,8]
+]
+```
+
+Approach:
+
+* Create two extra array for row and col of size n and m to store flags
+* if a element is 0 we set the which row and col to set 0 in these two arrays
+* then we iterate over the matrix again, checking if row flag or col flag is set, if yes then zero it out.
+
+* Now to not use extra space, we can use the first row as col flag array.
+* but for we cannot use the first col since, 1 element i,e [0][0] is already occupied by col flag array.
+* we will create an extra variable to store flag of first row, and for rows > 0 will be stored in first col
+from 1 to n.
+* Then the approach is same, we iterate throw r = 1 to rows and c = 1 to cols.
+* at last we check if we need to clear 1st colum by checking if cols flag array's [0] i.e matrix[0][0] is zeroed or not.
+* next we need to take care of the first row by checking if the extra variable flag is set or not.
+
+```cpp
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+        
+        bool extr_cel = false;
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (!matrix[r][c]) {
+                    matrix[0][c] = 0;
+                    if (r > 0)
+                        matrix[r][0] = 0;
+                    else
+                        extr_cel = true;
+                }
+            }
+        }
+
+        for (int r = 1; r < rows; r++) {
+            for (int c = 1; c < cols; c++) {
+                if (!matrix[r][0] || !matrix[0][c]) {
+                    matrix[r][c] = 0;
+                }
+            }
+        }
+
+        if (!matrix[0][0]) {
+            for (int r = 0; r < rows; r++)
+                matrix[r][0] = 0;
+        }
+        
+        if (extr_cel) {
+            for (int c = 0; c < cols; c++)
+                matrix[0][c] = 0;
+        }
+    }
+};
+
 ```
