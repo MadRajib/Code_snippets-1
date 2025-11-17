@@ -5,6 +5,7 @@
 1. [Rotate Image](#3-rotate-image)
 1. [Spiral Matrix](#4-spiral-matrix)
 1. [Set Matrix Zeroes](#5-set-matrix-zeroes)
+1. [Multiply Strings](#6-multiply-strings)
 
 TODO:
 🔲 Binary exponent
@@ -448,4 +449,47 @@ public:
     }
 };
 
+```
+### 6. Multiply Strings
+* Approach
+    * total result array len will be len(num1) + len(num2) + 1;
+    * N[i] * N[j] = r will be placed in location i + j
+        > if  0 is index of last digit of the number
+        ie "123" 3->0 2->1 1->2; for this we need to reverse the string. 
+```cpp
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        if (num1 == "0" || num2 == "0")
+            return "0";
+        
+        vector<int> res(num1.length() + num2.length() + 1, 0);
+        // For ease of calculation revers.  num i * num j result goes to i + j location
+        reverse(num1.begin(), num1.end());
+        reverse(num2.begin(), num2.end());
+
+        for (int i = 0; i < num1.length(); i++) {
+            for (int j = 0; j < num2.length(); j++) {
+                int di = (num1[i] - '0') * (num2[j] - '0');
+
+                // add the whole no first as already some value can be present from previous row of multiplication.
+                res[i + j] += di;
+                // if > 9 add the first digit to next post
+                res[i + j + 1] += res[i + j] / 10;
+                // keep only last digit
+                res[i + j] %= 10; 
+            }
+        }
+
+        stringstream res_str;
+        int i = res.size() - 1;
+        while (i >= 0 && res[i] == 0)
+            i--;
+        
+        while (i >= 0)
+            res_str << res[i--];
+
+        return res_str.str();
+    }
+};
 ```
