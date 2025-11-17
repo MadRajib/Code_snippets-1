@@ -6,6 +6,7 @@
 1. [Spiral Matrix](#4-spiral-matrix)
 1. [Set Matrix Zeroes](#5-set-matrix-zeroes)
 1. [Multiply Strings](#6-multiply-strings)
+1. [Detect Squares](#7-detect-squares)
 
 TODO:
 🔲 Binary exponent
@@ -492,4 +493,87 @@ public:
         return res_str.str();
     }
 };
+```
+
+### 7. Detect Squares
+> You are given a stream of points consisting of x-y coordinates on a 2-D plane. Points can be added and queried as follows:
+
+Add - new points can be added to the stream into a data structure. Duplicate points are allowed and should be treated as separate points.
+Query - Given a single query point, count the number of ways to choose three additional points from the data structure such that the three points and the query point form a square. The square must have all sides parallel to the x-axis and y-axis, i.e. no diagonal squares are allowed. Recall that a square must have four equal sides.
+Implement the CountSquares class:
+
+CountSquares() Initializes the object.
+void add(int[] point) Adds a new point point = [x, y].
+int count(int[] point) Counts the number of ways to form valid squares with point point = [x, y] as described above.
+
+```bash
+Input: 
+["CountSquares", "add", [[1, 1]], "add", [[2, 2]], "add", [[1, 2]], "count", [[2, 1]], "count", [[3, 3]], "add", [[2, 2]], "count", [[2, 1]]]
+       
+Output:
+[null, null, null, null, 1, 0, null, 2]
+
+Explanation:
+CountSquares countSquares = new CountSquares();
+countSquares.add([1, 1]);
+countSquares.add([2, 2]);
+countSquares.add([1, 2]);
+
+countSquares.count([2, 1]);   // return 1.
+countSquares.count([3, 3]);   // return 0.
+countSquares.add([2, 2]);     // Duplicate points are allowed.
+countSquares.count([2, 1]);   // return 2. 
+```
+
+Apporach:
+    * find the diagonal points(Px, Py) for the given point (X, Y)
+    * if its diagonal then delta(X) == delta(Y)
+    * then the two point at (X, Px) and (Py, Y)
+    * check if these points are present or not if present calculate the no of square.
+    * if more than 1 points are present in the same location then it will create that no of squares.
+    * res +=  nofpoints(X,Px) * nofpoints(Py, Y); 
+
+```cpp
+class CountSquares {
+private:
+    unordered_map<long, int> ptsCount;
+    vector<vector<int>> pts;
+
+    long getKey(int x, int y) {
+        return static_cast<long>(x) << 32 | static_cast<long>(y);
+    }
+public:
+    CountSquares() {
+        
+    }
+    
+    void add(vector<int> point) {
+        long key = getKey(point[0], point[1]);
+        ptsCount[key]++;
+        pts.push_back(point);
+    }
+    
+    int count(vector<int> point) {
+        int res = 0;
+        int x = point[0];
+        int y = point[1];
+
+        for (const auto& pt: pts) {
+            // skipt same point
+            if (pt[0] == x || pt[1] == y)
+                continue;
+            
+            // check if pt is diagnal pair to the point
+            if (abs(pt[0] - x) != abs(pt[1] - y))
+                continue;
+            
+            // one point will be (x, pt[1]) and next will be (pt[0], y)
+            
+            res += ptsCount[getKey(x, pt[1])] * ptsCount[getKey(pt[0], y)];
+        }
+
+        return res;
+    }
+};
+
 ```
