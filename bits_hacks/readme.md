@@ -1,5 +1,6 @@
 ## Bit Hacks
 
+[reference](https://graphics.stanford.edu/~seander/bithacks.html)
 ```c
 x = 0xb011011000
 ~x = 0xb100100111
