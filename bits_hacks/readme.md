@@ -96,3 +96,26 @@ n |= n >> 16;       0011111111111111
 n |= n >> 32;       0100000000000000 // populates all bits to right with 1
 ++n         // adjust to substruction done earlier
 ```
+
+#### Counting bits set (naive way)
+
+```c
+unsigned int v; // count the number of bits set in v
+unsigned int c; // c accumulates the total bits set in v
+
+for (c = 0; v; v >>= 1)
+{
+  c += v & 1;
+}
+```
+The naive approach requires one iteration per bit, until no more bits are set. So on a 32-bit word with only the high set, it will go through 32 iterations.
+
+#### Counting bits set, Brian Kernighan's way
+```c
+unsigned int v; // count the number of bits set in v
+unsigned int c; // c accumulates the total bits set in v
+for (c = 0; v; c++)
+{
+  v &= v - 1; // clear the least significant bit set
+}
+```
