@@ -128,6 +128,18 @@ Input: arr = [1,1,2,3,4,5], k = 4, x = -1
 
 Output: [1,1,2,3]
 ```
+Observation:
+* we need to find the k minimum abs(x-elem) 
+* We can use max heap to store abs(x-elem) , this will give as k elements from largest diff to smallest diff.
+* why no min-heap of size k ?
+    * bocz to add a new element we need to discard an old one,
+    how will we know which is the fartest element to remove ?
+    * In max heap after we add an element, our heap will be k + 1, and the fartest element will always be in top to discard.
+
+Apporoach:
+* Create a max heap of abs(x-elem), then pop the elements to an vector.
+* return the res after sorting it.
+
 ```cpp
 vector<int> findClosestElements(vector<int>& arr, int k, int x) {
         priority_queue<pair<int, int>> maxheap;
@@ -139,7 +151,6 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
                 maxheap.pop();
             }
         }
-
        
         while (maxheap.size() > 0) {
             res.push_back(maxheap.top().second);
