@@ -1,7 +1,6 @@
 # Heap Problems
 
-## Heap problems
-### Aproach
+### Aproach & Identification
     1. if find k largest -> min heap
     2. if find k smallest -> max heap
 
