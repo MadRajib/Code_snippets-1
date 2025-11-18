@@ -521,29 +521,36 @@ The substring "BBBB" has the longest repeating letters, which is 4.
 There may exists other ways to achieve this answer too.
 ```
 
+Observation:
+* for a given window : w, its valid if no of character's need to replace is <= k.
+* we will replace chars which occurs less in that window.
+* r - l + 1 - maxf -> gives max no of element which need replacement. 
+* we will store the max no of each char for window w.
+
 ```cpp
-       int characterReplacement(string s, int k) {
-        unordered_map<char, int> map;
-        int res = 0;
-        int maxf = 0;
-        int l = 0;
+int characterReplacement(string s, int k) {
+    unordered_map<char, int> map;
+    int res = 0;
+    int maxf = 0;
+    int l = 0;
 
-        for (int r = 0; r < s.length(); r++) {
-            map[s[r]]++;
+    for (int r = 0; r < s.length(); r++) {
+        map[s[r]]++;
 
-            maxf = max(maxf, map[s[r]]);
+        maxf = max(maxf, map[s[r]]);
 
-            /* check validity of window, if now remove first */
-            while (r - l + 1 - maxf > k) {
-                    map[s[l]]--;
-                    l++;
-            }
-
-             res = max(res, r - l + 1);
+        /* check validity of window, if now remove first */
+        // if no chars needed replacmenet is <= k
+        while (r - l + 1 - maxf > k) {
+            map[s[l]]--;
+            l++;
         }
 
-
-        return res;
+        res = max(res, r - l + 1);
     }
+
+
+    return res;
+}
 
 ```
