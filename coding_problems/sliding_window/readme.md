@@ -20,7 +20,8 @@ Notes:
 ### Aproach
     1. While iterating save the value or index
     2. if win size if reached store the res based on conditon and reduce win size
-    3. Return the res
+    3. Before reducing undo the change made by removing element
+    4. Return the res
 
 ### 1. Max Sum Subarray of size K
 > Given an array of integers arr[]  and a number k. Return the maximum sum of a subarray of size k.
