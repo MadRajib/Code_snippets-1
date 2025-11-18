@@ -72,6 +72,21 @@ k = 3
 Output : arr[] = {2, 3, 5, 6, 8, 9, 10} . 
 
 ```
+Observation:
+* if take first k elements, min element in this range
+will always be present in this range.
+* so we can use min heap to locate it as the topmost element
+in heap of k size.
+
+Approach
+* We will create an min heap of first k elements
+* This heap will capture the min element in this k range of the array.
+* we will save the min  element to pos = 0
+* we will pop this and add a new element to the heap.
+* now the min heap will have second smallest element for the array at top.
+* keep this untill array fully iterated.
+* pop elements in order as they are smallest to largest.
+
 ```cpp
     sort(vector<int>& nums, int k) {
         priority_queue<int, vector<int>, greater<int>> minheap;
