@@ -124,6 +124,8 @@ vector<int> firstNegInt(vector<int>& arr, int k) {
 ```
 
 ### 3. Count Occurences of Anagrams
+Permutation in String
+
 > Given a word pat and a text txt. Return the count of the occurrences of anagrams of the word in the text.
 ```bash
 Input: txt = "forxxorfxdofr", pat = "for"
