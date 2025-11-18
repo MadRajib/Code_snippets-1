@@ -205,7 +205,13 @@ Example 2:
 Input: nums = [1], k = 1
 Output: [1]
 ```
-1. Use map to 
+
+Apporach:
+* store the potential max elements in a dequeue.
+* if a larger element is reached remove all the smaller elements from it, from the top or back.
+* this way we are storing only potential greater elements for futuer window.
+
+1. Use double ended queue
 ```cpp
 vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         deque<int> l_max;
