@@ -176,6 +176,14 @@ Input: nums = [1], k = 1
 Output: [1]
 ```
 
+Obervation:
+* We need to store the count of the element first
+* than use it to create a min heap of size k to get the most frequent elements.
+
+Aproach:
+* use hash map for the count array
+* create a min heap use count as comparison
+
 ```cpp
     vector<int> topKFrequent(vector<int>& nums, int k) {
         vector<int> result;
