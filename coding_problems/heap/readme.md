@@ -12,6 +12,15 @@ Note:
 ```cpp
 priority_queue<int> maxheap; // max heap
 priority_queue<int, vector<int>, greater<int>> minheap; //min heap
+
+// Custom Comparision operator
+struct CustomCompare {
+    bool operator()(vector<int>p, vector<int> q) {
+        return  p[0]*p[0] + p[1]*p[1] < q[0]*q[0] + q[1]*q[1];
+    }
+};
+
+priority_queue<vector<int>, vector<vector<int>>, CustomCompare> mxhp;
 ```
 
 ### Aproach & Identification
@@ -239,7 +248,6 @@ public:
             res.push_back(mxhp.top());
             mxhp.pop();
         }
-
 
         return res;
         
