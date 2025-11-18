@@ -62,3 +62,36 @@ two’s complement representation. Therefore, we
 have y ^ (x ^ y) => x.
 * If x >= y, then -(x < y) => 0. Therefore, we have
 y ^ 0 => y.
+
+#### Modular Addition
+Compute (!%+ ") mod #, assuming that $%! !%< #%
+and $%! "%< #.
+```c
+r = (x + y) % n;
+
+z = x + y;
+r = (z < n) ? z : z - n;
+```
+Sol:
+```c
+z = x + y;
+r = z - (n & -(z >= n));
+```
+
+#### Round up to a Power of 2
+Compute 2 [lg n]
+
+sol:
+```c
+uint64_t n;
+                    0010000001010000
+--n;
+n |= n >> 1;        0010000001001111
+n |= n >> 1;        0011000001101111
+n |= n >> 2;        0011100001111111
+n |= n >> 4;        0011110001111111
+n |= n >> 8;        0011111111111111
+n |= n >> 16;       0011111111111111
+n |= n >> 32;       0100000000000000 // populates all bits to right with 1
+++n         // adjust to substruction done earlier
+```
