@@ -12,6 +12,9 @@
  1. [(209.) Minimum Size Subarray Sum](#4-209-minimum-size-subarray-sum)
  1. [76. Minimum Window Substring](#5-76-minimum-window-substring)
  1. [424. Longest Repeating Character Replacement](#6-424-longest-repeating-character-replacement)
+
+Notes: 
+* Subaray: continuous elements
  
 ## Fixed size sliding win
 ### Aproach
@@ -522,4 +525,5 @@ There may exists other ways to achieve this answer too.
 
         return res;
     }
+
 ```
