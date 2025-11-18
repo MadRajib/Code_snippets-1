@@ -1,5 +1,19 @@
 # Heap Problems
 
+1. [Kth Smallest Element](#1-kth-smallest-element)
+1. [Sort an kth sorted array](#2-sort-an-kth-sorted-array)
+1. [K closest elements in an unsoreted array](#3-k-closest-elements-in-an-unsoreted-array)
+1. [Top K Frequent Elements](#4-top-k-frequent-elements)
+1. [K Closest Points to Origin](#5-k-closest-points-to-origin)
+1. [Minimum Cost of ropes](#6-minimum-cost-of-ropes)
+1. [Detect Squares](#7-detect-squares)
+
+Note:
+```cpp
+priority_queue<int> maxheap; // max heap
+priority_queue<int, vector<int>, greater<int>> minheap; //min heap
+```
+
 ### Aproach & Identification
     1. if find k largest -> min heap
     2. if find k smallest -> max heap
@@ -25,6 +39,7 @@ Output: 7 .
         for (int i = 0; i < nums.size(); i++) {
             maxheap.push(nums[i]);
             if (maxheap.size() > k) {
+                // pops the top element
                 maxheap.pop();
             }
         }
@@ -121,7 +136,7 @@ vector<int> findClosestElements(vector<int>& arr, int k, int x) {
 ```
 Note: If sorrted array is given better to use binary search.
  
-### 347. Top K Frequent Elements
+### 4. Top K Frequent Elements
 > Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
 ```bash
 Example 1:
@@ -160,7 +175,7 @@ Output: [1]
     }
 ```
 
-### 973. K Closest Points to Origin
+### 5. K Closest Points to Origin
 > Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
 
 The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
@@ -197,7 +212,7 @@ public:
     }
 ```
 
-### Minimum Cost of ropes
+### 6. Minimum Cost of ropes
 > Given an array, arr[] of rope lengths, connect all ropes into a single rope with the minimum total cost. The cost to connect two ropes is the sum of their lengths. 
 
 ```bash
