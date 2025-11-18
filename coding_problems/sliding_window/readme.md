@@ -452,38 +452,46 @@ Explanation: Both 'a's from t must be included in the window.
 Since the largest window of s only has one 'a', return empty string.
 ```
 
+Approach:
+* Have two hash maps, one to store what is needed and next to store window character count.
+* if the no character in win is equal to needed count.
+* increase the match char count.
+* mp.size() == match_count.
+* check if the win is the min len or not if yes that save start and end.
+* then reduce the win, while reducing check if the char count has become less than required char count then, reduce match_count no.
+
 ```cpp
-    string minWindow(string s, string t) {
-        unordered_map<char, int> mp, win;
-        int l_min = 0;
-        int r_min = 0;
-        int match_count = 0;
-        int min_len = s.length() + 1;
-        int l = 0;
+string minWindow(string s, string t) {
+    unordered_map<char, int> mp, win;
+    int l_min = 0;
+    int r_min = 0;
+    int match_count = 0;
+    int min_len = s.length() + 1;
+    int l = 0;
 
-        if (t.length() > s.length() || s == "")
-            return "";
+    if (t.length() > s.length() || s == "")
+        return "";
 
-        for (auto c: t)
-            mp[c]++;
+    for (auto c: t)
+        mp[c]++;
         
-        for (int r = 0; r < s.length(); r++) {
-            win[s[r]]++;
+    for (int r = 0; r < s.length(); r++) {
+        win[s[r]]++;
 
-            /* increase matched chars if needed no.of letter found */
-            if (mp.find(s[r]) != mp.end() && win[s[r]] == mp[s[r]])
-                match_count++;
+        /* increase matched chars if needed no.of letter found */
+        if (mp.find(s[r]) != mp.end() && win[s[r]] == mp[s[r]])
+            match_count++;
             
-            while (match_count ==  mp.size()) {
-                if (r - l + 1 < min_len) {
-                    l_min = l;
-                    r_min = r;
-                    min_len = r_min - l_min + 1;
-                }
+        while (match_count ==  mp.size()) {
+            if (r - l + 1 < min_len) {
+                l_min = l;
+                r_min = r;
+                min_len = r_min - l_min + 1;
+            }
 
-                win[s[l]]--;
-                if (mp.find(s[l]) != mp.end() && win[s[l]] < mp[s[l]])
-                    match_count--;
+            win[s[l]]--;
+            if (mp.find(s[l]) != mp.end() && win[s[l]] < mp[s[l]])
+                match_count--;
                 l++;
             }
         }
