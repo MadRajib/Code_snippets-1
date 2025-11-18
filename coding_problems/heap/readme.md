@@ -278,6 +278,14 @@ Output: 0
 Explanation: Since there is only one rope, no connections are needed, so the cost is 0.
 ```
 
+Observation:
+* If two min elements are joined in every iteration this gives the min cost.
+* we can use min heap.
+
+Approach:
+* store elements in the min heap.
+* pop 2 elements and sum them and push to heap, keep on doing it untill only one element is present in the heap.
+
 ```cpp
 int minCost(vector<int>& arr) {
         // code here
