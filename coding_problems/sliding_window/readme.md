@@ -79,6 +79,11 @@ Window [-15, 30, 16] First negative integer is -15.
 Window [30, 16, 28] No negative integers, output is 0.
 ```
 
+Observation:
+* Iterate from the back and store the neg no.
+* why from back ? bocz from front a windown might have multiple neg nos, who will be set next potential first neg no after poping the first.
+* but if we iterate from last, every new neg element can be saved and old element are of no use.
+
 ```cpp
 vector<int> firstNegInt(vector<int>& arr, int k) {
         // write code here
