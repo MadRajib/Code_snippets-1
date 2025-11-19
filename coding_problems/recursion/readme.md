@@ -238,7 +238,7 @@ kthGrammar(n, k):
 
 Step 3: __base__:
 ```bash
-if ( n == 1 || k == 1)
+if ( n == 1 )
     return 0;
 ```
 
