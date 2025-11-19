@@ -250,6 +250,8 @@ Observation :
 
 ```bash
 TOH(n, {dst: d, helper: h}) - > Moves n plates from s to d using h
+
+// Top N-1 plates leave the last plate
 TOH(n - 1, {dst: h, helper:d})  - > Move n - 1 to h then place nth plate to d then move move n-1 to d. 
 ```
 
