@@ -28,7 +28,8 @@ Recursion:  * Choices and Decions
 ├── DP      * Optimal solution ask
 │           * Ans at root note
 │            
-├── BT      * Recursion + controllered decison
+├── BT      * Controllered Recursion 
+│           * Path by reference
 │           * Path gives the nas
 ```
 
