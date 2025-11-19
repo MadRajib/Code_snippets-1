@@ -15,6 +15,7 @@ Identification :
 * chocies + decision.
 * all combinations.
 * controlled recursion.
+> We stop when we know destition wont result the ans
 * number of choices.
 * size of constraints.
 * don't be greedy.
