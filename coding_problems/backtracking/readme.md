@@ -21,6 +21,17 @@ Identification :
 
 BT = Controllered Recursion + Pass by Reference
 
+```bash
+Recursion:  * Choices and Decions
+|           * Ans at leaf nodes
+|
+├── DP      * Optimal solution ask
+│           * Ans at root note
+│            
+├── BT      * Recursion + controllered decison
+│           * Path gives the nas
+```
+
 ### 1. Permutations of a String
 > Given a string s, which may contain duplicate characters, your task is to generate and return an array of all unique permutations of the string. You can return your answer in any order.
 
