@@ -215,6 +215,7 @@ row 2: 01
 Observation :
 
 * nth row size will be 2^(n-1)
+* first half of nth row is same as n-1th row.
 * if k <= mid length of the row, than the first half is same as n-1 row.
 * if k > mid then the second half is just the compliment of n-1 row.
 
