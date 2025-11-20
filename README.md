@@ -9,6 +9,7 @@
 - [Bit Hacks](bits_hacks/readme.md)
 
 # Contents
+- [Tips](#tips)
 - [STL Usage](#stl-usage)
   - [Priority Queues](#priority-queue)
   - [Vectors](#vectors)
@@ -16,6 +17,9 @@
 * __Substring__ -> set should be continuous
 * __Subsequence__ -> Should be in order not need to be continuous
 * __Subset__ -> all posible combinations 
+
+## Tips
+- When trying to apply a greedy approch always try to find a counter example
 
 ## Count Number of Digits
 ```python
