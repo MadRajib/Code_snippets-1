@@ -129,6 +129,47 @@ Observation:
 - No next subtree will follow the same logic
 
 ```cpp
+class Solution {
+  public:
+  void Solve(int idx, string str, int k, string& ans){
+      if( k==0 || idx >= str.size())
+            return;
+      
+      // find the max num that can be replaced
+      char maxC = str[idx];
+      for(int i = idx + 1 ; i<str.size(); i++){
+        if(str[i] > maxC)
+            maxC = str[i];
+      }
+      
+      if (str[idx] == maxC)
+        return Solve(idx + 1, str, k, ans);
+      
+     // choice loop
+      for(int i = idx + 1; i < str.size(); i++){
+            
+          // only swap with potential high element
+          if(str[idx] < str[i] && maxC == str[i]) {
+    
+            
+            swap(str[idx], str[i]);
+            // swap and compare with the already present ans
+            if(str.compare(ans) > 0)
+                ans = str;
+            // jmp to next location
+            Solve(idx + 1, str, k - 1, ans);
+            swap(str[idx], str[i]);
+          }
+      }
+  }
+    // Function to find the largest number after k swaps.
+    string findMaximumNum(string& s, int k) {
+        string ans = s;
+        Solve(0, s, k, ans);
+        
+        return ans;
+    }
+};
 ```
 
 ### Subsets
