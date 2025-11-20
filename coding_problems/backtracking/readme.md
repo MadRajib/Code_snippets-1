@@ -158,6 +158,8 @@ class Solution {
                 ans = str;
             // jmp to next location
             Solve(idx + 1, str, k - 1, ans);
+            // since we are using the same string
+            // if we jmp to next brach we need to have original string
             swap(str[idx], str[i]);
           }
       }
