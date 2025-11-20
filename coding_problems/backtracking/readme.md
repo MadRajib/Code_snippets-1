@@ -173,6 +173,72 @@ class Solution {
     }
 };
 ```
+### N Digit numbers with digits in increasing order
+> Given an integer n, print all the n digit numbers in increasing order, such that their digits are in strictly increasing order(from left to right).
+
+```bash
+Example 1:
+
+Input:
+n = 1
+Output:
+0 1 2 3 4 5 6 7 8 9
+Explanation:
+Single digit numbers are considered to be 
+strictly increasing order.
+Example 2:
+
+Input:
+n = 2
+Output:
+12 13 14 15 16 17 18 19 23 24....79 89
+Explanation:
+For n = 2, the correct sequence is
+12 13 14 15 16 17 18 19 23 and so on 
+up to 89. 
+
+20 21 not allowed
+30 31 32 not allowed
+40 41 42 43 not allowed
+```
+
+```cpp
+// User function Template for C++
+class Solution {
+  public:
+    vector<int> increasingNumbers(int n) {
+        // Write Your Code here
+        vector<int> res;
+
+        // Handle n == 1 case separately
+        if (n == 1) {
+            for (int i= 0; i < 10; i++) {
+                res.push_back(i);
+            }
+            
+            return res;
+        }
+        
+        solve(0, "", n, res);
+        
+        return res;
+    }
+    
+    void solve(int last_digit, string out, int n, vector<int> &res) {
+        //base
+        if (n == 0) {
+            res.push_back(stoi(out));
+            return;
+        }
+            
+        for (int i = last_digit + 1; i <= 9; i++) {
+            string str =  out + to_string(i);
+            
+            solve(i, str, n - 1, res);
+        }
+    }
+};
+```
 
 ### Subsets
 > Given an integer array nums of unique elements, return all possible subsets (the power set).
