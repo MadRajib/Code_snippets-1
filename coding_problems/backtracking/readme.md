@@ -1,14 +1,15 @@
 # Backtracking Problems
 
 ### Problems
-1. [Permutations of a String](#1-permutations-of-a-string)
-1. [Subsets](#2-subsets)
-1. [Subsets II](#3-subsets-ii)
-1. [Palindrome Partitioning](#4-palindrome-partitioning)
-1. [Letter Combinations of a Phone Number](#5-letter-combinations-of-a-phone-number)
-1. [Combination Sum](#6-combination-sum)
-1. [Combination Sum II](#7-combination-sum-ii)
-1. [Word Search](#8-word-search) 
+1. [Permutations of a String](#permutations-of-a-string)
+1. [Largest number in K swaps](#largest-number-in-k-swaps)
+1. [Subsets](#subsets)
+1. [Subsets II](#subsets-ii)
+1. [Palindrome Partitioning](#palindrome-partitioning)
+1. [Letter Combinations of a Phone Number](#letter-combinations-of-a-phone-number)
+1. [Combination Sum](#combination-sum)
+1. [Combination Sum II](#combination-sum-ii)
+1. [Word Search](#word-search) 
 
 Identification :
     
@@ -34,7 +35,7 @@ Recursion:  * Choices and Decions
 │           * Path gives the nas
 ```
 
-### 1. Permutations of a String
+### Permutations of a String
 > Given a string s, which may contain duplicate characters, your task is to generate and return an array of all unique permutations of the string. You can return your answer in any order.
 
 ```bash
@@ -121,7 +122,10 @@ Observation:
 * 4 5 7 7 ; k = 2; greedy 7 7 4 5
 * but optimal is 7 7 5 4
 
-### 2. Subsets
+```cpp
+```
+
+### Subsets
 > Given an integer array nums of unique elements, return all possible subsets (the power set).
 > The solution set must not contain duplicate subsets. Return the solution in any order.
 ```bash
@@ -168,7 +172,7 @@ public:
     }
 };
 ```
-### 3. Subsets II
+### Subsets II
 > Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
 The solution set must not contain duplicate subsets. Return the solution in any order.
 
@@ -219,7 +223,7 @@ public:
 };
 ```
 
-### 4. Palindrome Partitioning
+### Palindrome Partitioning
 > Given a string s, split s into substrings where every substring is a palindrome. Return all possible lists of palindromic substrings.
 > You may return the solution in any order.
 ```bash
@@ -277,7 +281,7 @@ public:
 };
 
 ```
-### 5. Letter Combinations of a Phone Number
+### Letter Combinations of a Phone Number
 ```bash
 Example 1:
 
@@ -321,7 +325,7 @@ public:
 };
 
 ```
-### 6 Combination Sum
+### Combination Sum
 > You are given an array of distinct integers nums and a target integer target. Your task is to return a list of all unique combinations of nums where the chosen numbers sum to target.
 > The same number may be chosen from nums an unlimited number of times. Two combinations are the same if the frequency of each of the chosen numbers is the same, otherwise they are different.
 > You may return the combinations in any order and the order of the numbers in each combination can be in any order.
@@ -384,7 +388,7 @@ public:
 };
 
 ```
-### 7 Combination Sum II
+### Combination Sum II
 
 > You are given an array of integers candidates, which may contain duplicates, and a target integer target. Your task is to return a list of all unique combinations of candidates where the chosen numbers sum to target.
 > Each element from candidates may be chosen at most once within a combination. The solution set must not contain duplicate combinations.
@@ -443,7 +447,7 @@ public:
     }
 };
 ```
-### 8 Word Search
+### Word Search
 > Given a 2-D grid of characters board and a string word, return true if the word is present in the grid, otherwise return false.
 > For the word to be present it must be possible to form it with a path in the board with horizontally or vertically neighboring cells. The same cell may not be used more than once in a word.
 
