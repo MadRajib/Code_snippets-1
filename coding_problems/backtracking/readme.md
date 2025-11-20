@@ -3,6 +3,7 @@
 ### Problems
 1. [Permutations of a String](#permutations-of-a-string)
 1. [Largest number in K swaps](#largest-number-in-k-swaps)
+1. [N Digit numbers with digits in increasing order](#n-digit-numbers-with-digits-in-increasing-order)
 1. [Subsets](#subsets)
 1. [Subsets II](#subsets-ii)
 1. [Palindrome Partitioning](#palindrome-partitioning)
