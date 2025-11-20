@@ -122,6 +122,12 @@ Observation:
 * 4 5 7 7 ; k = 2; greedy 7 7 4 5
 * but optimal is 7 7 5 4
 
+* what are the choices ? 
+- no swap with self; we will waste k 
+- no swap with smaller elements; same reason
+- swap with the largest in the array ? isn't greedy?
+- No next subtree will follow the same logic
+
 ```cpp
 ```
 
