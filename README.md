@@ -5,6 +5,7 @@
 - [Heap Problems](coding_problems/heap/readme.md)
 - [Recursion Problems](coding_problems/recursion/readme.md)
 - [Backtracking Problems](coding_problems/backtracking/readme.md)
+- [Tree Problems](trees/readme.md)
 - [Math And Geometry Porblems](coding_problems/math_geometry/readme.md)
 - [Bit Hacks](bits_hacks/readme.md)
 
