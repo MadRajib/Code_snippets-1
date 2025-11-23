@@ -15,7 +15,7 @@
 1. [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 1. [Count Good Nodes in Binary Tree](#count-good-nodes-in-binary-tree)
 1. [Valid Binary Search Tree](#valid-binary-search-tree)
-
+1. [kth smallest node](#kth-smallest-node)
 
 ## DFS
 ```cpp
@@ -705,4 +705,37 @@ public:
     }
 };
 
+```
+
+### Kth Smallest Node
+- Inorder traversal sorted order
+- return k - 1 th
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> arr;
+        dfs(root, arr);
+        return arr[k - 1];
+    }
+
+    void dfs(TreeNode* node, vector<int>& arr) {
+        if (!node) return;
+        dfs(node->left, arr);
+        arr.push_back(node->val);
+        dfs(node->right, arr);
+    }
+};
 ```
