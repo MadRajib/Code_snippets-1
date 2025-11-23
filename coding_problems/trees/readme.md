@@ -13,6 +13,7 @@
 1. [Insert into a Binary Search Tree](#insert-into-a-binary-search-tree)
 1. [Delete Node in a BST](#delete-node-in-a-bst)
 1. [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
+1. [Count Good Nodes in Binary Tree](#count-good-nodes-in-binary-tree)
 
 
 ## DFS
@@ -613,6 +614,48 @@ public:
                 res.push_back(last_node->val);
 
         }
+
+        return res;
+    }
+};
+
+```
+
+### Count Good Nodes in Binary Tree
+- dfs preorder
+- intial pass node and node-val as max val
+- pass the max val seen so far while traversing. 
+- if while traversing saw a new max val use that to traverse.
+- have a counter in each node.
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    int goodNodes(TreeNode* root) {
+        return dfs(root, root->val);
+    }
+
+    int dfs(TreeNode *node, int max_nm) {
+        if (!node)
+            return 0;
+        
+        int res = (node->val >= max_nm) ? 1 : 0;
+        max_nm = max(max_nm, node->val);
+
+        res += dfs(node->left, max_nm);
+        res += dfs(node->right, max_nm);
 
         return res;
     }
