@@ -14,6 +14,39 @@
 1. [Delete Node in a BST](#delete-node-in-a-bst)
 1. [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 
+
+## DFS
+```cpp
+void dfs(*root) {
+    if (!root)
+        return;
+
+    // process pre order node
+    dfs(root->left);
+    // process in order node
+    dfs(root->right);
+    // process post order node
+}
+```
+## BFS
+```cpp
+void bfs(*root) {
+    queue<int> queue;
+
+    queue.push(root);
+    while (!q.empty()) {
+        for ( i = q.size(); i >=0 ;i-- ) {
+            node = q.front();
+            q.pop();
+            if (node) {
+                q.push(node->left);
+                q.push(node->right);
+            }
+        }
+    }
+}
+```
+
 ### In Order Traversal
 - jmp left
 - print node
