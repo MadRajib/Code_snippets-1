@@ -1,9 +1,15 @@
 # Tree Problems
 
-1. [In Order Traversal](#1-in-order-traversal)
-1. [Pre Order Traversal](#2-pre-order-traversal)
+1. [In Order Traversal](#in-order-traversal)
+1. [Pre Order Traversal](#pre-order-traversal)
+1. [Post Order Traversal](#post-order-traversal)
+1. [Invert Binary tree](#invert-binary-tree)
+1. [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
+1. [Diameter of Binary Tree](#diameter-of-binary-tree)
+1. [Balanced Binary Tree](#balanced-binary-tree)
+1. [Same Tree](#same-tree)
 
-### 1. In Order Traversal
+### In Order Traversal
 - jmp left
 - print node
 - jmp right
@@ -44,7 +50,7 @@ public:
 };
 ```
 
-### 2. Pre order Traversal
+### Pre order Traversal
 - print node
 - jmp left
 - jmp right
@@ -84,7 +90,7 @@ public:
 };
 ```
 
-### 3. Post order traversal
+### Post order traversal
 - jmp left
 - jmp right
 - print node
@@ -123,7 +129,7 @@ public:
 };
 ```
 
-### 4. Invert Binary tree
+### Invert Binary tree
 - swap left right
 - invert (left)
 - invert (right)
@@ -158,7 +164,7 @@ public:
 
 ```
 
-### 5. Maximum Depth of Binary Tree
+### Maximum Depth of Binary Tree
 - 1 + max(left, right)
 
 ```cpp
@@ -190,7 +196,7 @@ public:
 
 ```
 
-### 6. Diameter of Binary Tree
+### Diameter of Binary Tree
 - dia = max(diag, left tree depth + right tree depth);
 
 ```cpp
@@ -228,7 +234,7 @@ public:
 };
 
 ```
-### 7. Balanced Binary Tree
+### Balanced Binary Tree
 - use dfs
 - return height and flag that indicates if subtree is balanced or not.
 - left is balanced + right is balanced + currrent root is balanced -> then its balanced.
@@ -272,7 +278,7 @@ public:
 
 ```
 
-### 8. Same Tree
+### Same Tree
 - if root both are null -> same
 - move together left && right in both trees.
 
