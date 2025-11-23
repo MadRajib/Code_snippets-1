@@ -10,6 +10,7 @@
 1. [Same Tree](#same-tree)
 1. [Subtree of Another Tree](#subtree-of-another-tree)
 1. [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree)
+1. [Insert into a Binary Search Tree](#insert-into-a-binary-search-tree)
 
 ### In Order Traversal
 - jmp left
@@ -394,4 +395,36 @@ public:
     }
 };
 
+```
+### Insert into a Binary Search Tree
+- if root is null return new node
+- if smaller than root, root->left = insert(left)
+- if larger than root. root->right = insert(right)
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        if (!root)
+            return new TreeNode(val);
+
+        if (val < root->val)
+            root->left = insertIntoBST(root->left, val);
+        else 
+            root->right = insertIntoBST(root->right, val);
+
+        return root;       
+    }
+};
 ```
