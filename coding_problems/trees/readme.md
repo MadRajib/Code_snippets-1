@@ -564,3 +564,58 @@ public:
 };
 
 ```
+
+### Binary Tree Right Side View
+- BFS
+- save the last node in every level
+- push the last node val in res value
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        queue<TreeNode*> que;
+        vector<int> res;
+        TreeNode *node, *last_node;
+        int sz;
+
+        que.push(root);
+
+        while (!que.empty()) {
+            sz = que.size();
+            last_node = nullptr;
+            
+            for (int i = 0; i < sz; i++) {
+                node = que.front();
+                que.pop();
+
+                if (node) {
+                    que.push(node->left);
+                    que.push(node->right);
+
+                    // cache the last_node
+                    last_node = node;
+                }
+            }
+            if (last_node)
+                res.push_back(last_node->val);
+
+        }
+
+        return res;
+    }
+};
+
+```
