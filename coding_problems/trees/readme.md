@@ -11,6 +11,7 @@
 1. [Subtree of Another Tree](#subtree-of-another-tree)
 1. [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree)
 1. [Insert into a Binary Search Tree](#insert-into-a-binary-search-tree)
+1. [Delete Node in a BST](#delete-node-in-a-bst)
 
 ### In Order Traversal
 - jmp left
