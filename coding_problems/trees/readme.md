@@ -228,3 +228,46 @@ public:
 };
 
 ```
+### 7. Balanced Binary Tree
+- use dfs
+- return height and flag that indicates if subtree is balanced or not.
+- left is balanced + right is balanced + currrent root is balanced -> then its balanced.
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        vector<int> res = dfs(root);
+
+        return res[0] == 1;
+    }
+
+    vector<int> dfs(TreeNode *root) {
+        //base
+        if (!root)
+            return {1, 0};
+        vector<int> pl, pr;
+
+        pl = dfs(root->left);
+        pr = dfs(root->right);
+
+        bool flag = pl[0] && pr[0] && (abs(pr[1] - pl[1]) <= 1);
+
+        return {flag, 1 + max(pl[1], pr[1])};
+
+    }
+};
+
+```
