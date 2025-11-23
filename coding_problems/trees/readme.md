@@ -9,6 +9,7 @@
 1. [Balanced Binary Tree](#balanced-binary-tree)
 1. [Same Tree](#same-tree)
 1. [Subtree of Another Tree](#subtree-of-another-tree)
+1. [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree)
 
 ### In Order Traversal
 - jmp left
@@ -353,6 +354,43 @@ public:
         }
         
         return false;
+    }
+};
+
+```
+
+### Lowest Common Ancestor of a Binary Search Tree
+- jmp to left if both nodes are small than root
+- jmp to right if both nodes are greater than root
+- else root is the ancestor node.
+- if any of the nodes are null return nullptr
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (!root || !p || !q)
+            return nullptr;
+        
+        if (p->val < root->val && q->val < root->val)
+            return lowestCommonAncestor(root->left, p, q);
+        
+        if (p->val > root->val && q->val > root->val)
+            return lowestCommonAncestor(root->right, p, q);
+
+        return root;
     }
 };
 
