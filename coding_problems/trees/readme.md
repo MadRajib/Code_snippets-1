@@ -14,6 +14,7 @@
 1. [Delete Node in a BST](#delete-node-in-a-bst)
 1. [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
 1. [Count Good Nodes in Binary Tree](#count-good-nodes-in-binary-tree)
+1. [Valid Binary Search Tree](#valid-binary-search-tree)
 
 
 ## DFS
@@ -658,6 +659,49 @@ public:
         res += dfs(node->right, max_nm);
 
         return res;
+    }
+};
+
+```
+
+### Valid Binary Search Tree
+- Valid BST is where right tree has all node > root node
+- and left tree has all nodes < root node
+- start wih long_min, long_max as the range.
+- for each node check if the node is present in this range.
+- when jmping to left, new max for the range is root->val.
+- when jmping to right, new min will be root->val.
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        return valid(root, LONG_MIN, LONG_MAX);
+    }
+
+    bool valid(TreeNode *node, long left, long right) {
+        if (!node)
+            return true;
+
+        // Check if the cur node is in between min and max
+        if (!(left < node->val && node->val < right))
+            return false;
+        
+        return (valid(node->left, left, node->val) &&
+            valid(node->right, node->val, right));
+
     }
 };
 
