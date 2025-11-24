@@ -16,6 +16,7 @@
 1. [Count Good Nodes in Binary Tree](#count-good-nodes-in-binary-tree)
 1. [Valid Binary Search Tree](#valid-binary-search-tree)
 1. [kth smallest node](#kth-smallest-node)
+1. [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
 
 ## DFS
 ```cpp
@@ -738,4 +739,51 @@ public:
         dfs(node->right, arr);
     }
 };
+```
+
+### Construct Binary Tree from Preorder and Inorder Traversal
+- take node from preorder
+- locate where to place it by lookin in left and right in inorder
+- use hashmap to store inorder nodes index
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+class Solution {
+    private:
+        unordered_map<int, int> mp;
+        int pre_order_index = 0; 
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        for (int i = 0; i < inorder.size(); i++ )
+            mp[inorder[i]] = i;
+        
+        return build(preorder, 0, inorder.size() - 1);
+    }
+
+    TreeNode* build(vector<int>& preorder, int l, int r) {
+        if (l > r)
+            return nullptr;
+        
+        int val = preorder[pre_order_index++];
+        TreeNode *node = new TreeNode(val);
+        int mid = mp[val];
+
+        node->left = build(preorder, l, mid - 1);
+        node->right = build(preorder, mid + 1, r);
+        
+        return node;
+    }
+};
+
 ```
