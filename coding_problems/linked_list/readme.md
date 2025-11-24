@@ -3,6 +3,7 @@
 1. [Reverse A Linked List](#reverse-a-linked-list)
 1. [Merge Two Sorted Linked Lists](#merge-two-sorted-linked-lists)
 1. [Linked List Cycle Detection](#linked-list-cycle-detection)
+1. [Reorder Linked List](#reorder-linked-list)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -84,11 +85,11 @@ public:
     bool hasCycle(ListNode* head) {
         bool res = false;
         ListNode *slow, *fast;
-        if (!head || !head->next)
+        if (!head)
             return false;
 
         slow = head;
-        fast = head->next->next;
+        fast = head->next;
 
         while (slow != fast) {
             if (!fast || !fast->next)
@@ -103,4 +104,77 @@ public:
         return res;
     }
 };
+```
+
+### Reorder Linked List
+
+Observation:
+- final output : second half reversed and added to first list.
+- find mid using slow and fast
+- reverse the second half;
+- move the nodes from second half to first half one by one
+
+```cpp
+class Solution {
+public:
+    ListNode * findMid(ListNode *head) {
+        ListNode *slow, *fast;
+        if (!head )
+            return head;
+
+        slow = head;
+        fast = head->next;
+
+        while (fast != nullptr
+            && fast->next != nullptr) {
+                slow = slow->next;
+                fast = fast->next->next;
+        }
+
+        return slow;
+    }
+
+    ListNode * reverseList(ListNode* head) {
+        ListNode *prev, *cur, *next;
+        if (!head)
+            return nullptr;
+    
+        prev = nullptr;
+        cur = head;
+        while (cur != nullptr) {
+            next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+
+        return prev;
+    }
+
+    void reorderList(ListNode* head) {
+        ListNode *mid;
+        ListNode *next_half;
+        ListNode *tmp1, *tmp2, *tmp;
+        
+        mid = findMid(head);
+        next_half = mid->next;
+        mid->next = nullptr;
+
+        next_half = reverseList(next_half);
+         
+        head = head;
+        while (next_half != nullptr) {
+            tmp1 = head->next;
+            tmp2 = next_half->next;
+            
+            // remove node from next half and add it first
+            next_half->next = tmp1;
+            head->next = next_half; 
+
+            head = tmp1;
+            next_half = tmp2;
+        }
+    }
+};
+
 ```
