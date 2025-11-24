@@ -18,6 +18,12 @@
 1. [kth smallest node](#kth-smallest-node)
 1. [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
 
+```cpp
+left_child  = 2 * i + 1;
+right_child = 2 * i + 2;
+parent      = (i - 1) / 2; 
+```
+
 ## DFS
 ```cpp
 void dfs(*root) {
@@ -29,6 +35,26 @@ void dfs(*root) {
     // process in order node
     dfs(root->right);
     // process post order node
+}
+
+// Iterative
+vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> stack;
+        TreeNode* cur = root;
+
+        while (cur || !stack.empty()) {
+            while (cur) {
+                stack.push(cur);
+                cur = cur->left;
+            }
+            cur = stack.top();
+            stack.pop();
+            res.push_back(cur->val);
+            cur = cur->right;
+        }
+
+        return res;
 }
 ```
 ## BFS
