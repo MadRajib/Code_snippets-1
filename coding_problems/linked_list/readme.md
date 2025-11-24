@@ -4,6 +4,7 @@
 1. [Merge Two Sorted Linked Lists](#merge-two-sorted-linked-lists)
 1. [Linked List Cycle Detection](#linked-list-cycle-detection)
 1. [Reorder Linked List](#reorder-linked-list)
+1. [Remove Node From End of Linked List](#remove-node-from-end-of-linked-list)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -177,4 +178,46 @@ public:
     }
 };
 
+```
+
+### Remove Node From End of Linked List
+- if we move a ptr from nth loc from start and another from start
+- when ptr reaches the end, another pointer reaches nth location from last.
+- but we want to remove it, so lets have a sentinal pointer and start the another pointer from it.
+- this way when ptr reaches end, another will reach a node
+prior to the deletion node.
+
+```cpp
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode *n_ptr, *tmp, *next;
+        ListNode sentinal(0);
+        if (!head)
+            return nullptr;
+        
+        sentinal.next = head;
+        tmp = head;
+        while (n > 0) {
+            tmp = tmp->next;
+            n--;
+        }
+
+        n_ptr = &sentinal;
+        while (tmp != nullptr) {
+            n_ptr = n_ptr->next;
+            tmp = tmp->next;
+        }
+
+        // now n_ptr is pointing to nth + 1 node from last
+        tmp = n_ptr;
+        n_ptr = n_ptr->next;
+        next = n_ptr->next;
+        n_ptr->next = nullptr;
+        free(n_ptr);
+        tmp->next = next;
+
+        return sentinal.next;
+    }
+};
 ```
