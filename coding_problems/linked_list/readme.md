@@ -2,6 +2,7 @@
 
 1. [Reverse A Linked List](#reverse-a-linked-list)
 1. [Merge Two Sorted Linked Lists](#merge-two-sorted-linked-lists)
+1. [Linked List Cycle Detection](#linked-list-cycle-detection)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -71,4 +72,35 @@ public:
     }
 };
 
+```
+
+### Linked List Cycle Detection
+- slow and fast pointer
+- if fast pointer reaches null then no cycle
+- else slow and fast will be the same
+```cpp
+class Solution {
+public:
+    bool hasCycle(ListNode* head) {
+        bool res = false;
+        ListNode *slow, *fast;
+        if (!head || !head->next)
+            return false;
+
+        slow = head;
+        fast = head->next->next;
+
+        while (slow != fast) {
+            if (!fast || !fast->next)
+                break;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        if (slow == fast)
+            res = true;
+
+        return res;
+    }
+};
 ```
