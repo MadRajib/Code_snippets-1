@@ -6,6 +6,7 @@
 1. [Reorder Linked List](#reorder-linked-list)
 1. [Remove Node From End of Linked List](#remove-node-from-end-of-linked-list)
 1. [Copy Linked List with Random Pointer](#copy-linked-list-with-random-pointer)
+1. [Find the Duplicate Number](#find-the-duplicate-number)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -309,6 +310,40 @@ public:
         }
 
         return sentinal.next;
+    }
+};
+
+```
+
+### Find the Duplicate Number
+- consider each value in array to be a pointer pointing to next pointer
+- slow and fast pointer
+- to point to the start of the cycle move another pointer from 0 and slow from the intersection of fast and slow
+- step by step, they will meet both will be equal
+```cpp
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int slow = 0;
+        int fast = 0;
+
+        while (true) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+
+            if (slow == fast)
+                break;
+        }
+
+        int slow2 = 0;
+        while (true) {
+            slow = nums[slow];
+            slow2 = nums[slow2];
+            if (slow == slow2)
+                break;
+        }
+
+        return slow;
     }
 };
 
