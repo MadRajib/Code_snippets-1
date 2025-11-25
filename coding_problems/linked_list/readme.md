@@ -7,6 +7,7 @@
 1. [Remove Node From End of Linked List](#remove-node-from-end-of-linked-list)
 1. [Copy Linked List with Random Pointer](#copy-linked-list-with-random-pointer)
 1. [Find the Duplicate Number](#find-the-duplicate-number)
+1. [Reverse Linked List II](#reverse-linked-list-ii)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -347,4 +348,41 @@ public:
     }
 };
 
+```
+
+### Reverse Linked List II
+- use sentinal
+```cpp
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        ListNode *cur, *leftPrev, *next, *fhead;
+        ListNode sentinal(0);
+
+        if (!head)
+            return nullptr;
+        
+        sentinal.next = head;
+
+        cur = head;
+        leftPrev = &sentinal;
+        for (int i = 0; i < left - 1; ++i) {
+            leftPrev = cur;
+            cur = cur->next;
+        }
+
+        ListNode *prev = nullptr;
+        for (int i = 0; i < right - left +1; i++) {
+            next = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = next;
+        }
+
+        leftPrev->next->next = cur;
+        leftPrev->next = prev;
+
+        return sentinal.next;
+    }
+};
 ```
