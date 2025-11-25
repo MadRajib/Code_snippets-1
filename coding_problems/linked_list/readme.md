@@ -5,6 +5,7 @@
 1. [Linked List Cycle Detection](#linked-list-cycle-detection)
 1. [Reorder Linked List](#reorder-linked-list)
 1. [Remove Node From End of Linked List](#remove-node-from-end-of-linked-list)
+1. [Copy Linked List with Random Pointer](#copy-linked-list-with-random-pointer)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -216,6 +217,45 @@ public:
         n_ptr->next = nullptr;
         free(n_ptr);
         tmp->next = next;
+
+        return sentinal.next;
+    }
+};
+```
+
+### Copy Linked List with Random Pointer
+- have sentinal node for the new list
+- use hash map to store old node -> new node mapping.
+- save old random ptr value in new pointer random value to use it to point to new nodes
+- iterate over the new list and set itr->random = mp[itr->random (old node ptr)]
+
+```cpp
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        unordered_map<Node*, Node*> mp;
+        Node *temp, *prev, *itr;
+        Node sentinal(0);
+
+        if (!head)
+            return nullptr;
+
+        itr = head;
+        prev = &sentinal;
+
+        while (itr != nullptr) {
+            temp = new Node(itr->val);
+            temp->random = itr->random;
+            prev->next = temp;
+            prev = temp;
+            mp[itr] = temp;
+            itr = itr->next;
+        }
+        itr = sentinal.next;
+        while (itr != nullptr) {
+            itr->random = mp[itr->random];
+            itr = itr->next;
+        }
 
         return sentinal.next;
     }
