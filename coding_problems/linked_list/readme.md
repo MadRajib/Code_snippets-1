@@ -261,3 +261,55 @@ public:
     }
 };
 ```
+
+### Add Two Numbers
+- have a sentinal node makes it easy
+
+```cpp
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *itr1, *itr2, *prev, *temp;
+        ListNode sentinal(0);
+        int c = 0, sm;
+
+        itr1 = l1;
+        itr2 = l2;
+        prev = &sentinal;
+
+        while (itr1 != nullptr && itr2 != nullptr) {
+            temp = new ListNode(0);
+            sm = itr1->val + itr2->val + c;
+            temp->val = sm % 10;
+            c = sm / 10;
+            prev->next = temp;
+            prev = temp;
+
+            itr1 = itr1->next;
+            itr2 = itr2->next;
+        }
+
+        itr1 = (itr1 != nullptr) ? itr1 : itr2;
+
+        while (itr1 != nullptr) {
+            temp = new ListNode(0);
+            sm = itr1->val + c;
+            temp->val = sm % 10;
+            c = sm /10;
+            prev->next = temp;
+            prev = temp;
+
+            itr1 = itr1->next; 
+        }
+
+        if (c) {
+            temp = new ListNode(0);
+            temp->val = c;
+            prev->next = temp;
+        }
+
+        return sentinal.next;
+    }
+};
+
+```
