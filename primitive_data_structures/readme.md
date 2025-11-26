@@ -1,7 +1,9 @@
 ## Primitive Data Structures
+1. [Stack](#stack)
+    1. [Stack Using Linked List](#stack-using-linked-list)
+    1. [Stack Using Array](#stack-using-array)
 
-1. [Stack Using Linked List](#stack-using-linked-list)
-
+## Stack
 ### Stack Using Linked List
 - use sentinel node
 - add at front and remove from top 
