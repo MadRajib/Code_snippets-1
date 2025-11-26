@@ -9,6 +9,7 @@
     1. [Specialized Queues](#specialized-queues)
         1. [Priority Queue](#priority-queue)
         1. [Deques](#deques)
+1. [Linked list](#linked-list)
 ## Stack
 ### Stack Using Linked List
 - use sentinel node
