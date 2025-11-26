@@ -5,6 +5,7 @@
     1. [Double Stack Using Array](#double-stack-using-array)
 1. [Queues](#queues)
     1. [LL Queues](#ll-queues)
+    1. [Circular Queue using Array](#circular-queue-using-array)
 ## Stack
 ### Stack Using Linked List
 - use sentinel node
@@ -88,5 +89,33 @@ Data: Dequeue (Node: bottom_sentinal)
     bottom_sentinel.prev.next = bottom_sentinel
 
     Return result
+End Dequeue
+```
+### Circular queue using array
+- normal queue using array is tricker as memory is wasted
+- circular queue has better memory usage compared to former.
+
+```cpp
+// Global declaration
+Data: Queue[<queue_size>]
+Integer: next = 0
+Integer: last = 0
+
+Enqueue (Data: val)
+    if (next + 1) Mod <queue_size> == last
+        throw exception
+    
+    Queue[next] = val
+    next = (next + 1) Mod <queue_size>
+End Enqueue
+
+Data: Dequeue ()
+    if (next == last)
+        throw exception
+
+    Data: val = queue[last]
+    last = (last + 1) Mod <queue_size>
+
+    Return val
 End Dequeue
 ```
