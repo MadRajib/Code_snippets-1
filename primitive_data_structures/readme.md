@@ -129,4 +129,115 @@ End Dequeue
     - always high-priority items are handled first
 ### Deques
     - pronouced "deck"
-    - Double ended queue 
+    - Double ended queue
+
+## Linked List
+### Basic Concept
+```cpp
+// Basic node in simple LL
+struct node {
+    int val;
+    struct node *next;
+};
+
+```
+- if node has more than one type of data
+- hang the data node in linked list just like cloths hanging in rope.
+- no extra memory wastage
+- to reach the structure from node we can use __*container_of*__ macro
+```cpp
+// better apporach 
+#define LIST_INIT(list) { &(list), &(list) }
+
+#define container_of(ptr, type, member) ({ \
+		const typeof(((type *)0)->member)*__mptr = (ptr);  \
+		(type *)((char *)__mptr - offsetof(type, member)); \
+		})
+
+struct list_head {
+    struct list_head *prev;
+    struct list_head *next;
+};
+
+struct data_node {
+    // data type
+    // data type
+    struct list_head node;
+};
+
+// List add
+static inline void list_add(struct list_head *list, struct list_head *item)
+{
+	struct list_head *prev = list->prev;
+
+	item->next = list;
+	item->prev = prev;
+
+	prev->next = list->prev = item;
+}
+
+// list push
+static inline void list_del(struct list_head *item)
+{
+	item->prev->next = item->next;
+	item->next->prev = item->prev;
+}
+
+#define list_for_each(item, list) \
+	for (item = (list)->next; item != list; item = item->next)
+
+#define list_for_each_safe(item, next, list) \
+	for (item = (list)->next, next = item->next; item != list; item = next, next = item->next)
+
+#define list_entry(item, type, member) \
+	container_of(item, type, member)
+
+#define list_entry_first(list, type, member) \
+	container_of((list)->next, type, member)
+
+#define list_entry_next(item, member) \
+	container_of((item)->member.next, typeof(*(item)), member)
+
+#define list_for_each_entry(item, list, member) \
+	for (item = list_entry_first(list, typeof(*(item)), member); \
+	     &item->member != list; \
+	     item = list_entry_next(item, member))
+
+#define list_for_each_entry_safe(item, next, list, member) \
+	for (item = list_entry_first(list, typeof(*(item)), member), \
+	     next = list_entry_next(item, member); \
+	     &item->member != list; \
+	     item = next, \
+	     next = list_entry_next(item, member)) \
+```
+
+- Usage
+```cpp
+struct list_head my_list = LIST_INIT(my_list);
+
+// to add
+list_add(&my_list, &data_node->node);
+
+// to delete
+
+list_del(&data_node->node);
+
+// to itrate
+struct list_head *item;
+struct list_head *next;
+struct data_node *data;
+
+list_for_each_safe(item, next, &my_list) {
+	data = container_of(item, struct data_node, node);
+    // process data
+}
+
+// to iterate 
+struct list_head *next;
+struct data_node *data;
+list_for_each_entry_safe(data, next, &my_list, node) {
+    if (data) {
+        //process it
+    }
+}
+```
