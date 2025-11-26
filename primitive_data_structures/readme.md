@@ -6,6 +6,9 @@
 1. [Queues](#queues)
     1. [LL Queues](#ll-queues)
     1. [Circular Queue using Array](#circular-queue-using-array)
+    1. [Specialized Queues](#specialized-queues)
+        1. [Priority Queue](#priority-queue)
+        1. [Deques](#deques)
 ## Stack
 ### Stack Using Linked List
 - use sentinel node
@@ -119,3 +122,11 @@ Data: Dequeue ()
     Return val
 End Dequeue
 ```
+### Specialized Queues
+### Priority Queue
+    - each item has a priority
+    - dequeue remove item having highest priority.
+    - always high-priority items are handled first
+### Deques
+    - pronouced "deck"
+    - Double ended queue 
