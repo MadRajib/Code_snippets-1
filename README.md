@@ -7,8 +7,11 @@
 - [Backtracking Problems](coding_problems/backtracking/readme.md)
 - [Tree Problems](coding_problems/trees/readme.md)
 - [Math And Geometry Porblems](coding_problems/math_geometry/readme.md)
-- [Bit Hacks](bits_hacks/readme.md)
 - [Linked List](coding_problems/linked_list/readme.md)
+
+# Implementations and tricks
+- [Bit Hacks](bits_hacks/readme.md)
+- [Primitive Data Structures](primitive_data_structures/readme.md)
 
 # Contents
 - [Tips](#tips)
