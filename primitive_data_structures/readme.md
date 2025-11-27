@@ -140,8 +140,40 @@ struct node {
     int val;
     struct node *next;
 };
-
 ```
+### Iterating over the list
+```cpp
+Iterate(Node: top)
+    while (top != null)
+        Print top.val
+        top = top.next
+    End While
+End Iterate
+```
+- top points to null when loop ends
+
+### Finding a node
+- using a sentinal node at the begining makes the algo simple
+```cpp
+Node: FindNodeBefore (Node: top, Val: target)
+    while (top.next != null)
+        if (top.next.val == targert)
+            Return top
+        top = top.next
+    End while
+
+    Return null
+End FindNodeBefore
+```
+### Adding Nodes at the beginning
+```cpp
+AddAtBeginning (Node: top, Node: new_node)
+    new_node.next = top.next
+    top.next = new_node
+End AddAtBeginning
+```
+
+
 - if node has more than one type of data
 - hang the data node in linked list just like cloths hanging in rope.
 - no extra memory wastage
