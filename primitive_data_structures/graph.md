@@ -25,3 +25,28 @@
 | root                   | The unique node at the top of the tree that has no parent. |
 | sibling                | Two nodes in a tree that have the same parent are siblings. |
 | subtree                | A node and all its descendants in a tree. |
+
+### Binary Tree Properties
+- The number of branches in a binary tree  
+  `B = N – 1`
+
+- The number of nodes in a perfect binary tree of height H  
+  `N = 2^(H+1) – 1`
+
+- Height of a perfect binary tree given N nodes  
+  `H = log2(N + 1) – 1`
+
+- The number of leaf nodes in a perfect binary tree of height H  
+  `L = 2^H`
+
+- The number of internal nodes in a perfect binary tree of height H  
+  `I = N – L = (2^(H+1) – 1) – 2^H = 2^H – 1`
+
+- Relationship between internal and leaf nodes in a perfect binary tree  
+  `I = L – 1`
+
+- The number of missing branches in a binary tree with N nodes  
+  `M = N + 1`
+
+- Relationship between leaf nodes (N₀) and degree-2 nodes (N₂) in a binary tree  
+  `N₀ = N₂ + 1`
