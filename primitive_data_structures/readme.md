@@ -12,7 +12,7 @@
 1. [Linked list](#linked-list)
     1. [Singly Linked List](#singly-linked-list)
     1. [Doubly Linked List](#doubly-linked-list)
-
+1. [Arrays](#arrays)
 
 ## Stack
 ### Stack Using Linked List
@@ -344,4 +344,36 @@ list_for_each_entry_safe(data, next, &my_list, node) {
         //process it
     }
 }
+```
+
+### Arrays
+- For 1D arrays, the mapping from array indices to mem entires is simple: index __i__ maps to entry __i__.
+- For 2D arrays, two mapping types : row-major or column-major order.
+    * In row-major order, program maps the first row of array entries to the first set of mem location. Then the second row to next mem loc.
+    * In column-major order, program maps the column of array entries to the first set of mem location.
+    * To store 3D array in row-major order, the program would map the first 2-D "slice" of the array where the third dimension's index is 0.
+    * It would map that slice in row-major order as usual.
+    * it would then similarly map the second slice where the third index is 1, and so on for the remaining slices.
+- In 2D array : \  
+    __index__ = row * \<row size> + column;
+```cpp
+Integer: FindIndex(Integer: r, Integer: c)
+    Return r * row_size + c
+End Integer
+```
+- In 3D array (h, r, c) : \
+    __index__ = h * \<row size> * \<column size>; \
+    __index__ = __index__ + r * \<row size>; \
+    __index__ = __index__ + c;
+```cpp
+Integer: FindIndex(Integer: h, Integer: r, Integer: c)
+    Return (h * row_size * col_size) + r * row_size + c
+End Integer
+```
+- In Trianglure array (lower trinagle)
+    * total elements: (N^2 + N) / 2
+```cpp
+Integer: FindIndex(Integer: r, Integer: c)
+    Return ((r - 1) * (r - 1) +  (r - 1)) / 2 + c
+End Integer
 ```
