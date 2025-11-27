@@ -10,6 +10,10 @@
         1. [Priority Queue](#priority-queue)
         1. [Deques](#deques)
 1. [Linked list](#linked-list)
+    1. [Singly Linked List](#singly-linked-list)
+    1. [Doubly Linked List](#doubly-linked-list)
+
+
 ## Stack
 ### Stack Using Linked List
 - use sentinel node
@@ -133,7 +137,9 @@ End Dequeue
     - Double ended queue
 
 ## Linked List
-### Basic Concept
+
+### Singly Linked List
+#### Basic Concept
 ```cpp
 // Basic node in simple LL
 struct node {
@@ -141,7 +147,7 @@ struct node {
     struct node *next;
 };
 ```
-### Iterating over the list
+#### Iterating over the list
 ```cpp
 Iterate(Node: top)
     while (top != null)
@@ -152,7 +158,7 @@ End Iterate
 ```
 - top points to null when loop ends
 
-### Finding a node
+#### Finding a node
 - using a sentinal node at the begining makes the algo simple
 ```cpp
 Node: FindNodeBefore (Node: top, Val: target)
@@ -165,7 +171,7 @@ Node: FindNodeBefore (Node: top, Val: target)
     Return null
 End FindNodeBefore
 ```
-### Adding Nodes at the beginning
+#### Adding Nodes at the beginning
 ```cpp
 AddAtBeginning (Node: top, Node: new_node)
     new_node.next = top.next
@@ -173,7 +179,7 @@ AddAtBeginning (Node: top, Node: new_node)
 End AddAtBeginning
 ```
 
-### Adding Nodes at the end
+#### Adding Nodes at the end
 ```cpp
 AddAtEnd (Node: top, Node: new_node)
     // find the end first
@@ -187,7 +193,7 @@ End AddAtEnd
 ```
 - code would have been messier if sentinel was not there.
 
-### Inserting Node after another Node
+#### Inserting Node after another Node
 - assuming we have the node's location after which we have to add the new one
 ```cpp
 InsertNode (Node: after_me, Node: new_node)
@@ -196,7 +202,7 @@ InsertNode (Node: after_me, Node: new_node)
 End InsertNode
 ```
 
-### Deleting Cells
+#### Deleting Cells
 ```cpp
 DeleteAfter (Node: after_me)
     Node: target_node =  after_me.next
@@ -209,13 +215,36 @@ End DeleteAfter
 DestroyList (Node: top)
     while (top != null)
         Node: new_node = top.next
-    
+
         free(top)
 
         top = next_node
     End while
 End DestroyList
 ```
+### Doubly Linked List
+
+#### Insert
+```cpp
+InsertNode (Node: after_me, Node: new_val)
+    // Update next links
+    new_node.next = after_me.next
+    after_me.next = new_node
+
+    // Update prev links
+    new_node.prev = after_me
+    new_node.next.prev = new_node
+End InsertNode
+```
+#### Delete
+```cpp
+DeleteNode (Node: target_node)
+    target_node.prev.next = target_node.next
+    target_node.next.prev = target_node.prev
+    free(target_node)
+End DeleteNode
+```
+
 - if node has more than one type of data
 - hang the data node in linked list just like cloths hanging in rope.
 - no extra memory wastage
