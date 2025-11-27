@@ -377,3 +377,15 @@ Integer: FindIndex(Integer: r, Integer: c)
     Return ((r - 1) * (r - 1) +  (r - 1)) / 2 + c
 End Integer
 ```
+- For Sparse Array we can use linked list to save memory
+```cpp
+ArrayRow:
+    Integer: RowNumber
+    ArrayRow: NextRow
+    ArrayEntry: RowSentinal
+
+ArrayEntry:
+    Integer: ColNumber
+    T: value
+    ArrayEntry: NextEntry
+```
