@@ -173,7 +173,49 @@ AddAtBeginning (Node: top, Node: new_node)
 End AddAtBeginning
 ```
 
+### Adding Nodes at the end
+```cpp
+AddAtEnd (Node: top, Node: new_node)
+    // find the end first
+    while (top.next != null)
+        top = top.next
+    End while
 
+    top.next = new_node
+    new_node.next = null;
+End AddAtEnd
+```
+- code would have been messier if sentinel was not there.
+
+### Inserting Node after another Node
+- assuming we have the node's location after which we have to add the new one
+```cpp
+InsertNode (Node: after_me, Node: new_node)
+    new_node.next = after_me.next
+    after_me.next = new_node
+End InsertNode
+```
+
+### Deleting Cells
+```cpp
+DeleteAfter (Node: after_me)
+    Node: target_node =  after_me.next
+    after_me.next = after_me.next.next
+    free(target_node)
+End DeleteAfter
+```
+- To destroy whole list :
+```cpp
+DestroyList (Node: top)
+    while (top != null)
+        Node: new_node = top.next
+    
+        free(top)
+
+        top = next_node
+    End while
+End DestroyList
+```
 - if node has more than one type of data
 - hang the data node in linked list just like cloths hanging in rope.
 - no extra memory wastage
