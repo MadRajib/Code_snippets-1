@@ -13,6 +13,7 @@
     1. [Singly Linked List](#singly-linked-list)
     1. [Doubly Linked List](#doubly-linked-list)
 1. [Arrays](#arrays)
+1. [Graph](graph.md)
 
 ## Stack
 ### Stack Using Linked List
