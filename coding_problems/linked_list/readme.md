@@ -9,6 +9,7 @@
 1. [Find the Duplicate Number](#find-the-duplicate-number)
 1. [Reverse Linked List II](#reverse-linked-list-ii)
 1. [LRU Cache](#lru-cache)
+1. [LFU Cache](#lfu-cache)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -508,6 +509,169 @@ public:
         append(node);
 
         this->count++;
+    }
+};
+```
+
+### LFU
+- A DLL for each frequency (freq → DLL)
+    - Most recently used node of a frequency at the front
+    - Least recently used node of a frequency at the end
+- A hash map to know if a key exists
+- minFreq helps to evict the correct node
+- capacity and size tracking
+
+Push (key, val):
+- Check if key exists
+    - if yes:
+        - update value
+        - move to next frequency list
+    - if no:
+        - if cache full → remove LRU node from minFreq list
+        - create new node freq=1
+        - insert into freq=1 list
+        - update minFreq = 1
+
+Get (key):
+- If not found → return -1
+- Increase frequency of node
+- Move node to the next frequency list
+- Update minFreq if needed
+- Return value
+
+update_node_list(node)
+- Read node’s current count
+- Remove node from its current list
+- If old list becomes empty:
+    - delete it
+    - if old freq == minFreq → increment minFreq
+- Increase node’s frequency
+- If next freq list does not exist → create a new DLL sentinel
+- Insert node at end of the new frequency list
+
+Push:
+- 
+```cpp
+class LFUCache {
+private:
+    struct ListNode {
+        int key;
+        int val;
+        int count;
+        ListNode *prev;
+        ListNode *next;
+
+        ListNode() : key(0), val(0), count(0), prev(this), next(this) {}
+    };
+
+    int capacity = 0;
+    int sz = 0;
+    int minf = 0;
+
+    unordered_map<int, ListNode *> kn_map;  // key -> node
+    unordered_map<int, ListNode *> cL_map;  // freq -> sentinel
+
+    void push_node(ListNode *senti, ListNode *node) {
+        node->next = senti->next;
+        node->prev = senti;
+        senti->next->prev = node;
+        senti->next = node;
+    }
+
+    void unplug_node(ListNode *node) {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+        node->next = node->prev = nullptr;
+    }
+
+    void update_count_list(ListNode *node) {
+        int old_count = node->count;
+        int new_count = old_count + 1;
+
+        // unplug from old list
+        if (cL_map.count(old_count)) {
+            unplug_node(node);
+
+            ListNode *senti = cL_map[old_count];
+            // if old list becomes empty
+            if (senti->next == senti) {
+                delete senti;
+                cL_map.erase(old_count);
+                if (minf == old_count)
+                    minf++;
+            }
+        }
+
+        // create new list if missing
+        if (!cL_map.count(new_count)) {
+            ListNode *senti = new ListNode();
+            cL_map[new_count] = senti;
+        }
+
+        node->count = new_count;
+        push_node(cL_map[new_count], node);
+    }
+
+public:
+    LFUCache(int capacity) {
+        this->capacity = capacity;
+        this->sz = 0;
+        this->minf = 1;
+    }
+
+    int get(int key) {
+        if (!capacity || !kn_map.count(key))
+            return -1;
+
+        ListNode *node = kn_map[key];
+        update_count_list(node);
+        return node->val;
+    }
+
+    void put(int key, int value) {
+        if (!capacity)
+            return;
+
+        // update existing
+        if (kn_map.count(key)) {
+            ListNode *node = kn_map[key];
+            node->val = value;
+            update_count_list(node);
+            return;
+        }
+
+        // evict if full
+        if (sz == capacity) {
+            ListNode *senti = cL_map[minf];
+            ListNode *victim = senti->prev;  // LRU inside min frequency list
+
+            unplug_node(victim);
+            kn_map.erase(victim->key);
+            delete victim;
+
+            if (senti->next == senti) {
+                delete senti;
+                cL_map.erase(minf);
+            }
+
+            sz--;
+        }
+
+        // new node
+        ListNode *node = new ListNode();
+        node->key = key;
+        node->val = value;
+        node->count = 1;
+
+        kn_map[key] = node;
+
+        if (!cL_map.count(1))
+            cL_map[1] = new ListNode();
+
+        push_node(cL_map[1], node);
+
+        minf = 1;
+        sz++;
     }
 };
 ```
