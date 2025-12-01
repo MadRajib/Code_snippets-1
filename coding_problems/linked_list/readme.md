@@ -389,6 +389,29 @@ public:
 ```
 
 ### LRU Cache
+Approach:
+- DLL to store the nodes
+- most used notes always at the end
+- least recently used will be in front 
+- hash map to know if the node is present or not
+- count and capacity variables
+
+Push (key, val)
+- While pushing a key,value to the cache
+    - check if the node is present or not using a hash map
+    - if present, move the node to the last and update its value
+    - if not, check if cache is full ?
+        - if yes remove the first node
+    - then create a new node
+        - add to the hash table
+        - append to the list
+
+Get (key)
+- Check if cache is empty
+- Check in hash map if key is present
+    - if present, move the node to last
+    - return its value
+
 ```cpp
 class LRUCache {
 private:
