@@ -521,33 +521,39 @@ public:
 - minFreq helps to evict the correct node
 - capacity and size tracking
 
-Push (key, val):
-- Check if key exists
-    - if yes:
-        - update value
-        - move to next frequency list
-    - if no:
-        - if cache full → remove LRU node from minFreq list
-        - create new node freq=1
-        - insert into freq=1 list
-        - update minFreq = 1
+put (key, val):
+- Check for valid capactiy
+- if key exits
+    - update value
+    - update count list for that node
+- if no:
+    - check if cache is full
+        -  if yes:
+        -  get the sentinal from minf
+        -  remove senti->prev this is the last node
+        -  remove the list if DLL became null
+        - reduce size
+    - Create a new node and add to hash map
+    - since its a new node add the node to count(1) list
+    - else create a new list for count(1) and add to it
+- set the min freq = 1
+- increase the size
 
 Get (key):
 - If not found → return -1
 - Increase frequency of node
-- Move node to the next frequency list
-- Update minFreq if needed
+- update count list for that node
 - Return value
 
 update_node_list(node)
-- Read node’s current count
-- Remove node from its current list
-- If old list becomes empty:
-    - delete it
-    - if old freq == minFreq → increment minFreq
-- Increase node’s frequency
-- If next freq list does not exist → create a new DLL sentinel
-- Insert node at end of the new frequency list
+- save the old_count of the node
+- and new_count as well
+- if old count LL is present
+    - unplug the node from that list
+    - check if the old list is empty then erase the entry
+    - if the old count was the min frequence increase it
+- if new count LL is present add to that LL
+- lese create a new LL for the new count and append
 
 Push:
 - 
