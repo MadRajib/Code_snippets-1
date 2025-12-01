@@ -8,6 +8,7 @@
 1. [Copy Linked List with Random Pointer](#copy-linked-list-with-random-pointer)
 1. [Find the Duplicate Number](#find-the-duplicate-number)
 1. [Reverse Linked List II](#reverse-linked-list-ii)
+1. [LRU Cache](#lru-cache)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -383,6 +384,107 @@ public:
         leftPrev->next = prev;
 
         return sentinal.next;
+    }
+};
+```
+
+### LRU Cache
+```cpp
+class LRUCache {
+private:
+    struct ListNode {
+        int key;
+        int val;
+        ListNode *prev;
+        ListNode *next;
+    };
+
+    ListNode start_senti;
+    ListNode end_senti;
+
+    int capacity = 0;
+    int count = 0;
+    unordered_map<int, ListNode *> mp;
+    
+    void unplug(ListNode *node) {
+
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+
+        node->next = nullptr;
+        node->prev = nullptr;
+    }
+
+    void append(ListNode *node) {
+        if (node == nullptr)
+            return;
+        node->prev = this->end_senti.prev;
+        node->next = &(this->end_senti);
+
+        this->end_senti.prev->next = node;
+        this->end_senti.prev = node;
+    }
+
+    void update(ListNode *node) {
+        if (node == nullptr)
+            return;
+        unplug(node);
+        append(node);
+    }
+
+    void pop_front() {
+        if (this->count == 0)
+            return;
+        
+        ListNode *node = this->start_senti.next;
+        this->start_senti.next = node->next;
+        node->next->prev = &(this->start_senti);
+
+        node->prev = nullptr;
+        node->next = nullptr;
+
+        mp.erase(node->key);
+        this->count--;
+    }
+
+public:
+    LRUCache(int capacity) {
+        this->capacity = capacity;
+        this->count = 0;
+    
+        this->start_senti.next = &(this->end_senti);
+        this->end_senti.prev = &(this->start_senti);
+    }
+    
+    int get(int key) {
+        ListNode *node = nullptr;
+        if (mp.find(key) == mp.end() || this->count == 0)
+            return -1;
+        
+        node = mp[key];
+        update(node);
+        return node->val;
+    }
+    
+    void put(int key, int value) {
+        ListNode *node = nullptr;
+        if (mp.find(key) != mp.end()) {
+            node = mp[key];
+            update(node);
+            node->val = value; 
+            return;
+        }
+
+        if (this->count == this->capacity)
+            pop_front();
+
+        node = new ListNode;
+        node->key = key;
+        node->val = value;
+        mp[key] = node;
+        append(node);
+
+        this->count++;
     }
 };
 ```
