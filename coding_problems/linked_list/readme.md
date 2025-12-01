@@ -513,7 +513,7 @@ public:
 };
 ```
 
-### LFU
+### LFU Cache
 - A DLL for each frequency (freq → DLL)
     - Most recently used node of a frequency at the front
     - Least recently used node of a frequency at the end
