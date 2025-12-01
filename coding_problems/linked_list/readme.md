@@ -731,3 +731,73 @@ public:
 };
 
 ```
+### Reverse Nodes in K-Group
+> You are given the head of a singly linked list head and a positive integer k.
+
+You must reverse the first k nodes in the linked list, and then reverse the next k nodes, and so on. If there are fewer than k nodes left, leave the nodes as they are.
+
+Return the modified list after reversing the nodes in each group of k.
+
+You are only allowed to modify the nodes' next pointers, not the values of the nodes.
+```bash
+Input: head = [1,2,3,4,5,6], k = 3
+
+Output: [3,2,1,6,5,4]
+
+Input: head = [1,2,3,4,5], k = 3
+
+Output: [3,2,1,4,5]
+```
+
+Approach:
+- Have a sentinel node
+- jump to kth node from sentinel
+    - kth = get_kth(groupPrev, k);
+- reverse till kth->next
+- tmp = groupPrev->next;
+- groupPrev->next = kth; 
+- groupPrev = tmp;
+- kth = get_kth(groupPrev, k);
+
+```cpp
+class Solution {
+public:
+    ListNode * get_kth(ListNode * ptr, int k) {
+        while (ptr && k > 0) {
+            ptr = ptr->next;
+            k--;
+        }
+        return ptr;
+    }
+
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode sentinal(0);
+        sentinal.next = head;
+
+        ListNode *groupPrev = &sentinal;
+        ListNode *kth = get_kth(groupPrev, k);
+        ListNode *prev, *itr, *groupNext, *tmp;
+
+        while (kth != nullptr) {
+
+            groupNext = kth->next;
+            prev = kth->next;
+            itr = groupPrev->next;
+            while (itr != groupNext) {
+                tmp = itr->next;
+                itr->next = prev;
+
+                prev = itr;
+                itr = tmp;
+            }
+
+            tmp = groupPrev->next;
+            groupPrev->next = kth;
+            groupPrev = tmp;
+            kth = get_kth(groupPrev, k);
+        }
+
+        return sentinal.next;
+    }
+};
+```
