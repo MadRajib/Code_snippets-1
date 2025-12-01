@@ -8,6 +8,7 @@
 - [Tree Problems](coding_problems/trees/readme.md)
 - [Math And Geometry Porblems](coding_problems/math_geometry/readme.md)
 - [Linked List](coding_problems/linked_list/readme.md)
+- [Array and Strings](coding_problems/array_and_strings/readme.md)
 
 # Implementations and tricks
 - [Bit Hacks](bits_hacks/readme.md)
