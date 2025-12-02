@@ -18,6 +18,7 @@
 1. [kth smallest node](#kth-smallest-node)
 1. [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
 1. [House Robber III](#house-robber-iii)
+1. [Delete Leaves With a Given Value](#delete-leaves-with-a-given-value)
 
 ```cpp
 left_child  = 2 * i + 1;
@@ -881,6 +882,43 @@ public:
         sm = max(sm, robb(root->left) + robb(root->right));
         cache[root] = sm;
         return sm;
+    }
+};
+```
+### Delete Leaves With a Given Value
+> You are given a binary tree root and an integer target, delete all the leaf nodes with value target.
+
+Note that once you delete a leaf node with value target, if its parent node becomes a leaf node and has the value target, it should also be deleted (you need to continue doing that until you cannot).
+
+Approach:
+- Post order traversel
+- build tree returning from the traversal
+- if left and right are null and equal to target return null.
+
+```bash
+Input: root = [1,2,3,5,2,2,5], target = 2
+
+Output: [1,2,3,5,null,null,5]
+
+Input: root = [3,null,3,3], target = 3
+
+Output: []
+```
+
+```cpp
+class Solution {
+public:
+    TreeNode* removeLeafNodes(TreeNode* root, int target) {
+        if (!root)
+            return nullptr;
+        
+        root->left = removeLeafNodes(root->left, target);
+        root->right = removeLeafNodes(root->right, target);
+
+        if (!root->left && !root->right && root->val == target)
+            return nullptr;
+            
+        return root;
     }
 };
 ```
