@@ -4,6 +4,7 @@
 1. [Number of Islands](#number-of-islands)
 1. [Max Area of Island](#max-area-of-island)
 1. [Islands and Treasure](#islands-and-treasure)
+1. [Rotting Fruit](#rotting-fruit)
 
 ### Island Perimeter
 ```bash
@@ -276,4 +277,80 @@ public:
         }
     }
 };
+```
+### Rotting Fruit
+> You are given a 2-D matrix grid. Each cell can have one of three possible values:
+
+0 representing an empty cell
+1 representing a fresh fruit
+2 representing a rotten fruit
+Every minute, if a fresh fruit is horizontally or vertically adjacent to a rotten fruit, then the fresh fruit also becomes rotten.
+
+Return the minimum number of minutes that must elapse until there are zero fresh fruits remaining. If this state is impossible within the grid, return -1.
+
+```bash
+Example 1:
+
+Input: grid = [[1,1,0],[0,1,1],[0,1,2]]
+Output: 4
+
+Example 2:
+
+Input: grid = [[1,0,1],[0,2,0],[1,0,1]]
+Output: -1
+```
+
+Aproach:
+- store the no of fresh fruits
+- level order using bfs, make adjacent fruit bad while traversing and reduce fresh fruit count.
+- after the traversal check if fresh fruit count is 0 
+- if yes return time else -1
+```cpp
+class Solution {
+   const vector<vector<int>> dir = {{-1,0}, {1,0}, {0, -1}, {0, 1}};
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        const int R = grid.size();
+        const int C = grid[0].size();
+        int time = 0;
+        int fresh = 0;
+
+        queue<pair<int, int>> q;
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++ ) {
+                if (grid[i][j] == 2)
+                    q.push({i,j});
+                if (grid[i][j] == 1)
+                    fresh++;
+            }
+        }
+
+        while (fresh > 0 && !q.empty()) {
+            int len = q.size();
+            for (int i = 0; i < len; i++) {
+                int rw = q.front().first;
+                int cl = q.front().second;
+
+                q.pop();
+                
+                for (int i = 0; i < dir.size(); i++) {
+                    int r = rw + dir[i][0];
+                    int c = cl + dir[i][1];
+
+                    if (r < 0 || r >= R || c < 0 || c >= C || !grid[r][c] || grid[r][c] == 2)
+                        continue;
+                    
+                    fresh--;
+                    grid[r][c] = 2;
+                    q.push({r,c});
+                }
+            }
+
+            time++;
+        }
+
+        return !fresh? time : -1;
+    }
+};
+
 ```
