@@ -17,6 +17,7 @@
 1. [Valid Binary Search Tree](#valid-binary-search-tree)
 1. [kth smallest node](#kth-smallest-node)
 1. [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
+1. [House Robber III](#house-robber-iii)
 
 ```cpp
 left_child  = 2 * i + 1;
@@ -812,4 +813,44 @@ public:
     }
 };
 
+```
+
+### House Robber III
+> The thief has found himself a new place for his thievery again. There is only one entrance to this area, called root.
+
+Besides the root, each house has one and only one parent house. After a tour, the smart thief realized that all houses in this place form a binary tree. It will automatically contact the police if two directly-linked houses were broken into on the same night.
+
+Given the root of the binary tree, return the maximum amount of money the thief can rob without alerting the police.
+```bash
+Input: root = [3,2,3,null,3,null,1]
+Output: 7
+Explanation: Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
+
+Input: root = [3,4,5,1,3,null,1]
+Output: 9
+Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9
+```
+
+Recursion apporach:
+
+```cpp
+class Solution {
+public:
+    int rob(TreeNode* root) {
+        if (!root)
+            return 0;
+        
+        // if root is included
+        int sm = root->val;
+        if (root->left)
+            sm += rob(root->left->left) + rob(root->left->right);
+
+        if (root->right)
+            sm += rob(root->right->left) + rob(root->right->right);
+
+        // max of (root included, left and right)
+        return max(sm, rob(root->left) + rob(root->right));
+
+    }
+};
 ```
