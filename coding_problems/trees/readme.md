@@ -20,6 +20,7 @@
 1. [House Robber III](#house-robber-iii)
 1. [Delete Leaves With a Given Value](#delete-leaves-with-a-given-value)
 1. [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum)
+1. [Serialize and Deserialize BT](#serialize-and-deserialize-bt)
 
 ```cpp
 left_child  = 2 * i + 1;
@@ -969,6 +970,71 @@ public:
 
         // for a node max path will be either from left max or right max not both
         return root->val + max(leftMax, rightMax);
+    }
+};
+```
+
+### Serialize and Deserialize BT
+Apporach:
+- using preorder Traversal
+```cpp
+class Codec {
+public:
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        vector<string> res;
+        dfsSerialize(root, res);
+        return join(res, ",");
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        vector<string> vals = split(data, ',');
+        int i = 0;
+        return dfsDeserialize(vals, i);
+    }
+
+private:
+    void dfsSerialize(TreeNode* node, vector<string>& res) {
+        if (!node) {
+            res.push_back("N");
+            return;
+        }
+        res.push_back(to_string(node->val));
+        dfsSerialize(node->left, res);
+        dfsSerialize(node->right, res);
+    }
+
+    TreeNode* dfsDeserialize(vector<string>& vals, int& i) {
+        if (vals[i] == "N") {
+            i++;
+            return NULL;
+        }
+        TreeNode* node = new TreeNode(stoi(vals[i]));
+        i++;
+        node->left = dfsDeserialize(vals, i);
+        node->right = dfsDeserialize(vals, i);
+        return node;
+    }
+
+    vector<string> split(const string &s, char delim) {
+        vector<string> elems;
+        stringstream ss(s);
+        string item;
+        while (getline(ss, item, delim)) {
+            elems.push_back(item);
+        }
+        return elems;
+    }
+
+    string join(const vector<string> &v, const string &delim) {
+        ostringstream s;
+        for (const auto &i : v) {
+            if (&i != &v[0])
+                s << delim;
+            s << i;
+        }
+        return s.str();
     }
 };
 ```
