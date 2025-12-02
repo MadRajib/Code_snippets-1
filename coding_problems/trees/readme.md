@@ -854,3 +854,33 @@ public:
     }
 };
 ```
+
+Using Memoization
+```cpp
+class Solution {
+    unordered_map<TreeNode*, int> cache;
+public:
+    int rob(TreeNode* root) {
+        cache[nullptr] = 0;
+        return robb(root);
+    }
+    int robb(TreeNode* root) {
+        if (cache.find(root) != cache.end()) {
+            return cache[root];
+        }
+        
+        // if root is included
+        int sm = root->val;
+        if (root->left)
+            sm += robb(root->left->left) + robb(root->left->right);
+
+        if (root->right)
+            sm += robb(root->right->left) + robb(root->right->right);
+
+        // max of (root included, left and right)
+        sm = max(sm, robb(root->left) + robb(root->right));
+        cache[root] = sm;
+        return sm;
+    }
+};
+```
