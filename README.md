@@ -263,7 +263,7 @@ int largestcolsum(int arr[][3]){
 ```
 ## STL usage
 1. ### Priority Queue
-```cpp
+```bash
 
 priority_queue<T, Conatiner, Comparator> pq;
 
@@ -273,12 +273,12 @@ Container	-	The type of the underlying container to use to store the elements.
 Compare	-	A Compare type providing a strict weak ordering.
 eg 
 priority_queue<int, vector<int>, greater<int>> pq;
-
+```
 APIS:
+```cpp
 front()
 push_back()
 pop_back()
-
 ```
 2. ### Vectors  
   * Initializations:
