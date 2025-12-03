@@ -304,4 +304,51 @@ pop_back()
   vector<vector<int>> table<ROWS_COUNT, vector<int>(COLS_COUNT, val)>;
   ```
 
+### Reference a 2D vector globally after construction
 
+### 1. Use a global pointer
+```cpp
+vector<vector<int>> *vis;   // global pointer
+
+void dfs(int x, int y) {
+    (*vis)[x][y] = 1;        // use original array (no copy)
+}
+
+int main() {
+    vector<vector<int>> visited(100, vector<int>(100, 0));
+    vis = &visited;          // assign reference via pointer
+
+    dfs(0, 0);
+}
+```
+#### 2. Use a global reference wrapper
+- cpp doesn't allows uinitialize global reference
+- but we can use a wrapper
+
+```cpp
+std::reference_wrapper<vector<vector<int>>> visRef = *(vector<vector<int>>*)nullptr;
+
+void dfs(int x, int y) {
+    visRef.get()[x][y] = 1;   // no copy
+}
+
+int main() {
+    vector<vector<int>> visited(100, vector<int>(100, 0));
+    visRef = visited;    // binds reference to the original
+
+    dfs(0, 0);
+}
+```
+
+#### 3. Make the matrix global directly
+```cpp
+vector<vector<int>> visited;
+
+void dfs(int x, int y) {
+    visited[x][y] = 1;
+}
+
+int main() {
+    visited.assign(n, vector<int>(m, 0));
+}
+```
