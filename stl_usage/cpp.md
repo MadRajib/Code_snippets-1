@@ -1,6 +1,7 @@
 ## STL Usage
 1. [Vectors](#vectors)
 1. [Reference a 2D vector globally after construction](#reference-a-2d-vector-globally-after-construction)
+1. [Queue](#queue)
 1. [Priority Queue](#priority-queue)
 
 ### Vectors  
