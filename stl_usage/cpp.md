@@ -1,5 +1,6 @@
 ## STL Usage
 
+1. [For each loop](#for-each-loop)
 1. [Vectors](#vectors)
 1. [Reference a 2D vector globally after construction](#reference-a-2d-vector-globally-after-construction)
 1. [Pair](#pair)
@@ -7,6 +8,26 @@
 1. [Priority Queue](#priority-queue)
 1. [Doubbly ended Queue](#dequeue)
 1. [Stack](#stack)
+
+### For each loop
+```cpp
+std::vector<int> v = {0, 1, 2, 3, 4, 5};
+
+// Iterating by value (copy)
+for (int x : vec) {
+    cout << x;
+}
+
+// Iterating by reference
+for (int &x : vec) {
+    x *= 2;   // changes original vector
+}
+
+// Iterating by const reference (no modification, no copy)
+for (const int &x : vec) {
+    cout << x;
+}
+```
 
 ### Vectors  
 Initializations:
