@@ -86,12 +86,35 @@ Params:
 T	-	The type of the stored elements.  
 Container	-	The type of the underlying container to use to store the elements.
 Compare	-	A Compare type providing a strict weak ordering.
-eg 
-priority_queue<int, vector<int>, greater<int>> pq;
+The expression comp(a,b), where comp is an object of this type and a and b are elements in the container, shall return true if a is considered to go before b in the strict weak ordering the function defines.
+
+The priority_queue uses this function to maintain the elements sorted in a way that preserves heap properties (i.e., that the element popped is the last according to this strict weak ordering).
+
+This can be a function pointer or a function object, and defaults to less<T>, which returns the same as applying the less-than operator (a<b)
+
 ```
+Intialisation:
+
+```cpp
+// max priority queue
+priority_queue<int> max_priority_queue;
+
+// min priority queue
+priority_queue<int, std::vector<int>, std::greater<int>> min_priority_queue(data.begin(), data.end());
+```
+
 APIS:
 ```cpp
-front()
-push_back()
-pop_back()
+
+// Capacity
+empty()	    // Test whether container is empty
+size()      // returns the no of elements
+
+// Access
+top()       // Access the top element
+front() 
+
+// Modifiers
+push()      // inserts element and sorts the underlying container
+pop()       // removes the top element
 ```
