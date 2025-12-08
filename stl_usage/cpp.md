@@ -76,6 +76,53 @@ int main() {
     visited.assign(n, vector<int>(m, 0));
 }
 ```
+### Queue
+template <class T, class Container = deque<T> > class queue;
+
+- T - Type of the elements.
+- Container - Type of the internal underlying container object where the elements are stored. Its value_type shall be T.
+
+Initialisation:
+```cpp
+std::queue<int> q;
+// front() -> the first element
+// back()  -> the last element
+```
+
+Apis:
+```cpp
+// Element Access
+front()     // Access the first element
+back()      // Access the last element
+
+// Capacity
+empty()     // check whether the container is empty
+size()      // returns the no of elements
+
+// Modifiers
+push()      // inserts element at the end
+pop()       // removes the first element
+```
+
+Examples:
+```cpp
+void bfs(*root) {
+    queue<int> queue;
+
+    queue.push(root);
+    while (!q.empty()) {
+        for ( i = q.size(); i >=0 ;i-- ) {
+            node = q.front();
+            q.pop();
+            if (node) {
+                q.push(node->left);
+                q.push(node->right);
+            }
+        }
+    }
+}
+```
+
 
 ### Priority Queue
 ```bash
