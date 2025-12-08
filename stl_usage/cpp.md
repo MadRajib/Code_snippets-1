@@ -118,3 +118,29 @@ front()
 push()      // inserts element and sorts the underlying container
 pop()       // removes the top element
 ```
+Example:
+```cpp
+KthSmallest(int k, vector<int>& nums) {
+    priority_queue<int> maxheap;
+    for (int i = 0; i < nums.size(); i++) {
+        maxheap.push(nums[i]);
+        if (maxheap.size() > k) {
+            // pops the top element
+            maxheap.pop();
+        }
+    }
+
+    return heap.top();
+}
+
+KthLargest(int k, vector<int>& nums) {
+    priority_queue<int, vector<int>, greater<int>> minheap;
+    for (int i = 0; i < nums.size(); i++){
+        minheap.push(nums[i]);
+        if (minheap.size() > k)
+            minheap.pop();
+    }
+
+    return heap.top();
+}
+```
