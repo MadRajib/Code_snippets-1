@@ -152,7 +152,6 @@ void bfs(*root) {
 }
 ```
 
-
 ### Priority Queue
 ```bash
 
@@ -219,6 +218,49 @@ KthLargest(int k, vector<int>& nums) {
 
     return heap.top();
 }
+```
+
+### Dequeue
+template < class T, class Alloc = allocator<T> > class deque;
+
+- deque (usually pronounced like "deck") is an irregular acronym of double-ended queue. Double-ended queues are sequence containers with dynamic sizes that can be expanded or contracted on both ends (either its front or its back).
+
+Implementation:
+```cpp
+std::deque<int> d = {7, 5, 16, 8};
+```
+
+Apis:
+```cpp
+// Element access
+at(size_type pos)  //access specified element with bounds checking
+operator[]         // access specified element
+front()            // access the first element
+back()             // access the last element
+
+// Capacity
+empty()	    // Test whether container is empty
+size()      // returns the no of elements
+
+// Modifiers
+clear()     // clears the contents
+iterator insert( const_iterator pos, const T& value );
+iterator insert( const_iterator pos, T&& value );
+iterator insert( const_iterator pos,
+                 size_type count, const T& value );
+template< class InputIt >
+iterator insert( const_iterator pos, InputIt first, InputIt last );
+iterator insert( const_iterator pos, std::initializer_list<T> ilist );       
+// pos	-	iterator before which the content will be inserted
+// value	-	element value to insert
+// count	-	number of elements to insert
+// first, last	-	the pair of iterators defining the range of elements to insert
+// ilist	-	std::initializer_list to insert the values from
+
+push_back()     // adds an element to the end
+pop_back()      // removes the last element
+push_front()    // inserts an element to the beginning
+pop_front()     // removes the first element
 ```
 
 ### Stack
