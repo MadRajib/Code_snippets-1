@@ -27,6 +27,27 @@ for (int &x : vec) {
 for (const int &x : vec) {
     cout << x;
 }
+
+// Using Iterators
+for (auto it = vec.begin(); it != vec.end(); ++it) {
+    cout << *it;
+}
+
+// Const Iterators
+for (auto it = vec.cbegin(); it != vec.cend(); ++it) {
+    cout << *it;
+}
+
+// Using Reverse Iterators
+// To iterate backwards efficiently
+for (auto it = vec.rbegin(); it != vec.rend(); ++it) {
+    cout << *it;
+}
+
+// Using std::for_each
+std::for_each(vec.begin(), vec.end(), [](int x){
+    cout << x;
+});
 ```
 
 ### Vectors  
