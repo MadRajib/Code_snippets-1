@@ -2,6 +2,7 @@
 
 1. [Vectors](#vectors)
 1. [Reference a 2D vector globally after construction](#reference-a-2d-vector-globally-after-construction)
+1. [Pair](#pair)
 1. [Queue](#queue)
 1. [Priority Queue](#priority-queue)
 1. [Stack](#stack)
@@ -80,6 +81,30 @@ int main() {
     visited.assign(n, vector<int>(m, 0));
 }
 ```
+
+### Pair
+```bash
+template<
+    class T1,
+    class T2
+> struct pair;
+```
+Initialisation:
+```cpp
+pair<int, int> pr = {1, 2};
+pair<int, string> p2 = make_pair(1, "hello");
+
+pair<int, string> p3;
+p3.first = 3;
+p3.second = "Cherry";
+```
+
+Apis:
+```cpp
+.first  // get the first element
+.second // get the second element
+```
+
 ### Queue
 template <class T, class Container = deque<T> > class queue;
 
