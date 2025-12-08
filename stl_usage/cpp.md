@@ -1,8 +1,11 @@
 ## STL Usage
+
 1. [Vectors](#vectors)
 1. [Reference a 2D vector globally after construction](#reference-a-2d-vector-globally-after-construction)
 1. [Queue](#queue)
 1. [Priority Queue](#priority-queue)
+1. [Stack](#stack)
+
 
 ### Vectors  
 Initializations:
@@ -190,5 +193,53 @@ KthLargest(int k, vector<int>& nums) {
     }
 
     return heap.top();
+}
+```
+
+### Stack
+template<class T, class Container = std::deque<T> > class stack;
+
+- T - Type of the elements.
+- Container - Type of the internal underlying container object where the elements are stored. Its value_type shall be T.
+
+Initialisation:
+```cpp
+std::stack<int> stk;
+```
+
+Apis:
+```cpp
+// Element Access
+top()       // Access the top element
+
+// Capacity
+empty()     // check whether the container is empty
+size()      // returns the no of elements
+
+// Modifiers
+push()      // inserts element at the top
+pop()       // removes the top element
+```
+
+Examples:
+```cpp
+vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> res;
+    stack<TreeNode*> stack;
+    TreeNode* cur = root;
+
+    while (cur || !stack.empty()) {
+        while (cur) {
+            stack.push(cur);
+            cur = cur->left;
+        }
+        
+        cur = stack.top();
+        stack.pop();
+        res.push_back(cur->val);
+        cur = cur->right;
+    }
+
+    return res;
 }
 ```
