@@ -5,8 +5,8 @@
 1. [Pair](#pair)
 1. [Queue](#queue)
 1. [Priority Queue](#priority-queue)
+1. [Doubbly ended Queue](#dequeue)
 1. [Stack](#stack)
-
 
 ### Vectors  
 Initializations:
