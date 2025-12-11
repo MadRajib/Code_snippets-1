@@ -1,17 +1,64 @@
 # Math and Geometry Problems
 
-1. [Non Cyclical Number](#1-no-cyclical-number)
-1. [POW(x, n)](#2-pow)
-1. [Rotate Image](#3-rotate-image)
-1. [Spiral Matrix](#4-spiral-matrix)
-1. [Set Matrix Zeroes](#5-set-matrix-zeroes)
-1. [Multiply Strings](#6-multiply-strings)
-1. [Detect Squares](#7-detect-squares)
+1. [Excel Sheet Column Title](#excel-sheet-column-title)
+1. [Non Cyclical Number](#no-cyclical-number)
+1. [POW(x, n)](#pow)
+1. [Rotate Image](#rotate-image)
+1. [Spiral Matrix](#spiral-matrix)
+1. [Set Matrix Zeroes](#set-matrix-zeroes)
+1. [Multiply Strings](#multiply-strings)
+1. [Detect Squares](#detect-squares)
 
 TODO:
 🔲 Binary exponent
 
-### 1. Non Cyclical Number
+
+### Excel Sheet Column Title
+> You are given an integer columnNumber, return its corresponding column title as it appears in an Excel sheet.
+
+```bash
+For example:
+
+A -> 1
+B -> 2
+C -> 3
+...
+Z -> 26
+AA -> 27
+AB -> 28 
+...
+Example 1:
+
+Input: columnNumber = 32
+
+Output: "AF"
+Example 2:
+
+Input: columnNumber = 53
+
+Output: "BA"
+```
+
+```cpp
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+        string res;
+
+        while (columnNumber) {
+            int off = (columnNumber - 1) % 26;
+            res += ('A' + off);
+            // AZ = 52
+            columnNumber = (columnNumber - 1) / 26;
+        }
+
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};
+```
+
+### Non Cyclical Number
 > A non-cyclical number is an integer defined by the following algorithm:
 
 * Given a positive integer, replace it with the sum of the squares of its digits.
@@ -113,7 +160,7 @@ public:
 };
 ```
 
-### 2. POW
+### POW
 > Pow(x, n) is a mathematical function to calculate the value of x raised to the power of n (i.e., x^n).
 
 Given a floating-point value x and an integer value n, implement the myPow(x, n) function, which calculates x raised to the power n.
@@ -191,7 +238,7 @@ public:
 };
 ```
 
-### 3. Rotate Image
+### Rotate Image
 > Given a square n x n matrix of integers matrix, rotate it by 90 degrees clockwise.
 
 You must rotate the matrix in-place. Do not allocate another 2D matrix and do the rotation.
@@ -306,7 +353,7 @@ public:
 };
 ```
 
-### 4. Spiral Matrix
+### Spiral Matrix
 > Given an m x n matrix of integers matrix, return a list of all elements within the matrix in spiral order.
 
 ```bash
@@ -365,7 +412,7 @@ public:
 };
 ```
 
-### 5. Set Matrix Zeroes
+### Set Matrix Zeroes
 > Given an m x n matrix of integers matrix, if an element is 0, set its entire row and column to 0's.
 
 You must update the matrix in-place.
@@ -451,7 +498,7 @@ public:
 };
 
 ```
-### 6. Multiply Strings
+### Multiply Strings
 > You are given two strings num1 and num2 that represent non-negative integers.
 
 Return the product of num1 and num2 in the form of a string.
@@ -512,7 +559,7 @@ public:
 };
 ```
 
-### 7. Detect Squares
+### Detect Squares
 > You are given a stream of points consisting of x-y coordinates on a 2-D plane. Points can be added and queried as follows:
 
 Add - new points can be added to the stream into a data structure. Duplicate points are allowed and should be treated as separate points.
