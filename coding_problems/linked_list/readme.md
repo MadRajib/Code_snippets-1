@@ -11,6 +11,7 @@
 1. [LRU Cache](#lru-cache)
 1. [LFU Cache](#lfu-cache)
 1. [Merge K Sorted list](#merge-k-sorted-list)
+1. [Insert Greatest Common Divisors in Linked List]
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -798,6 +799,58 @@ public:
         }
 
         return sentinal.next;
+    }
+};
+```
+
+### Insert Greatest Common Divisors in Linked List
+> You are given the head of a linked list head, in which each node contains an integer value.
+
+Between every pair of adjacent nodes, insert a new node with a value equal to the greatest common divisor of them.
+
+Return the head of the linked list after insertion.
+
+The greatest common divisor of two numbers is the largest positive integer that evenly divides both numbers.
+
+```bash
+Example 1:
+Input: head = [12,3,4,6]
+Output: [12,3,3,1,4,2,6]
+
+Example 2:
+Input: head = [2,1]
+Output: [2,1,1]
+```
+
+```cpp
+class Solution {
+public:
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        ListNode* cur = head, temp;
+
+        while (cur->next) {
+            int n1 = cur->val;
+            int n2 = cur->next->val;
+
+            ListNode *n = new ListNode(_gcd(n1, n2));
+            n->next = cur->next;
+            cur->next = n;
+            cur = n->next;
+        }
+
+        return head;
+    }
+
+    // Ecludian Elgo
+    int _gcd(int a, int b) {
+        int temp;
+        while (b > 0) {
+            temp = b;
+            b = a % b;
+            a = temp;
+        }
+
+        return a;
     }
 };
 ```
