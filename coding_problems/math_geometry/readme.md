@@ -452,6 +452,23 @@ public:
 
 ```
 ### 6. Multiply Strings
+> You are given two strings num1 and num2 that represent non-negative integers.
+
+Return the product of num1 and num2 in the form of a string.
+
+Assume that neither num1 nor num2 contain any leading zero, unless they are the number 0 itself.
+
+Note: You can not use any built-in library to convert the inputs directly into integers.
+
+```bash
+Example 1:
+Input: num1 = "3", num2 = "4"
+Output: "12"
+
+Example 2:
+Input: num1 = "111", num2 = "222"
+Output: "24642"
+```
 * Approach
     * total result array len will be len(num1) + len(num2) + 1;
     * N[i] * N[j] = r will be placed in location i + j
