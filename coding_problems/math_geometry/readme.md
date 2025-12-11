@@ -641,3 +641,54 @@ public:
 };
 
 ```
+
+### Transpose Matrix
+> You are given a 2D integer array matrix, return the transpose of matrix.
+
+The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.
+
+```bash
+
+Example 1:
+Input: matrix = [
+    [2,1],
+    [-1,3]
+]
+
+Output: [
+    [2,-1],
+    [1,3]
+]
+
+Example 2:
+Input: [
+    [1,0,5],
+    [2,4,3]
+]
+
+Output: [
+    [1,2],
+    [0,4],
+    [5,3]
+]
+```
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> transpose(vector<vector<int>>& matrix) {
+        int ROWS = matrix.size();
+        int COLS = matrix[0].size();
+
+        vector<vector<int>> res(COLS, vector<int>(ROWS));
+
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLS; c++) {
+                res[c][r] = matrix[r][c];
+            }
+        }
+
+        return res;
+    }
+};
+```
