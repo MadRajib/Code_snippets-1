@@ -5,6 +5,7 @@
 1. [Max Area of Island](#max-area-of-island)
 1. [Islands and Treasure](#islands-and-treasure)
 1. [Rotting Fruit](#rotting-fruit)
+1. [Find if Path Exists in Graph](#find-if-path-exists-in-graph)
 
 ### Island Perimeter
 ```bash
@@ -446,6 +447,59 @@ public:
         }
 
         return res;
+    }
+};
+```
+
+### Find if Path Exists in Graph
+> There is a bi-directional graph with n vertices, where each vertex is labeled from 0 to n - 1 (inclusive). The edges in the graph are represented as a 2D integer array edges, where each edges[i] = [ui, vi] denotes a bi-directional edge between vertex ui and vertex vi. Every vertex pair is connected by at most one edge, and no vertex has an edge to itself.
+
+You want to determine if there is a valid path that exists from vertex source to vertex destination.
+
+Given edges and the integers n, source, and destination, return true if there is a valid path from source to destination, or false otherwise.
+
+```bash
+Input: n = 3, edges = [[0,1],[1,2],[2,0]], source = 0, destination = 2
+Output: true
+Explanation: There are two paths from vertex 0 to vertex 2:
+- 0 → 1 → 2
+- 0 → 2
+
+Input: n = 6, edges = [[0,1],[0,2],[3,5],[5,4],[4,3]], source = 0, destination = 5
+Output: false
+Explanation: There is no path from vertex 0 to vertex 5.
+```
+Apporach:
+* Create Adjacecy list
+* use dfs to iterate throughg all the nodes
+
+```cpp
+class Solution {
+public:
+    unordered_map<int, vector<int>> adj_map;
+    unordered_map<int, bool> visited;
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        for (auto edge: edges) {
+            adj_map[edge[0]].push_back(edge[1]);
+            adj_map[edge[1]].push_back(edge[0]);
+        }
+
+        return dfs(source, destination);
+    }
+
+    bool dfs(int source, int destination) {
+        if (source == destination)
+            return true;
+        visited[source] = true;
+        for (auto n: adj_map[source]) {
+            // skip visted
+            if (visited.find(n) != visited.end())
+                continue;
+
+            if (dfs(n, destination))
+                return true;
+        }
+        return false;
     }
 };
 ```
