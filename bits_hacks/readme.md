@@ -156,3 +156,10 @@ or
 // using the property -x = ~x + 1
 x + 1 = -(~x)
 ```
+
+#### Odd or even
+```c
+return (x & 1)? false: true;
+
+return ((x >> 1) << 1) ==  x
+```
