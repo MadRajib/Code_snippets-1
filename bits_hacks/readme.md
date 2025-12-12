@@ -154,7 +154,21 @@ int isPowerOfFour(int n) {
     return (n & 0x55555555) == n;
 }
 ```
+#### Check for Power of 8
+1. The number is a power of 2
+2. Trailing zeros should be multiple of 3 
+```c
+int isPowerOfEight(unsigned int n) {
+    if (n == 0) return 0;
 
+    // Check power of 2
+    if (n & (n - 1)) return 0;
+
+    // Check bit in position multiple of 3
+    // 0000 1001 0010 0100 1001 0010 0100 1001
+    return (n & 0x09249249) == n;
+}
+```
 #### Find Xor of a number without using XOR operator:
 ```c
 x ^ y = x~y + ~xy
