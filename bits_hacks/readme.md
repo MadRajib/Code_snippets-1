@@ -30,6 +30,11 @@ y = x ^ (1 << k)
 ```c
 x = x & (x - 1)
 ```
+#### Compute the mask of the least-significant ! in word ".
+```c
+r = x & (-x);
+// 
+```
 
 #### extract a bit field from a word x
 #### mask and shift
@@ -129,6 +134,25 @@ for (c = 0; v; c++)
 #### Check if a no is power of 2
 ```c
 (x & x - 1) -> 0 then its power of two.
+```
+### To check power of 4
+- must ensure two conditions:
+  1. The number is a power of 2
+    * only one bit set
+    * n & (n - 1) == 0
+ 1. The single 1 bit must be in an even bit position
+    * (0, 2, 4, 6 … for 1-indexed positions)
+```c
+int isPowerOfFour(int n) {
+    if (n <= 0) return 0;
+
+    // Check power of 2: only one bit set
+    if (n & (n - 1)) return 0;
+
+    // Check that the 1-bit is in an even position
+    // Mask: 0x55555555 = binary pattern 0101...0101
+    return (n & 0x55555555) == n;
+}
 ```
 
 #### Find Xor of a number without using XOR operator:
