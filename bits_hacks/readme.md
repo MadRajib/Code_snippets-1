@@ -7,8 +7,9 @@ x = 0xb011011000
 -x = 0xb100101000
 ```
 ```c
-x = ~x + 1
--x = -x + 1
+// since we have
+x + ~x = -1;
+-x = ~x + 1;
 ```
 #### set kth bith in a word x to 1.
 ```c
