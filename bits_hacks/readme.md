@@ -26,6 +26,11 @@ y = x & ~(1 << k)
 y = x ^ (1 << k)
 ```
 
+#### Remove the last set bit
+```c
+x = x & (x - 1)
+```
+
 #### extract a bit field from a word x
 #### mask and shift
 ```c
