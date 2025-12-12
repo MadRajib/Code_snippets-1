@@ -1,6 +1,12 @@
 ## Bit Hacks
 
 [reference](https://graphics.stanford.edu/~seander/bithacks.html)
+
+```c
+// count trailing zeros (GCC/Clang)
+    int tz = __builtin_ctz(n);
+```
+
 ```c
 x = 0xb011011000
 ~x = 0xb100100111
