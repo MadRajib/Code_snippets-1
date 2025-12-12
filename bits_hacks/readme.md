@@ -125,3 +125,34 @@ for (c = 0; v; c++)
   v &= v - 1; // clear the least significant bit set
 }
 ```
+
+#### Check if a no is power of 2
+```c
+(x & x - 1) -> 0 then its power of two.
+```
+
+#### Find Xor of a number without using XOR operator:
+```c
+x ^ y = x~y + ~xy
+```
+
+#### Add 1 to an interger without using +, -, /, ++, --
+Logic:
+  1. Flip the last bit a ^ 1
+  2. if the last bit is 1 propagate the carry.
+```c
+int add_one(int a) {
+    int carry = 1; // we want to add 1
+    while (carry != 0) {
+        int temp = a ^ carry;        // add without carry
+        carry = (a & carry) << 1;    // compute new carry
+        a = temp;
+    }
+    return a;
+}
+```
+or
+```c
+// using the property -x = ~x + 1
+x + 1 = -(~x)
+```
