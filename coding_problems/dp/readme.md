@@ -12,10 +12,10 @@ Knapsack Problem
 
 1. [0-1 knapsack problem](#0-1-knapsack-problem)
     - [Subset sum](#subset-sum)
-    - Equal sum partition
-    - count of subset sum
-    - min subset sum diff
-    - target sum
+    - [Equal sum partition](#equal-sum-partition)
+    - [Count of subset sum]
+    - [Min subset sum diff]
+    - [Target sum]
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
 
@@ -185,6 +185,44 @@ class Solution {
             t[i][sum] = rr(arr, sum, i + 1, t);
             return t[i][sum];
         }
+    }
+};
+```
+
+### Equal sum partition
+> Given an array arr[], determine if it can be partitioned into two subsets such that the sum of elements in both parts is the same.
+
+Note: Each element must be in exactly one subset.
+
+```bash
+Examples:
+
+Input: arr = [1, 5, 11, 5]
+Output: true
+Explanation: The two parts are [1, 5, 5] and [11].
+
+Input: arr = [1, 3, 5]
+Output: false
+Explanation: This array can never be partitioned into two such parts.
+```
+Apporach:
+    - Some similarity with subset sum
+    - to be equally divisibile total sum has to be even
+    - If sum is even i can search for sm/2 in the array and if found (usbing subset sum) we can partition it
+
+```cpp
+class Solution {
+  public:
+    bool equalPartition(vector<int>& arr) {
+        
+        int sm = 0;
+        for(auto n: arr)
+            sm+= n;
+        
+        if ((sm % 2) == 0)
+            return isSubsetSum(arr, sm/2);
+        
+        return false;
     }
 };
 ```
