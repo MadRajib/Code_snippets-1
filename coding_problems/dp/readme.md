@@ -15,6 +15,7 @@ Knapsack Problem
     - [Equal sum partition](#equal-sum-partition)
     - [Count of subset sum](#count-of-subset-sum)
     - [Min subset sum diff](#min-subset-sum-diff)
+    - [Count the number of subset with a given difference](#count-the-number-of-subset-with-a-given-difference)
     - [Target sum](#target-sum)
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -280,5 +281,35 @@ class Solution {
 ```
 
 ### Min subset sum diff
+> Given an array arr[]  containing non-negative integers, the task is to divide it into two sets set1 and set2 such that the absolute difference between their sums is minimum and find the minimum difference.
+
+```bash
+Examples:
+
+Input: arr[] = [1, 6, 11, 5]
+Output: 1
+Explanation: 
+Subset1 = {1, 5, 6}, sum of Subset1 = 12 
+Subset2 = {11}, sum of Subset2 = 11 
+Hence, minimum difference is 1.
+
+Input: arr[] = [1, 4]
+Output: 3
+Explanation: 
+Subset1 = {1}, sum of Subset1 = 1
+Subset2 = {4}, sum of Subset2 = 4
+Hence, minimum difference is 3.
+
+Input: arr[] = [1]
+Output: 1
+Explanation: 
+Subset1 = {1}, sum of Subset1 = 1
+Subset2 = {}, sum of Subset2 = 0
+Hence, minimum difference is 1.
+```
+
+```cpp
+```
+### Count the number of subset with a given difference
 
 ### Target Sum
