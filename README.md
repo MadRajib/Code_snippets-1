@@ -6,6 +6,7 @@
 - [Linked List](coding_problems/linked_list/readme.md)
 - [Recursion Problems](coding_problems/recursion/readme.md)
 - [Backtracking Problems](coding_problems/backtracking/readme.md)
+- [Dynamic Porblems](coding_problems/dp/readme.md)
 - [Tree Problems](coding_problems/trees/readme.md)
 - [Graph Problems](coding_problems/graph/readme.md)
 - [Math And Geometry Porblems](coding_problems/math_geometry/readme.md)
