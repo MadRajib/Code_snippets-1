@@ -11,7 +11,7 @@ Knapsack Problem
     - Unbouned Knapsack : We can fill one items any no of times
 
 1. [0-1 knapsack problem](#0-1-knapsack-problem)
-    - Subset sum
+    - [Subset sum](#subset-sum)
     - Equal sum partition
     - count of subset sum
     - min subset sum diff
@@ -103,6 +103,87 @@ class Solution {
             // check the next weight
             t[i][w] = rr(wt, val, i + 1, w, t);
             return t[i][w];
+        }
+    }
+};
+```
+### Subset sum
+> Given an array of positive integers arr[] and a value sum, determine if there is a subset of arr[] with sum equal to given sum. 
+
+```bash
+Examples:
+
+Input: arr[] = [3, 34, 4, 12, 5, 2], sum = 9
+Output: true 
+Explanation: Here there exists a subset with target sum = 9, 4+3+2 = 9.
+
+Input: arr[] = [3, 34, 4, 12, 5, 2], sum = 30
+Output: false
+Explanation: There is no subset with target sum 30.
+
+Input: arr[] = [1, 2, 3], sum = 6
+Output: true
+Explanation: The entire array can be taken as a subset, giving 1 + 2 + 3 = 6.
+```
+Recursion
+```cpp
+class Solution {
+  public:
+    bool isSubsetSum(vector<int>& arr, int sum) {
+        // code here
+        int i = 0;
+        return rr(arr, sum, i);
+        
+    }
+    
+    bool rr(vector<int>& arr, int sum, int i) {
+        // base condition
+        if (i >= arr.size() || sum <= 0)
+            return false;
+        
+        if ((sum - arr[i]) == 0)
+            return true;
+            
+        if (sum - arr[i] > 0) {
+            return rr(arr, sum - arr[i], i + 1) || rr(arr, sum, i + 1);
+        } else {
+            return rr(arr, sum, i + 1);
+        }
+    }
+};
+```
+
+DP
+```cpp
+class Solution {
+  public:
+    bool isSubsetSum(vector<int>& arr, int sum) {
+        // code here
+        vector<vector<int>> t(arr.size(), vector<int>(sum + 1, -1));
+        int i = 0;
+        return rr(arr, sum, i, t);
+        
+    }
+    
+    bool rr(vector<int>& arr, int sum, int i,  vector<vector<int>> &t) {
+        // base condition
+        if (i >= arr.size() || sum <= 0)
+            return false;
+        
+        if (t[i][sum] != -1)
+            return t[i][sum];
+        
+        if ((sum - arr[i]) == 0) {
+            t[i][sum] = true;
+            return true;
+        }
+            
+        if (sum - arr[i] > 0) {
+            t[i][sum] = rr(arr, sum - arr[i], i + 1, t) || rr(arr, sum, i + 1, t);
+            return t[i][sum];
+        } else {
+            t[i][sum] = rr(arr, sum, i + 1, t);
+            return t[i][sum];
         }
     }
 };
