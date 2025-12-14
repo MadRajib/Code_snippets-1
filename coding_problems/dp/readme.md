@@ -13,9 +13,9 @@ Knapsack Problem
 1. [0-1 knapsack problem](#0-1-knapsack-problem)
     - [Subset sum](#subset-sum)
     - [Equal sum partition](#equal-sum-partition)
-    - [Count of subset sum]
-    - [Min subset sum diff]
-    - [Target sum]
+    - [Count of subset sum](#count-of-subset-sum)
+    - [Min subset sum diff](#min-subset-sum-diff)
+    - [Target sum](#target-sum)
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
 
@@ -137,14 +137,14 @@ class Solution {
     }
     
     bool rr(vector<int>& arr, int sum, int i) {
-        // base condition
-        if (i >= arr.size() || sum <= 0)
-            return false;
-        
-        if ((sum - arr[i]) == 0)
+        // Base cases
+        if (sum == 0)
             return true;
+
+        if (i == arr.size())
+            return false;
             
-        if (sum - arr[i] > 0) {
+        if (arr[i] >= sum) {
             return rr(arr, sum - arr[i], i + 1) || rr(arr, sum, i + 1);
         } else {
             return rr(arr, sum, i + 1);
@@ -226,3 +226,59 @@ class Solution {
     }
 };
 ```
+
+### Perfect Sum Problem
+
+> Given an array arr of non-negative integers and an integer target, the task is to count all subsets of the array whose sum is equal to the given target
+
+```bash
+Examples:
+
+Input: arr[] = [5, 2, 3, 10, 6, 8], target = 10
+Output: 3
+Explanation: The subsets {5, 2, 3}, {2, 8}, and {10} sum up to the target 10.
+
+Input: arr[] = [2, 5, 1, 4, 3], target = 10
+Output: 3
+Explanation: The subsets {2, 1, 4, 3}, {5, 1, 4}, and {2, 5, 3} sum up to the target 10.
+
+Input: arr[] = [5, 7, 8], target = 3
+Output: 0
+Explanation: There are no subsets of the array that sum up to the target 3.
+
+Input: arr[] = [35, 2, 8, 22], target = 0
+Output: 1
+Explanation: The empty subset is the only subset with a sum of 0.
+
+Recursion
+
+```cpp
+class Solution {
+  public:
+    int perfectSum(vector<int>& arr, int target) {
+        // code here
+        int i = 0;
+        return rr(arr, target, i);
+    }
+    
+    int rr(vector<int>& arr, int sum, int i) {
+        // base condition
+        if (i == arr.size()) {
+            return (sum == 0) ? 1 : 0;
+        }
+        
+        int exclude =  rr(arr, sum, i + 1);
+        
+        int include = 0;
+        if (arr[i] <= sum) {
+            include = rr(arr, sum - arr[i], i + 1);
+        }
+        
+        return exclude + include;
+    }
+};
+```
+
+### Min subset sum diff
+
+### Target Sum
