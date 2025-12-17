@@ -22,6 +22,9 @@
 1. [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum)
 1. [Serialize and Deserialize BT](#serialize-and-deserialize-bt)
 
+### Interesting Problems
+1. [Inorder Successor and Inorder Traversal in a BST with Parent Pointer](#inorder-successor-and-inorder-traversal-in-a-bst-with-parent-pointer)
+
 ```cpp
 left_child  = 2 * i + 1;
 right_child = 2 * i + 2;
@@ -1037,4 +1040,64 @@ private:
         return s.str();
     }
 };
+```
+
+### Inorder Successor and Inorder Traversal in a BST with Parent Pointer
+You are given a Binary Search Tree (BST) where each node contains:
+- an integer value
+- a pointer to its left child
+- a pointer to its right child
+- a pointer to its parent
+
+Ask:
+- Part 1: Find Minimum Node
+- Part 2: Inorder Successor
+- Part 3: Traverse the tree in inorder 
+
+Note: this has to be done without a stack (no recursion)
+
+Observation:
+- Par1:
+    - Min will always be on the exterme left of a BST
+- Part2:
+    - If the cur node has right node, the min node in right subtree will be successor
+    - If the node doesn't have any child, then jump up until you reach a parent having this node 
+    in the left subtree.
+```cpp
+// Part 1
+Node* findMin(Node *root) {
+    if (!root)
+        return nullptr;
+            
+    while (root->left);
+        root = root->left;
+            
+    return root;
+}
+
+// Part 2
+Node* findNext(Node *root) {
+    if (!root)
+        return nullptr;
+        
+    if (root->right)
+        return findMin(root->right);
+        
+    Node *parent = root->parent;
+    while (parent && root != parent->left) {
+        root = parent;
+        parent = parent->parent;
+    }
+        
+    return parent;
+}
+
+// Part 3:
+void traversal(node* root) {
+    for (node* cur = findMin(root); cur != nullptr; cur = findNext(cur)) {
+        std::cout << cur->value << " ";
+    }
+    std::cout << std::endl;
+}
+
 ```
