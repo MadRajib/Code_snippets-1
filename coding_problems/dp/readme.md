@@ -160,32 +160,30 @@ class Solution {
   public:
     bool isSubsetSum(vector<int>& arr, int sum) {
         // code here
-        vector<vector<int>> t(arr.size(), vector<int>(sum + 1, -1));
-        int i = 0;
-        return rr(arr, sum, i, t);
+        vector<vector<int>> t(arr.size() + 1, vector<int>(sum + 1, -1));
         
+        return rr(arr, sum, 0, t);
     }
     
-    bool rr(vector<int>& arr, int sum, int i,  vector<vector<int>> &t) {
-        // base condition
-        if (i >= arr.size() || sum <= 0)
+    bool rr(vector<int>& arr, int sum, int i, vector<vector<int>> &t) {
+        if (sum == 0)
+            return true;
+        
+        if (i == arr.size())
             return false;
         
         if (t[i][sum] != -1)
             return t[i][sum];
         
-        if ((sum - arr[i]) == 0) {
-            t[i][sum] = true;
-            return true;
-        }
-            
-        if (sum - arr[i] > 0) {
-            t[i][sum] = rr(arr, sum - arr[i], i + 1, t) || rr(arr, sum, i + 1, t);
-            return t[i][sum];
+        if (arr[i] <= sum) {
+            t[i][sum] =
+                rr(arr, sum - arr[i], i + 1, t) ||   // take
+                rr(arr, sum, i + 1, t);              // not take
         } else {
             t[i][sum] = rr(arr, sum, i + 1, t);
-            return t[i][sum];
         }
+
+        return t[i][sum];
     }
 };
 ```
