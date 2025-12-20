@@ -222,6 +222,41 @@ class Solution {
 };
 ```
 
+Bottom Up
+```cpp
+class Solution {
+  public:
+    bool isSubsetSum(vector<int>& arr, int sum) {
+        // code here
+        vector<vector<int>> t(arr.size() + 1, vector<int>(sum + 1, 0));
+        
+        // base condition
+        // sum == 0 -> true
+        // i == n -> false // ie with no elements
+        for (int j = 0; j <= sum; j++)
+            t[arr.size()][j] = false;
+        
+        for (int i = 0; i <= arr.size(); i++)
+            t[i][0] = true;
+        
+        for (int i = arr.size() -1; i >=0 ; i--) {
+            for (int sm = 0; sm <= sum; sm++) {
+                if (arr[i] <= sm) {
+                    t[i][sm] =
+                        t[i + 1][sm - arr[i]] ||   // take
+                        t[i + 1][sm];              // not take
+                } else {
+                    t[i][sm] = t[i + 1][sm];
+                }
+            }
+        }
+        
+        
+        return t[0][sum];
+    }
+};
+```
+
 ### Equal sum partition
 > Given an array arr[], determine if it can be partitioned into two subsets such that the sum of elements in both parts is the same.
 
