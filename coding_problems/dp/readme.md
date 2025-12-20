@@ -433,5 +433,10 @@ class Solution {
 };
 ```
 ### Count the number of subset with a given difference
+Apporach:
+- s1 - s2 = diff
+- range - s2 - s2 = diff
+- s2 = (diff + range) / 2
+- Find no of subsets having sum s2; ie perfect sum problem
 
 ### Target Sum
