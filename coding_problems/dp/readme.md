@@ -375,7 +375,62 @@ Subset2 = {}, sum of Subset2 = 0
 Hence, minimum difference is 1.
 ```
 
+Apporach:
+- we need to find two sets s1 and s2 whose sums differennce is min
+- i.e s1 - s2 -> min
+- i.e total_sum - s2 - s2 -> min
+- i.e total_sum - 2*s2 -> min
+- find s2 from 0 to total_sum or total_sum and save the min
+- in bottom up tabulation each [0][n] tells if with all the elements sum 'n' is possible or not
+- so we can create dp table for target sum -> total_sum, then iterate over d[0]0-> sm/2]
+- and calculate total_sum - 2*s2 and save the min.
+
 ```cpp
+class Solution {
+    private:
+    
+  public:
+    int minDifference(vector<int>& arr) {
+        // Your code goes here
+        
+        int sum = 0;
+        for (auto c: arr)
+            sum +=c;
+        
+        // code here
+        vector<vector<int>> t(arr.size() + 1, vector<int>(sum + 1, 0));
+        
+        // base condition
+        // sum == 0 -> true
+        // i == n -> false // ie with no elements
+        for (int j = 0; j <= sum; j++)
+            t[arr.size()][j] = false;
+        
+        for (int i = 0; i <= arr.size(); i++)
+            t[i][0] = true;
+        
+        for (int i = arr.size() -1; i >=0 ; i--) {
+            for (int sm = 0; sm <= sum; sm++) {
+                if (arr[i] <= sm) {
+                    t[i][sm] =
+                        t[i + 1][sm - arr[i]] ||   // take
+                        t[i + 1][sm];              // not take
+                } else {
+                    t[i][sm] = t[i + 1][sm];
+                }
+            }
+        }
+        
+        
+        int min_diff = INT_MAX;
+        for (int i = 0; i <= sum/2; i++){
+            if (t[0][i])
+                min_diff = min(min_diff, sum - 2*i);
+        }
+        
+        return min_diff;
+    }
+};
 ```
 ### Count the number of subset with a given difference
 
