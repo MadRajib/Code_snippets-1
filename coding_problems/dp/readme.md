@@ -108,6 +108,40 @@ class Solution {
     }
 };
 ```
+
+Bottom Up approach
+```cpp
+int knapsack(int W, vector<int> &val, vector<int> &wt) {
+        
+        vector<vector<int>> t(wt.size() + 1, vector<int>(W + 1, 0));
+        
+        // base condition
+        // i == n all 0
+        // w == 0
+        for (int j = 0; j<= W; j++)
+            t[wt.size()][j] = 0;
+        
+        for (int i = 0; i <= wt.size(); i++)
+            t[i][0] = 0;
+        
+        // from btm up, since in recurion last ones are filled first
+        for (int i = wt.size() - 1; i >= 0; i--) {
+            for (int w = 0; w <= W; w++) {
+                
+                if (wt[i] <= w) {
+                    t[i][w] = max (
+                            t[i+1][w - wt[i]] + val[i], //take
+                            t[i+1][w]                  // skip
+                            );
+                } else {
+                    t[i][w] = t[i+1][w];
+                }
+            }
+        }
+        
+        return t[0][W];
+    }
+```
 ### Subset sum
 > Given an array of positive integers arr[] and a value sum, determine if there is a subset of arr[] with sum equal to given sum. 
 
