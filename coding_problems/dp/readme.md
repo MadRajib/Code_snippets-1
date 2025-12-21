@@ -1027,3 +1027,8 @@ Apporach:
 
         return t[0][0];
 ```
+
+### Sequence Pattern Matching
+
+Apporach
+-  LCS(pattern, target) == pattern.len
