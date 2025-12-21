@@ -23,11 +23,11 @@ Knapsack Problem
     - [Coin Change II](#coin-change-ii)
     - [Maximum Ribbon Cut](#maximum-ribbon-cut)
 1. [Longest Common Subsequence](#longest-common-subsequence)
-1. [Longest Common SubString](#longest-common-substring)
-1. [Print longest common subsequence](#print-longest-common-subsequence)
-1. [Shortest Common Supersequence](#shortest-common-supersequence)
-1. [Print shortest common Supersequence](#print-shortest-common-supersequence)
-1. [Minimum Number of Insertion and Deletion to convert String a to String b](#minimum-number-of-insertion-and-deletion-to-convert-string-a-to-string-b)
+    - [Longest Common SubString](#longest-common-substring)
+    - [Print longest common subsequence](#print-longest-common-subsequence)
+    - [Shortest Common Supersequence](#shortest-common-supersequence)
+    - [Print shortest common Supersequence](#print-shortest-common-supersequence)
+    - [Minimum Number of Insertion and Deletion to convert String a to String b](#minimum-number-of-insertion-and-deletion-to-convert-string-a-to-string-b)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
