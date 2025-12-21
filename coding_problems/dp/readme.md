@@ -26,6 +26,7 @@ Knapsack Problem
 1. [Longest Common SubString](#longest-common-substring)
 1. [Print longest common subsequence](#print-longest-common-subsequence)
 1. [Shortest Common Supersequence](#shortest-common-supersequence)
+1. [Print shortest common Supersequence](#print-shortest-common-supersequence)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -884,6 +885,71 @@ class Solution {
         }
 
         return text1.length() + text2.length() - t[0][0];
+    }
+};
+```
+
+### Print shortest common Supersequence
+
+Approach:
+- build LCS table
+- start from i = 0 and j = 0; until i < n && j < m
+    - if s1[i] == s2[j] i++, j++, store char
+    else if t[i+1][j] > t[i][j+1], store text1[i] i = i++; 
+    else store text2[j] j++; 
+
+```cpp
+class Solution {
+public:
+    string shortestCommonSupersequence(string text1, string text2) {
+        string res = "";
+        vector<vector<int>> t(text1.length() + 1 , vector<int>(text2.length() +1 , 0));
+
+        // base
+        // i = text1.length() = 0
+        // j = text2.lentth() = 0
+
+        for (int i = 0; i <= text1.length(); i++)
+            t[i][text2.length()] = 0;
+
+        for (int j = 0; j <= text2.length(); j++)
+            t[text1.length()][j] = 0;
+        
+        for (int i = text1.length() -1; i >= 0; i--) {
+            for (int j = text2.length() -1 ; j >= 0; j--) {
+                if (text1[i] ==  text2[j])
+                    t[i][j] = 1 + t[i + 1][j + 1];
+                else 
+                    t[i][j] = max(t[i][j+1], t[i+1][j]);
+            }
+        }
+
+        int i = 0;
+        int j = 0;
+
+        while (i < text1.length() && j < text2.length()) {
+            if (text1[i] == text2[j]) {
+                res += text1[i];
+                i++;
+                j++;
+            } else if (t[i+1][j] > t[i][j+1]) {
+                res += text1[i];
+                i++;
+            } else {
+                res += text2[j];
+                j++;
+            }
+        }
+
+        while (i < text1.length()) {
+            res += text1[i++];
+        }
+
+        while (j < text2.length()) {
+            res += text2[j++];
+        }
+
+        return res;
     }
 };
 ```
