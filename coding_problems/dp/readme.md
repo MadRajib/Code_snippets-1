@@ -27,6 +27,7 @@ Knapsack Problem
 1. [Print longest common subsequence](#print-longest-common-subsequence)
 1. [Shortest Common Supersequence](#shortest-common-supersequence)
 1. [Print shortest common Supersequence](#print-shortest-common-supersequence)
+1. [Minimum Number of Insertion and Deletion to convert String a to String b](#minimum-number-of-insertion-and-deletion-to-convert-string-a-to-string-b)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -950,6 +951,49 @@ public:
         }
 
         return res;
+    }
+};
+```
+
+### Minimum Number of Insertion and Deletion to convert String a to String b
+
+Apporach:
+- find LCS
+- inserstion  = text1.len - LCS
+- deletion = text2.len - LCS
+- result = insertion + deletion;
+
+```cpp
+class Solution {
+
+  public:
+    int minOperations(string &text1, string &text2) {
+        // Your code goes here
+         vector<vector<int>> t(text1.length() + 1 , vector<int>(text2.length() +1 , 0));
+
+        // base
+        // i = text1.length() = 0
+        // j = text2.lentth() = 0
+
+        for (int i = 0; i <= text1.length(); i++)
+            t[i][text2.length()] = 0;
+
+        for (int j = 0; j <= text2.length(); j++)
+            t[text1.length()][j] = 0;
+        
+        for (int i = text1.length() -1; i >= 0; i--) {
+            for (int j = text2.length() -1 ; j >= 0; j--) {
+                if (text1[i] ==  text2[j])
+                    t[i][j] = 1 + t[i + 1][j + 1];
+                else 
+                    t[i][j] = max(t[i][j+1], t[i+1][j]);
+            }
+        }
+        
+        int deletion  = text1.length() - t[0][0];
+        int insertion = text2.length() - t[0][0];
+        
+        return deletion + insertion;
     }
 };
 ```
