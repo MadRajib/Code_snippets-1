@@ -31,6 +31,7 @@ Knapsack Problem
     - [Longest Palindromic Subsequence](#longest-palindromic-subsequence)
     - [Minimum number of deletion in a string to make it a palindrome](#minimum-number-of-deletion-in-a-string-to-make-it-a-palindrome)
     - [Longest repeating subsequence](#longest-repeating-subsequence)
+    - [Sequence Pattern Matching](#sequence-pattern-matching)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
