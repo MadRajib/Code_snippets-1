@@ -34,6 +34,7 @@ Knapsack Problem
     - [Sequence Pattern Matching](#sequence-pattern-matching)
     - [Minimum number of insertion in a string to make it a palindrome](#minimum-number-of-insertion-in-a-string-to-make-it-a-palindrome)
 1. [Matrix chain multiplication](#matrix-chain-multiplication)
+    - [Palindrome Partitioning Recursive](#palindrome-partitioning-recursive)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -1116,6 +1117,90 @@ class Solution {
         
         t[i][j] = res;
         
+        return res;
+    }
+};
+```
+
+### Palindrome Partitioning Recursive
+
+Recursive
+```cpp
+class Solution {
+    private:
+    bool check_palindrome(string s, int i, int j) {
+        while( i <= j) {
+            if (s[i] != s[j])
+                return false;
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+public:
+    int minCut(string s) {
+        return solve(s, 0, s.length() - 1);
+    }
+
+    int solve(string& s, int i, int j) {
+        if (i >= j)
+            return 0;
+        
+        if (check_palindrome(s, i, j))
+            return 0;
+
+        int res = INT_MAX;
+        for (int k = i; k < j; k++) {
+            int temp = solve(s, i, k) + solve(s, k+1, j) + 1;
+            res =  min(res, temp);
+        }
+
+        return res;
+    }
+};
+```
+
+Memorisation
+- Fails in leetcode test case
+```cpp
+class Solution {
+    private:
+    bool check_palindrome(string s, int i, int j) {
+        while( i <= j) {
+            if (s[i] != s[j])
+                return false;
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+public:
+    int minCut(string s) {
+        vector<vector<int>> t(s.length(), vector<int>(s.length(), -1));
+        return solve(s, 0, s.length() - 1, t);
+    }
+
+    int solve(string& s, int i, int j, vector<vector<int>>&  t) {
+        if (i >= j)
+            return 0;
+        
+        if (t[i][j] != -1)
+            return t[i][j];
+        
+        if (check_palindrome(s, i, j))
+            return 0;
+
+        int res = INT_MAX;
+        for (int k = i; k < j; k++) {
+            int f = t[i][k] != -1 ? t[i][k]: solve(s, i, k, t);
+            int l = t[k + 1][j] != -1 ? t[k +1][j]: solve(s, k+1, j, t);
+            int temp = f + l + 1;
+            res =  min(res, temp);
+        }
+
+        t[i][j] = res;
         return res;
     }
 };
