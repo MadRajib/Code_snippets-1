@@ -820,3 +820,11 @@ class Solution {
     }
 };
 ```
+
+### Print Longest common subsequence
+Apporach
+- build LCS table
+- start from i = 0 and j = 0; until i != n && j != m
+    - if s1[i] == s2[j] i++, j++, store char
+    else if t[i+1][j] > t[i][j+1], i = i++;
+    else j++; 
