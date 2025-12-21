@@ -30,6 +30,7 @@ Knapsack Problem
     - [Minimum Number of Insertion and Deletion to convert String a to String b](#minimum-number-of-insertion-and-deletion-to-convert-string-a-to-string-b)
     - [Longest Palindromic Subsequence](#longest-palindromic-subsequence)
     - [Minimum number of deletion in a string to make it a palindrome](#minimum-number-of-deletion-in-a-string-to-make-it-a-palindrome)
+    - [Longest repeating subsequence](#longest-repeating-subsequence)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -1009,3 +1010,20 @@ Approach:
 
 Apporach:
 - Min no deletion = text.len - LPS = text.len - LCS(a, reverse(a))
+
+### Longest repeating subsequence
+
+Apporach:
+    - LCS variants on same string, just dont check same index 
+```cpp
+        for (int i = text1.length() -1; i >= 0; i--) {
+            for (int j = text2.length() -1 ; j >= 0; j--) {
+                if (text1[i] ==  text2[j] && (i != j) )     // dont match with same index
+                    t[i][j] = 1 + t[i + 1][j + 1];
+                else 
+                    t[i][j] = max(t[i][j+1], t[i+1][j]);
+            }
+        }
+
+        return t[0][0];
+```
