@@ -557,5 +557,61 @@ class Solution {
 };
 ```
 ### Coin Change I
+> Given an integer array coins[ ] representing different denominations of currency and an integer sum, find the number of ways you can make sum by using different combinations from coins[ ]. 
+Note: Assume that you have an infinite supply of each type of coin. Therefore, you can use any coin as many times as you want.
+Answers are guaranteed to fit into a 32-bit integer. 
+
+```bash
+Examples:
+
+Input: coins[] = [1, 2, 3], sum = 4
+Output: 4
+Explanation: Four Possible ways are: [1, 1, 1, 1], [1, 1, 2], [2, 2], [1, 3].
+
+Input: coins[] = [2, 5, 3, 6], sum = 10
+Output: 5
+Explanation: Five Possible ways are: [2, 2, 2, 2, 2], [2, 2, 3, 3], [2, 2, 6], [2, 3, 5] and [5, 5].
+
+Input: coins[] = [5, 10], sum = 3
+Output: 0
+Explanation: Since all coin denominations are greater than sum, no combination can make the target sum.
+```
+
+Apporach:
+- Same as subset sum problem
+
+```cpp
+class Solution {
+  public:
+    int count(vector<int>& coins, int amount) {
+        // code here.
+        vector<vector<int>> t(coins.size() + 1, vector<int>(amount + 1, 0));
+
+        // base condtion
+        // coin(i) = 0 -> 1 way {}
+        // amount(j) = 0 -> 0 way {}
+        for (int i = 0; i <= coins.size(); i++)
+            t[i][0] = 1;
+    
+        for (int j =0; j <= amount; j++)
+            t[coins.size()][j] = 0;
+        
+        // with no coins amount 0 is possible
+        t[coins.size()][0] = 1;
+
+        for (int i = coins.size()-1; i >=0; i--) {
+            for (int j = 0; j <= amount; j++) {
+                if (coins[i] <= j) {
+                    t[i][j] = t[i][j - coins[i]] + t[i+1][j];
+                } else {
+                    t[i][j] = t[i+1][j];
+                }
+            }
+        }
+
+        return t[0][amount];
+    }
+};
+```
 ### Coin Change II
 ### Maximum Ribbon Cut
