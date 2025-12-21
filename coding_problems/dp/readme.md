@@ -475,7 +475,87 @@ Apporach:
 
 ### Unbounded Knapsack Problems
 
+```cpp
+// decision tree
+        if (wt[i] <= w) {
+            // take the weight or skip the weight
+            // return max (   rr(wt, val, i + 1, w - wt[i]) + val[i],
+            return max (   rr(wt, val, i, w - wt[i]) + val[i], // if take then i can be taken again
+                    rr(wt, val, i + 1, w));
+        } else {
+            // check the next weight
+            return rr(wt, val, i + 1, w);
+        }
+```
+
 ### Rod Cutting
+> Given a rod of length n inches and an array price[], where price[i] denotes the value of a piece of length i. Your task is to determine the maximum value obtainable by cutting up the rod and selling the pieces.
+
+Note: n = size of price, and price[] is 1-indexed array.
+
+```bash
+Example:
+
+Input: price[] = [1, 5, 8, 9, 10, 17, 17, 20]
+Output: 22
+Explanation: The maximum obtainable value is 22 by cutting in two pieces of lengths 2 and 6, i.e., 5 + 17 = 22.
+
+Input: price[] = [3, 5, 8, 9, 10, 17, 17, 20]
+Output: 24
+Explanation: The maximum obtainable value is 24 by cutting the rod into 8 pieces of length 1, i.e, 8*price[1] = 8*3 = 24.
+
+Input: price[] = [3]
+Output: 3
+Explanation: There is only 1 way to pick a piece of length 1.
+```
+
+Apporach:
+- Doesn't sounds similar to 0/1 knapsack problem
+- total weight =  len of rod
+- price of each length give
+- items -> each length size is item. L1 L2 L3 L4...
+
+```cpp
+class Solution {
+  public:
+    int cutRod(vector<int> &price) {
+        
+        int W = price.size();
+        vector<int> wt(price.size(), 0);
+        for (int i = 0; i < price.size(); i++)
+            wt[i] = i + 1;
+        
+        vector<vector<int>> t(wt.size() + 1, vector<int>(W + 1, 0));
+        
+        // base condition
+        // i == n all 0
+        // w == 0
+        for (int j = 0; j<= W; j++)
+            t[wt.size()][j] = 0;
+        
+        for (int i = 0; i <= wt.size(); i++)
+            t[i][0] = 0;
+        
+        // from btm up, since in recurion last ones are filled first
+        for (int i = wt.size() - 1; i >= 0; i--) {
+            for (int w = 0; w <= W; w++) {
+                
+                if (wt[i] <= w) {
+                    t[i][w] = max (
+                            t[i][w - wt[i]] + price[i], //take
+                            t[i+1][w]                  // skip
+                            );
+                } else {
+                    t[i][w] = t[i+1][w];
+                }
+            }
+        }
+        
+        return t[0][W];
+
+    }
+};
+```
 ### Coin Change I
 ### Coin Change II
 ### Maximum Ribbon Cut
