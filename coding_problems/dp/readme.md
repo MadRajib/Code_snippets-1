@@ -731,3 +731,35 @@ public:
     }
 };
 ```
+
+Bottom Up
+
+```cpp
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        vector<vector<int>> t(text1.length() + 1 , vector<int>(text2.length() +1 , 0));
+
+        // base
+        // i = text1.length() = 0
+        // j = text2.lentth() = 0
+
+        for (int i = 0; i <= text1.length(); i++)
+            t[i][text2.length()] = 0;
+
+        for (int j = 0; j <= text2.length(); j++)
+            t[text1.length()][j] = 0;
+        
+        for (int i = text1.length() -1; i >= 0; i--) {
+            for (int j = text2.length() -1 ; j >= 0; j--) {
+                if (text1[i] ==  text2[j])
+                    t[i][j] = 1 + t[i + 1][j + 1];
+                else 
+                    t[i][j] = max(t[i][j+1], t[i+1][j]);
+            }
+        }
+
+        return t[0][0];
+    }
+};
+```
