@@ -614,4 +614,63 @@ class Solution {
 };
 ```
 ### Coin Change II
+> You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+You may assume that you have an infinite number of each kind of coin.
+
+```bash
+Example 1:
+
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
+
+Example 2:
+
+Input: coins = [2], amount = 3
+Output: -1
+
+Example 3:
+
+Input: coins = [1], amount = 0
+Output: 0
+```
+
+Approach:
+- Intialize when coins == 0 then entifinite no of coins required.
+- min(t[i][j - coins[i]] + 1 , t[i+1][j]);
+
+```cpp
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector<vector<int>> t(coins.size() + 1, vector<int>(amount + 1, 0));
+
+        // base condtion
+        // coin(i) = 0 -> 1 way {}
+        // amount(j) = 0 -> INT_MAX infinite coins
+        for (int i = 0; i <= coins.size(); i++)
+            t[i][0] = 0;
+    
+        for (int j =0; j <= amount; j++)
+            t[coins.size()][j] = INT_MAX - 1;
+        
+        t[coins.size()][0] = 0;
+
+        for (int i = coins.size()-1; i >=0; i--) {
+            for (int j = 0; j <= amount; j++) {
+                if (coins[i] <= j) {
+                    t[i][j] = min(t[i][j - coins[i]] + 1 , t[i+1][j]);
+                } else {
+                    t[i][j] = t[i+1][j];
+                }
+            }
+        }
+
+        return t[0][amount] != INT_MAX -1 ? t[0][amount]: -1 ;
+    }
+};
+```
 ### Maximum Ribbon Cut
