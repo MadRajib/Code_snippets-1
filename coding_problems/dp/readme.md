@@ -763,3 +763,60 @@ public:
     }
 };
 ```
+
+### Longest Common Substring
+> You are given two strings s1 and s2. Your task is to find the length of the longest common substring among the given strings.
+
+```bash
+Examples:
+Input: s1 = "ABCDGH", s2 = "ACDGHR"
+Output: 4
+Explanation: The longest common substring is "CDGH" with a length of 4.
+
+Input: s1 = "abc", s2 = "acb"
+Output: 1
+Explanation: The longest common substrings are "a", "b", "c" all having length 1.
+
+Input: s1 = "YZ", s2 = "yz"
+Output: 0
+```
+Approach:
+- Same as LCS with slight variation
+- when mistach occurs we save 0 for t[i][j]
+- for each match we store the max length
+- at the end return the max value
+
+```cpp
+class Solution {
+  public:
+    int longestCommonSubstr(string& text1, string& text2) {
+        // your code here
+        vector<vector<int>> t(text1.length() + 1 , vector<int>(text2.length() +1 , 0));
+
+        // base
+        // i = text1.length() = 0
+        // j = text2.lentth() = 0
+
+        for (int i = 0; i <= text1.length(); i++)
+            t[i][text2.length()] = 0;
+
+        for (int j = 0; j <= text2.length(); j++)
+            t[text1.length()][j] = 0;
+        
+        int res = 0;
+        for (int i = text1.length() -1; i >= 0; i--) {
+            for (int j = text2.length() -1 ; j >= 0; j--) {
+                if (text1[i] ==  text2[j]) {
+                    t[i][j] = 1 + t[i + 1][j + 1];
+                    res = max(res, t[i][j]);
+                }
+                else 
+                    t[i][j] = 0;
+            }
+        }
+        
+        return res;
+        
+    }
+};
+```
