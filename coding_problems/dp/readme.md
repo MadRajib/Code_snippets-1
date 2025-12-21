@@ -28,6 +28,7 @@ Knapsack Problem
     - [Shortest Common Supersequence](#shortest-common-supersequence)
     - [Print shortest common Supersequence](#print-shortest-common-supersequence)
     - [Minimum Number of Insertion and Deletion to convert String a to String b](#minimum-number-of-insertion-and-deletion-to-convert-string-a-to-string-b)
+    - [Longest Palindromic Subsequence](#longest-palindromic-subsequence)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -997,3 +998,8 @@ class Solution {
     }
 };
 ```
+
+###  Longest Palindromic Subsequence
+
+Approach:
+    - LPS(a) -> LCS(a, reverse(a))
