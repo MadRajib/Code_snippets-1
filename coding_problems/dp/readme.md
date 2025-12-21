@@ -17,6 +17,11 @@ Knapsack Problem
     - [Min subset sum diff](#min-subset-sum-diff)
     - [Count the number of subset with a given difference](#count-the-number-of-subset-with-a-given-difference)
     - [Target sum](#target-sum)
+1. [Unbounded Knapsack problem](#unbounded-knapsack-problems)
+    - [Rod Cutting](#rod-cutting)
+    - [Coin Change I](#coin-change-i)
+    - [Coin Change II](#coin-change-ii)
+    - [Maximum Ribbon Cut](#maximum-ribbon-cut)
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
 
@@ -467,3 +472,10 @@ Output: 1
 Apporach:
 - Same as pervious problem, count no of subset sum difference 3.
 - -1 + 1 + + 1+ 1 + 1 -> (1 + 1 + 1 +1) - (1) = 3 ? similar ? 
+
+### Unbounded Knapsack Problems
+
+### Rod Cutting
+### Coin Change I
+### Coin Change II
+### Maximum Ribbon Cut
