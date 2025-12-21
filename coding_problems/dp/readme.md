@@ -25,6 +25,7 @@ Knapsack Problem
 1. [Longest Common Subsequence](#longest-common-subsequence)
 1. [Longest Common SubString](#longest-common-substring)
 1. [Print longest common subsequence](#print-longest-common-subsequence)
+1. [Shortest Common Supersequence](#shortest-common-supersequence)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -832,3 +833,57 @@ Apporach
     - if s1[i] == s2[j] i++, j++, store char
     else if t[i+1][j] > t[i][j+1], i = i++;
     else j++; 
+
+### Shortest Common Supersequence
+> Given two strings s1 and s2, find the length of the smallest string which has both s1 and s2 as its sub-sequences.
+Note: s1 and s2 can have both uppercase and lowercase English letters.
+
+```bash
+Examples:
+
+Input: s1 = "geek", s2 = "eke"
+Output: 5
+Explanation: String "geeke" has both string "geek" and "eke" as subsequences.
+
+Input: s1 = "AGGTAB", s2 = "GXTXAYB"
+Output: 9
+Explanation: String "AGXGTXAYB" has both string "AGGTAB" and "GXTXAYB" as subsequences.
+
+Input: s1 = "geek", s2 = "ek"
+Output: 4
+Explanation: String "geek" has both string "geek" and "ek" as subsequences.
+```
+
+Apporach:
+    - text1.len + text2.len - lcs
+
+```cpp
+class Solution {
+  public:
+    int minSuperSeq(string &text1, string &text2) {
+        // code here
+         vector<vector<int>> t(text1.length() + 1 , vector<int>(text2.length() +1 , 0));
+
+        // base
+        // i = text1.length() = 0
+        // j = text2.lentth() = 0
+
+        for (int i = 0; i <= text1.length(); i++)
+            t[i][text2.length()] = 0;
+
+        for (int j = 0; j <= text2.length(); j++)
+            t[text1.length()][j] = 0;
+        
+        for (int i = text1.length() -1; i >= 0; i--) {
+            for (int j = text2.length() -1 ; j >= 0; j--) {
+                if (text1[i] ==  text2[j])
+                    t[i][j] = 1 + t[i + 1][j + 1];
+                else 
+                    t[i][j] = max(t[i][j+1], t[i+1][j]);
+            }
+        }
+
+        return text1.length() + text2.length() - t[0][0];
+    }
+};
+```
