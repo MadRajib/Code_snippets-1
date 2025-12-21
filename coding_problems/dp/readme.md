@@ -33,6 +33,7 @@ Knapsack Problem
     - [Longest repeating subsequence](#longest-repeating-subsequence)
     - [Sequence Pattern Matching](#sequence-pattern-matching)
     - [Minimum number of insertion in a string to make it a palindrome](#minimum-number-of-insertion-in-a-string-to-make-it-a-palindrome)
+1. [Matrix chain multiplication](#matrix-chain-multiplication)
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -1038,3 +1039,5 @@ Apporach
 
 ### Minimum number of insertion in a string to make it a palindrome
 > Same as deltetion [Minimum number of deletion in a string to make it a palindrome](#minimum-number-of-deletion-in-a-string-to-make-it-a-palindrome)
+
+### Matrix chain multiplication
