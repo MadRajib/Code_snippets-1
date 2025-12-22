@@ -6,7 +6,8 @@
 1. [Top K Frequent Elements](#4-top-k-frequent-elements)
 1. [K Closest Points to Origin](#5-k-closest-points-to-origin)
 1. [Minimum Cost of ropes](#6-minimum-cost-of-ropes)
-1. [Task Scheduler]
+1. [Task Scheduler](#task-scheduler)
+1. [Single Threaded CPU](#single-threaded-cpu)
 
 Note:
 ```cpp
