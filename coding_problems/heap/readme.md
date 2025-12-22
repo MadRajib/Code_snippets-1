@@ -6,6 +6,7 @@
 1. [Top K Frequent Elements](#4-top-k-frequent-elements)
 1. [K Closest Points to Origin](#5-k-closest-points-to-origin)
 1. [Minimum Cost of ropes](#6-minimum-cost-of-ropes)
+1. [Task Scheduler]
 
 Note:
 ```cpp
@@ -310,4 +311,80 @@ int minCost(vector<int>& arr) {
         return res;
     
     }
+```
+
+### Task Scheduler
+> You are given an array of CPU tasks tasks, where tasks[i] is an uppercase english character from A to Z. You are also given an integer n.
+
+Each CPU cycle allows the completion of a single task, and tasks may be completed in any order.
+
+The only constraint is that identical tasks must be separated by at least n CPU cycles, to cooldown the CPU.
+
+Return the minimum number of CPU cycles required to complete all tasks.
+```bash
+Example 1:
+
+Input: tasks = ["X","X","Y","Y"], n = 2
+
+Output: 5
+Explanation: A possible sequence is: X -> Y -> idle -> X -> Y.
+
+Example 2:
+
+Input: tasks = ["A","A","A","B","C"], n = 3
+
+Output: 9
+Explanation: A possible sequence is: A -> B -> C -> Idle -> A -> Idle -> Idle -> Idle -> A.
+```
+
+Apporach:
+    - Create a max heap to store tasks with their frequency
+    - a tasks queue with remaining execution time and next time to run
+    - pick the tasks from the max heap, process a unit and push back to quueue with next running time i.e time + n
+    - after processing pick the next task from front of the queuue if its next running time is equal to curren time
+
+```cpp
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        vector<int> cnt(26, 0);
+        priority_queue<int> max_hp;
+        // execution time, next execution time
+        queue<pair<int, int>> task_q; 
+
+        for (auto t:tasks)
+            cnt[t - 'A']++;
+
+        for (auto c: cnt) {
+            if (c)
+                max_hp.push(c);
+        }
+            
+        
+        int time = 0;
+        while (!task_q.empty() || !max_hp.empty()) {
+            time++;
+            
+            // take the top task and process it
+            if (!max_hp.empty()) {
+                int t = max_hp.top() - 1; // -1 to process 1 unit
+                max_hp.pop();
+        
+                if (t)
+                    task_q.push({t, time + n});
+            }
+
+            // check for tasks in queue to process
+            // check for the first task is ready to submit to max heap
+            if (!task_q.empty() && task_q.front().second ==  time) {
+                max_hp.push(task_q.front().first);
+                task_q.pop();
+            }
+        }
+
+        return time;
+
+    }
+};
+
 ```
