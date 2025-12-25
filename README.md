@@ -261,3 +261,55 @@ int largestcolsum(int arr[][3]){
     return max;
 }
 ```
+
+### Merge Intervals
+> Given an array of intervals where intervals[i] = [start_i, end_i], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+You may return the answer in any order.
+
+Note: Intervals are non-overlapping if they have no common point. For example, [1, 2] and [3, 4] are non-overlapping, but [1, 2] and [2, 3] are overlapping.
+
+```bash
+Example 1:
+
+Input: intervals = [[1,3],[1,5],[6,7]]
+
+Output: [[1,5],[6,7]]
+Example 2:
+
+Input: intervals = [[1,2],[2,3]]
+
+Output: [[1,3]]
+```
+
+Apporach:
+- sort the intervals list
+- push the first node to output list
+- check if cur node is overlapping with previous node
+- if yes change the last node to max of both 
+- else push the cur
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> output;
+        output.push_back(intervals[0]);
+
+        for (auto& interval : intervals) {
+            int start = interval[0];
+            int end = interval[1];
+            int lastEnd = output.back()[1];
+
+            if (start <= lastEnd) {
+                output.back()[1] = max(lastEnd, end);
+            } else {
+                output.push_back({start, end});
+            }
+        }
+        return output;
+    }
+};
+
+```
