@@ -1123,7 +1123,24 @@ class Solution {
 ```
 
 ### Palindrome Partitioning Recursive
+> Given a string s, a partitioning of the string is a palindrome partitioning if every sub-string of the partition is a palindrome. Determine the fewest cuts needed for palindrome partitioning of the given string.
 
+```bash
+Examples:
+
+Input: s = "geek" 
+Output: 2 
+
+Explanation: We need to make minimum 2 cuts, i.e., "g | ee | k".
+Input: s = "aaaa" 
+Output: 0
+Explanation: The string is already a palindrome.
+
+Input: s = "ababbbabbababa" 
+Output: 3
+Explanation: We need to make minimum 3 cuts, i.e., "aba | bb | babbab | aba".
+
+```
 Recursive
 ```cpp
 class Solution {
