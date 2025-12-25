@@ -1347,3 +1347,62 @@ public:
 };
 
 ```
+
+### House Robber II
+> You are given an integer array nums where nums[i] represents the amount of money the ith house has. The houses are arranged in a circle, i.e. the first house and the last house are neighbors.
+
+You are planning to rob money from the houses, but you cannot rob two adjacent houses because the security system will automatically alert the police if two adjacent houses were both broken into.
+
+Return the maximum amount of money you can rob without alerting the police.
+
+```bash
+Example 1:
+
+Input: nums = [3,4,3]
+
+Output: 4
+Explanation: You cannot rob nums[0] + nums[2] = 6 because nums[0] and nums[2] are adjacent houses. The maximum you can rob is nums[1] = 4.
+
+Example 2:
+
+Input: nums = [2,9,8,3,6]
+
+Output: 15
+Explanation: You cannot rob nums[0] + nums[2] + nums[4] = 16 because nums[0] and nums[4] are adjacent houses. The maximum you can rob is nums[1] + nums[4] = 15.
+```
+
+Apporach:
+- find max from 0 to end -1;
+- find max from 1 to end
+- return the max.
+- since if we rob first we cannot rob the last and vise versa
+
+```cpp
+class Solution {
+    int rr(vector<int>& nums, int i, int e, vector<int> &t) {
+        if (i > e)
+            return 0;
+        
+        if (t[i] != -1)
+            return t[i];
+        
+        t[i] = max(rr(nums, i+2, e, t) + nums[i], rr(nums, i+1, e, t));
+
+        return t[i];
+    }
+public:
+    int rob(vector<int>& nums) {
+        
+        if (nums.size() == 1) return nums[0];
+
+        vector<int> t(nums.size(), -1);
+        int _r2 = rr(nums, 1, nums.size() - 1, t);
+        
+        fill(t.begin(), t.end(), -1);
+        int _r1 = rr(nums, 0, nums.size() - 2, t);
+
+        return max(_r1, _r2);
+    }
+};
+
+```
