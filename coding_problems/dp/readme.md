@@ -1323,3 +1323,27 @@ public:
 };
 
 ```
+
+Memolisation
+```cpp
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        vector<int> t(nums.size(), -1);
+        return rr(nums, 0, t);
+    }
+
+    int rr(vector<int>& nums, int i, vector<int> &t) {
+        if (i >= nums.size())
+            return 0;
+        
+        if (t[i] != -1)
+            return t[i];
+        
+        t[i] = max(rr(nums, i+2, t) + nums[i], rr(nums, i+1, t));
+
+        return t[i];
+    }
+};
+
+```
