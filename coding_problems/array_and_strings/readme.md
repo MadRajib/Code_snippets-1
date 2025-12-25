@@ -3,6 +3,7 @@
 ### Problems
 1. [KMP ALGO](#kmp-algo)
 1. [Rotated Digits](#rotated-digits)
+1. [Maximum Subarray](#maximum-subarray)
 
 
 ### KMP Algo
@@ -115,4 +116,42 @@ public:
         return res;
     }
 };
+```
+
+### Maximum Subarray
+> Given an array of integers nums, find the subarray with the largest sum and return the sum.
+
+A subarray is a contiguous non-empty sequence of elements within an array.
+```bash
+Example 1:
+
+Input: nums = [2,-3,4,-2,2,1,-1,4]
+
+Output: 8
+Explanation: The subarray [4,-2,2,1,-1,4] has the largest sum 8.
+
+Example 2:
+
+Input: nums = [-1]
+
+Output: -1
+```
+
+Kadane's Algo:
+
+```cpp
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int best_sum = INT_MIN;
+        int cur_sum = 0;
+        for (auto n: nums) {
+            cur_sum = max(n, cur_sum + n);
+            best_sum = max(best_sum, cur_sum);
+        }
+
+        return best_sum;
+    }
+};
+
 ```
