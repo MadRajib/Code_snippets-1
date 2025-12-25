@@ -11,6 +11,7 @@
 - [Graph Problems](coding_problems/graph/readme.md)
 - [Math And Geometry Porblems](coding_problems/math_geometry/readme.md)
 - [Array and Strings](coding_problems/array_and_strings/readme.md)
+- [Intervals Problems](coding_problems/intervals/readme.md)
 
 # Implementations and tricks
 - [Bit Hacks](bits_hacks/readme.md)
