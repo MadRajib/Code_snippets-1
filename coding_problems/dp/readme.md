@@ -1242,6 +1242,61 @@ public:
 };
 ```
 
+### Word Break
+> Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of dictionary words.
+
+You are allowed to reuse words in the dictionary an unlimited number of times. You may assume all dictionary words are unique.
+
+```bash
+Example 1:
+
+Input: s = "neetcode", wordDict = ["neet","code"]
+
+Output: true
+Explanation: Return true because "neetcode" can be split into "neet" and "code".
+
+Example 2:
+
+Input: s = "applepenapple", wordDict = ["apple","pen","ape"]
+
+Output: true
+Explanation: Return true because "applepenapple" can be split into "apple", "pen" and "apple". Notice that we can reuse words and also not use all the words.
+
+Example 3:
+
+Input: s = "catsincars", wordDict = ["cats","cat","sin","in","car"]
+
+Output: false
+```
+
+Recursion
+```cpp
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> mp(wordDict.begin(), wordDict.end());
+        return rr(s, mp, 0);
+    }
+
+    bool rr(const string& s, const unordered_set<string>& mp, int i) {
+        if (i == s.size()) {
+            return true;
+        }
+
+        for (int j = i; j < s.size(); j++) {
+            // if first part is present than only check other part
+            if (mp.find(s.substr(i, j - i + 1)) != mp.end()) {
+                if (rr(s, mp, j + 1)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
+```
+
+
 ### Climbing Stairs
 > You are given an integer n representing the number of steps to reach the top of a staircase. You can climb with either 1 or 2 steps at a time.
 
@@ -1465,3 +1520,5 @@ public:
 };
 
 ```
+
+
