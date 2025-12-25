@@ -1147,6 +1147,12 @@ Output: 3
 Explanation: We need to make minimum 3 cuts, i.e., "aba | bb | babbab | aba".
 
 ```
+
+Apporach:
+- if a string is already palindrome we don need any partition
+- for a cut say at k, if first part is not a palindrome then this cut is not valid, we jump to next pos
+- our goal is to min cut the string to make all the group as palindrome
+- if first half is palindrome then check the next half. 
 Recursive
 ```cpp
 class Solution {
@@ -1175,7 +1181,9 @@ public:
 
         int res = INT_MAX;
         for (int k = i; k < j; k++) {
-            int temp = solve(s, i, k) + solve(s, k+1, j) + 1;
+            if (!check_palindrome(s, i, j))
+                continue ;
+            int temp = solve(s, k+1, j) + 1;
             res =  min(res, temp);
         }
 
@@ -1185,10 +1193,9 @@ public:
 ```
 
 Memorisation
-- Fails in leetcode test case
 ```cpp
 class Solution {
-    private:
+  private:
     bool check_palindrome(string s, int i, int j) {
         while( i <= j) {
             if (s[i] != s[j])
@@ -1200,7 +1207,7 @@ class Solution {
         return true;
     }
 public:
-    int minCut(string s) {
+    int palPartition(string s) {
         vector<vector<int>> t(s.length(), vector<int>(s.length(), -1));
         return solve(s, 0, s.length() - 1, t);
     }
@@ -1214,12 +1221,15 @@ public:
         
         if (check_palindrome(s, i, j))
             return 0;
-
+        
+        
         int res = INT_MAX;
         for (int k = i; k < j; k++) {
-            int f = t[i][k] != -1 ? t[i][k]: solve(s, i, k, t);
+            if (!check_palindrome(s, i, k))
+                continue ;
+                
             int l = t[k + 1][j] != -1 ? t[k +1][j]: solve(s, k+1, j, t);
-            int temp = f + l + 1;
+            int temp = l + 1;
             res =  min(res, temp);
         }
 
