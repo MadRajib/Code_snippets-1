@@ -3,7 +3,7 @@
 1. [Meeting Rooms](#meeting-rooms)
 1. [Insert Interval](#insert-interval)
 1. [Non-overlapping Intervals](#non-overlapping-intervals)
-1. [Meeting Rooms II]
+1. [Meeting Rooms II](#meeting-rooms-ii)
 
 ### Meeting Rooms
 
