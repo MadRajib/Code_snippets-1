@@ -35,6 +35,7 @@ Knapsack Problem
     - [Minimum number of insertion in a string to make it a palindrome](#minimum-number-of-insertion-in-a-string-to-make-it-a-palindrome)
 1. [Matrix chain multiplication](#matrix-chain-multiplication)
     - [Palindrome Partitioning Recursive](#palindrome-partitioning-recursive)
+1. [Climbing Stairs]
 
 ### 0-1 knapsack Problem
 > Given two arrays, val[] and wt[], where each element represents the value and weight of an item respectively, and an integer W representing the maximum capacity of the knapsack (the total weight it can hold).
@@ -1237,4 +1238,46 @@ public:
         return res;
     }
 };
+```
+
+### Climbing Stairs
+> You are given an integer n representing the number of steps to reach the top of a staircase. You can climb with either 1 or 2 steps at a time.
+
+Return the number of distinct ways to climb to the top of the staircase.
+
+```bash
+Example 1:
+
+Input: n = 2
+
+Output: 2
+Explanation:
+
+1 + 1 = 2
+2 = 2
+Example 2:
+
+Input: n = 3
+
+Output: 3
+Explanation:
+
+1 + 1 + 1 = 3
+1 + 2 = 3
+2 + 1 = 3
+```
+
+Recursion
+```cpp
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (!n) return 0;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+
+        return climbStairs(n-2) + climbStairs(n-1);
+    }
+};
+
 ```
