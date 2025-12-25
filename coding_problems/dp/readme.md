@@ -1061,6 +1061,12 @@ Output: 0
 Explanation: As there is only one matrix so, there is no cost of multiplication.
 ```
 
+Apporach:
+1. Find i & j
+1. Find the base condition
+1. loop from k to have two partitions
+1. from temporary ans build the actual ans
+
 ```cpp
 class Solution {
   public:
