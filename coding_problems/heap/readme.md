@@ -8,6 +8,7 @@
 1. [Minimum Cost of ropes](#6-minimum-cost-of-ropes)
 1. [Task Scheduler](#task-scheduler)
 1. [Single Threaded CPU](#single-threaded-cpu)
+1. [Find Median From Data Stream](#find-median-from-data-stream)
 
 Note:
 ```cpp
@@ -447,6 +448,94 @@ public:
         }
 
         return res;
+    }
+};
+```
+
+### Find Median From Data Stream
+> The median is the middle value in a sorted list of integers. For lists of even length, there is no middle value, so the median is the mean of the two middle values.
+
+For example:
+
+For arr = [1,2,3], the median is 2.
+For arr = [1,2], the median is (1 + 2) / 2 = 1.5
+Implement the MedianFinder class:
+
+MedianFinder() initializes the MedianFinder object.
+void addNum(int num) adds the integer num from the data stream to the data structure.
+double findMedian() returns the median of all elements so far.
+
+```bash
+Example 1:
+
+Input:
+["MedianFinder", "addNum", "1", "findMedian", "addNum", "3" "findMedian", "addNum", "2", "findMedian"]
+
+Output:
+[null, null, 1.0, null, 2.0, null, 2.0]
+
+Explanation:
+MedianFinder medianFinder = new MedianFinder();
+medianFinder.addNum(1);    // arr = [1]
+medianFinder.findMedian(); // return 1.0
+medianFinder.addNum(3);    // arr = [1, 3]
+medianFinder.findMedian(); // return 2.0
+medianFinder.addNum(2);    // arr[1, 2, 3]
+medianFinder.findMedian(); // return 2.0
+```
+
+Intuition:
+- To efficiently find the median while numbers keep coming, we split the
+stream into two halves:
+
+- A max-heap (small) that stores the smaller half of the numbers.
+    - The largest number of this half is on top.
+- A min-heap (large) that stores the larger half of the numbers.
+    - The smallest number of this half is on top.
+
+The goal:
+
+- Ensure both heaps are balanced in size (difference at most 1).
+- Ensure all numbers in small are ≤ all numbers in large.
+
+This setup allows:
+- Median = top of the bigger heap (if odd count)
+- Median = average of both tops (if even count)
+
+This gives O(log n) insert and O(1) median lookup.
+
+```cpp
+class MedianFinder {
+    priority_queue<int, vector<int>, less<int>> smallHeap;
+    priority_queue<int, vector<int>, greater<int>> largeHeap;
+
+public:
+    MedianFinder() {}
+
+    void addNum(int num) {
+        smallHeap.push(num);
+        if (!largeHeap.empty() && smallHeap.top() > largeHeap.top()) {
+            largeHeap.push(smallHeap.top());
+            smallHeap.pop();
+        }
+        if (smallHeap.size() > largeHeap.size() + 1) {
+            largeHeap.push(smallHeap.top());
+            smallHeap.pop();
+        }
+        if (largeHeap.size() > smallHeap.size() + 1) {
+            smallHeap.push(largeHeap.top());
+            largeHeap.pop();
+        }
+    }
+
+    double findMedian() {
+        if (smallHeap.size() == largeHeap.size()) {
+            return (largeHeap.top() + smallHeap.top()) / 2.0;
+        } else if (smallHeap.size() > largeHeap.size()) {
+            return smallHeap.top();
+        } else {
+            return largeHeap.top();
+        }
     }
 };
 ```
