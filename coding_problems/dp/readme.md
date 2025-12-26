@@ -43,6 +43,7 @@ Knapsack Problem
 1. [Unique Paths](#unique-paths)
 1. [Perfect Squares](#perfect-squares)
 1. [Unique Paths II](#unique-paths-ii)
+1. [Minimum Path Sum](#minimum-path-sum)
 
 
 ### 0-1 knapsack Problem
@@ -1711,6 +1712,58 @@ public:
         
         // either right or down
         return rr(i, j+1, ob) + rr(i+1, j, ob);
+    }
+};
+```
+
+### Minimum Path Sum
+> You are given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+
+```bash
+
+Example 1:
+
+Input: grid = [
+    [1,2,0],
+    [5,4,2],
+    [1,1,3]
+]
+
+Output: 8
+Explanation: The path with minimum sum is 1 -> 2 -> 0 -> 2 -> 3.
+
+Example 2:
+
+Input: grid = [
+    [2,2],
+    [1,0]
+]
+
+Output: 3
+```
+
+Recursion
+```cpp
+class Solution {
+    int M, N;
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        M = grid.size();
+        N = grid[0].size();
+
+        return rr(grid, 0, 0);     
+    }
+
+    int rr(vector<vector<int>>& grid, int i, int j) {
+        if (i>= M || j >= N)
+            return INT_MAX;
+        
+        if (i == M-1 && j == N -1)
+            return grid[i][j];
+        
+        return grid[i][j] + min(rr(grid, i, j+1), rr(grid, i+1, j));
     }
 };
 ```
