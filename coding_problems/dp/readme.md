@@ -46,6 +46,7 @@ Knapsack Problem
 1. [Minimum Path Sum](#minimum-path-sum)
 1. [Last Stone Weight II](#last-stone-weight-ii)
 1. [Edit Distance](#edit-distance)
+1. [Best Time to Buy and Sell Stock with Cooldown](#best-time-to-buy-and-sell-stock-with-cooldown)
 
 
 ### 0-1 knapsack Problem
@@ -1875,6 +1876,76 @@ public:
                       dfs(i, j + 1, word1, word2, m, n));
         res = min(res, dfs(i + 1, j + 1, word1, word2, m, n));
         return res + 1;
+    }
+};
+```
+
+### Best Time to Buy and Sell Stock with Cooldown
+> You are given an integer array prices where prices[i] is the price of NeetCoin on the ith day.
+
+You may buy and sell one NeetCoin multiple times with the following restrictions:
+
+After you sell your NeetCoin, you cannot buy another one on the next day (i.e., there is a cooldown period of one day).
+You may only own at most one NeetCoin at a time.
+You may complete as many transactions as you like.
+
+Return the maximum profit you can achieve.
+
+```bash
+Example 1:
+
+Input: prices = [1,3,4,0,4]
+
+Output: 6
+Explanation: Buy on day 0 (price = 1) and sell on day 1 (price = 3), profit = 3-1 = 2. Then buy on day 3 (price = 0) and sell on day 4 (price = 4), profit = 4-0 = 4. Total profit is 2 + 4 = 6.
+
+Example 2:
+
+Input: prices = [1]
+
+Output: 0
+```
+
+Apporach:
+- two choices at every node:
+    1. cooldown
+    2. Buy/Sell
+        1. Buy only if earlier was sell or starting
+        1. sell only if earlier was buy
+
+Recursion
+```cpp
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        // choice -> true : buy
+        // choice -> false : sell
+        return dfs(0, true, prices);
+    }
+
+private:
+    int dfs(int i, bool choice, vector<int>& prices) {
+        if (i >= prices.size())
+            return 0;
+
+        // Two choices :
+        // 1. Cooldown i.e dont do anything
+        // 2. B or S :
+        //      S if only Bought earlier
+        //      B if only sold earlier
+        int cooldown = dfs(i + 1, choice, prices);
+
+        // choice -> true : buy
+        // choice -> false : sell
+        if (choice) {
+            // next choice will be sell or cooldown
+            int buy = dfs(i + 1, !choice, prices) - prices[i];
+            return max(buy, cooldown);
+        } else {
+            // next choice is to buy or cooldown
+            int sell = dfs(i + 2, !choice, prices) + prices[i];
+            return max(sell, cooldown);
+        }
     }
 };
 ```
