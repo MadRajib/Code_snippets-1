@@ -1298,6 +1298,49 @@ public:
 };
 ```
 
+### Integer Break
+> You are given an integer n, break it into the sum of k positive integers, where k >= 2, and maximize the product of those integers.
+
+Return the maximum product you can get.
+
+```bash
+Example 1:
+
+Input: n = 4
+
+Output: 4
+Explanation: 4 = 2 + 2, 2 x 2 = 4.
+
+Example 2:
+
+Input: n = 12
+
+Output: 81
+Explanation: 12 = 3 + 3 + 3 + 3, 3 x 3 x 3 x 3 = 81.
+```
+
+Recursion:
+```cpp
+class Solution {
+public:
+    int integerBreak(int n) {
+        return dfs(n, n);
+    }
+
+private:
+    int dfs(int num, int original) {
+        if (num == 1) return 1;
+
+        int res = (num == original) ? 0 : num;
+        for (int i = 1; i < num; i++) {
+            // break in two parts left will be i and right will num -i
+            int val = dfs(i, original) * dfs(num - i, original);
+            res = max(res, val);
+        }
+        return res;
+    }
+};
+```
 
 ### Climbing Stairs
 > You are given an integer n representing the number of steps to reach the top of a staircase. You can climb with either 1 or 2 steps at a time.
