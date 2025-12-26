@@ -44,6 +44,7 @@ Knapsack Problem
 1. [Perfect Squares](#perfect-squares)
 1. [Unique Paths II](#unique-paths-ii)
 1. [Minimum Path Sum](#minimum-path-sum)
+1. [Last Stone Weight II](#last-stone-weight-ii)
 
 
 ### 0-1 knapsack Problem
@@ -1768,7 +1769,7 @@ public:
 };
 ```
 
-### Last Stone Weight I
+### Last Stone Weight II
 > You are given an array of integers stones where stones[i] is the weight of the ith stone.
 
 We are playing a game with the stones. On each turn, we choose any two stones and smash them together. Suppose the stones have weights x and y with x <= y. The result of this smash is:
