@@ -35,8 +35,12 @@ Knapsack Problem
     - [Minimum number of insertion in a string to make it a palindrome](#minimum-number-of-insertion-in-a-string-to-make-it-a-palindrome)
 1. [Matrix chain multiplication](#matrix-chain-multiplication)
     - [Palindrome Partitioning Recursive](#palindrome-partitioning-recursive)
+    - [Word Break](#word-break)
+    - [Integer Break](#integer-break)
 1. [Climbing Stairs](#climbing-stairs)
+1. [House Robber II](#house-robber-ii)
 1. [Decode Ways](#decode-ways)
+1. [Unique Paths](#unique-paths)
 1. [Perfect Squares](#perfect-squares)
 1. [Unique Paths II](#unique-paths-ii)
 
