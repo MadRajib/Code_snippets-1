@@ -45,6 +45,7 @@ Knapsack Problem
 1. [Unique Paths II](#unique-paths-ii)
 1. [Minimum Path Sum](#minimum-path-sum)
 1. [Last Stone Weight II](#last-stone-weight-ii)
+1. [Edit Distance](#edit-distance)
 
 
 ### 0-1 knapsack Problem
@@ -1810,3 +1811,70 @@ Apporach:
 - => overall it is equal to dividing the stones array such that their difference is least - which gives us least weight
 - therefore, this is exactly similar to minimum subset sum difference problem
 - check   [Min subset sum diff](#min-subset-sum-diff)
+
+### Edit Distance
+> Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
+
+You have the following three operations permitted on a word:
+
+Insert a character
+Delete a character
+Replace a character
+ 
+```bash
+Example 1:
+
+Input: word1 = "horse", word2 = "ros"
+Output: 3
+Explanation: 
+horse -> rorse (replace 'h' with 'r')
+rorse -> rose (remove 'r')
+rose -> ros (remove 'e')
+Example 2:
+
+Input: word1 = "intention", word2 = "execution"
+Output: 5
+Explanation: 
+intention -> inention (remove 't')
+inention -> enention (replace 'i' with 'e')
+enention -> exention (replace 'n' with 'x')
+exention -> exection (replace 'n' with 'c')
+exection -> execution (insert 'u')
+```
+
+Approach:
+- Cant be solved using LCS since replace option is also there
+
+Base:
+- if (i == m) return n - j;
+- if (j == n) return m - i;
+
+Option:
+- if same: ret dfs(i +1, j +1)
+- Delete from word1: dfs(i + 1, j)
+- Insert into word1: dfs(i, j + 1)
+- Replace the character: dfs(i + 1, j + 1)
+
+Recursion:
+```cpp
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int m = word1.size(), n = word2.size();
+        return dfs(0, 0, word1, word2, m, n);
+    }
+
+    int dfs(int i, int j, string& word1, string& word2, int m, int n) {
+        if (i == m) return n - j;
+        if (j == n) return m - i;
+        if (word1[i] == word2[j]){
+            return dfs(i + 1, j + 1, word1, word2, m, n);
+        }
+
+        int res = min(dfs(i + 1, j, word1, word2, m, n),
+                      dfs(i, j + 1, word1, word2, m, n));
+        res = min(res, dfs(i + 1, j + 1, word1, word2, m, n));
+        return res + 1;
+    }
+};
+```
