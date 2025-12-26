@@ -37,6 +37,8 @@ Knapsack Problem
     - [Palindrome Partitioning Recursive](#palindrome-partitioning-recursive)
 1. [Climbing Stairs](#climbing-stairs)
 1. [Decode Ways](#decode-ways)
+1. [Perfect Squares](#perfect-squares)
+
 
 
 ### 0-1 knapsack Problem
@@ -1562,4 +1564,49 @@ public:
     }
 };
 
+```
+
+### Perfect Squares
+> You are given an integer n, return the least number of perfect square numbers that sum to n.
+
+A perfect square is an integer that is the square of an integer. For example, 1, 4, 9, 16, 25... are perfect squares.
+
+```bash
+Example 1:
+
+Input: n = 13
+
+Output: 2
+Explanation: 13 = 4 + 9.
+
+Example 2:
+
+Input: n = 6
+
+Output: 3
+Explanation: 6 = 4 + 1 + 1.
+```
+
+Recursion:
+
+```cpp
+class Solution {
+public:
+    int numSquares(int n) {
+        return dfs(n);
+    }
+
+private:
+    int dfs(int target) {
+        if (target == 0) {
+            return 0;
+        }
+
+        int res = target;
+        for (int i = 1; i * i <= target; i++) {
+            res = min(res, 1 + dfs(target - i * i));
+        }
+        return res;
+    }
+};
 ```
