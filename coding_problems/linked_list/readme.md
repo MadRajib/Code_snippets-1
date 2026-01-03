@@ -3,6 +3,7 @@
 1. [Reverse A Linked List](#reverse-a-linked-list)
 1. [Merge Two Sorted Linked Lists](#merge-two-sorted-linked-lists)
 1. [Linked List Cycle Detection](#linked-list-cycle-detection)
+1. [Intersection of Two Linked Lists](#intersection-of-two-linked-lists)
 1. [Reorder Linked List](#reorder-linked-list)
 1. [Remove Node From End of Linked List](#remove-node-from-end-of-linked-list)
 1. [Copy Linked List with Random Pointer](#copy-linked-list-with-random-pointer)
@@ -11,7 +12,7 @@
 1. [LRU Cache](#lru-cache)
 1. [LFU Cache](#lfu-cache)
 1. [Merge K Sorted list](#merge-k-sorted-list)
-1. [Insert Greatest Common Divisors in Linked List]
+1. [Insert Greatest Common Divisors in Linked List](#insert-greatest-common-divisors-in-linked-list)
 
 ### Reverse A Linked List
 - prev = nullptr
@@ -110,6 +111,46 @@ public:
             res = true;
 
         return res;
+    }
+};
+```
+
+### Intersection of Two Linked Lists
+> Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.
+
+For example, the following two linked lists begin to intersect at node c1:
+```bash
+Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
+Output: Intersected at '8'
+
+Input: intersectVal = 2, listA = [1,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1
+Output: Intersected at '2'
+
+Input: intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
+Output: No intersection
+
+```
+
+```cpp
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+          ListNode *p1 = headA;
+        ListNode *p2 = headB;
+        
+        if (p1 == NULL || p2 == NULL) return NULL;
+
+        while (p1 != p2) {
+            p1 = p1->next;
+            p2 = p2->next;
+            if (p1 == p2) return p1;
+   
+            if (p1 == NULL) p1 = headB;
+            if (p2 == NULL) p2 = headA;
+        }
+        return p1;
+        
+        
     }
 };
 ```
