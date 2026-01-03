@@ -3,17 +3,26 @@
 - [Sliding Window Problems](coding_problems/sliding_window/readme.md)
 - [Stack Problems](coding_problems/stack/readme.md)
 - [Heap Problems](coding_problems/heap/readme.md)
+- [Linked List](coding_problems/linked_list/readme.md)
 - [Recursion Problems](coding_problems/recursion/readme.md)
 - [Backtracking Problems](coding_problems/backtracking/readme.md)
+- [Dynamic Porblems](coding_problems/dp/readme.md)
+- [Tree Problems](coding_problems/trees/readme.md)
+- [Graph Problems](coding_problems/graph/readme.md)
 - [Math And Geometry Porblems](coding_problems/math_geometry/readme.md)
+- [Array and Strings](coding_problems/array_and_strings/readme.md)
+
+# Implementations and tricks
 - [Bit Hacks](bits_hacks/readme.md)
+<<<<<<< HEAD
 - [String Problems](coding_problems/strings/readme.md)
+=======
+- [Primitive Data Structures](primitive_data_structures/readme.md)
+>>>>>>> 43f3627e8390de672ee941839c41f67e49cebd8e
 
 # Contents
 - [Tips](#tips)
-- [STL Usage](#stl-usage)
-  - [Priority Queues](#priority-queue)
-  - [Vectors](#vectors)
+- [STL Usage](stl_usage/cpp.md)
 
 * __Substring__ -> set should be continuous
 * __Subsequence__ -> Should be in order not need to be continuous
@@ -255,47 +264,3 @@ int largestcolsum(int arr[][3]){
     return max;
 }
 ```
-## STL usage
-1. ### Priority Queue
-```cpp
-
-priority_queue<T, Conatiner, Comparator> pq;
-
-Params:
-T	-	The type of the stored elements.  
-Container	-	The type of the underlying container to use to store the elements.
-Compare	-	A Compare type providing a strict weak ordering.
-eg 
-priority_queue<int, vector<int>, greater<int>> pq;
-
-APIS:
-front()
-push_back()
-pop_back()
-
-```
-2. ### Vectors  
-  * Initializations:
-  ```cpp
-  vector<T> v1; => default initialization, v1 is empty;
-  
-  vector<T> v2(v1); => v2 has copy of each element of v1;
-  
-  vector<T> v2 = v1; => Equivalemnt of v2(v1);
-  
-  vector<T> v3(n,val); => v3 has n elements with value val;
-  
-  vector<T> v4(n); => v4 has n copies of vale-initialied object;
-  
-  vector<T> v5{a,b,c}; => definig;
-  
-  vector<T> v5 = {a,b,c}; => same as above;
-  ```
-  Initializing 2d vectors
-  ```cpp
-  vector<vector<int>> table<ROWS_COUNT, vector<int>(COLS_COUNT)>;
-  
-  vector<vector<int>> table<ROWS_COUNT, vector<int>(COLS_COUNT, val)>;
-  ```
-
-

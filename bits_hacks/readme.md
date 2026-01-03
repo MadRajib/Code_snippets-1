@@ -1,14 +1,21 @@
 ## Bit Hacks
 
 [reference](https://graphics.stanford.edu/~seander/bithacks.html)
+
+```c
+// count trailing zeros (GCC/Clang)
+    int tz = __builtin_ctz(n);
+```
+
 ```c
 x = 0xb011011000
 ~x = 0xb100100111
 -x = 0xb100101000
 ```
 ```c
-x = ~x + 1
--x = -x + 1
+// since we have
+x + ~x = -1;
+-x = ~x + 1;
 ```
 #### set kth bith in a word x to 1.
 ```c
@@ -23,6 +30,16 @@ y = x & ~(1 << k)
 #### toggle the kth bit
 ```c
 y = x ^ (1 << k)
+```
+
+#### Remove the last set bit
+```c
+x = x & (x - 1)
+```
+#### Compute the mask of the least-significant ! in word ".
+```c
+r = x & (-x);
+// 
 ```
 
 #### extract a bit field from a word x
@@ -118,4 +135,87 @@ for (c = 0; v; c++)
 {
   v &= v - 1; // clear the least significant bit set
 }
+```
+
+#### Check if a no is power of 2
+```c
+(x & x - 1) -> 0 then its power of two.
+```
+### To check power of 4
+- must ensure two conditions:
+  1. The number is a power of 2
+    * only one bit set
+    * n & (n - 1) == 0
+ 1. The single 1 bit must be in an even bit position
+    * (0, 2, 4, 6 … for 1-indexed positions)
+```c
+int isPowerOfFour(int n) {
+    if (n <= 0) return 0;
+
+    // Check power of 2: only one bit set
+    if (n & (n - 1)) return 0;
+
+    // Check that the 1-bit is in an even position
+    // Mask: 0x55555555 = binary pattern 0101...0101
+    return (n & 0x55555555) == n;
+}
+```
+#### Check for Power of 8
+1. The number is a power of 2
+2. Trailing zeros should be multiple of 3 
+```c
+int isPowerOfEight(unsigned int n) {
+    if (n == 0) return 0;
+
+    // Check power of 2
+    if (n & (n - 1)) return 0;
+
+    // Check bit in position multiple of 3
+    // 0000 1001 0010 0100 1001 0010 0100 1001
+    return (n & 0x09249249) == n;
+}
+```
+#### Find Xor of a number without using XOR operator:
+```c
+x ^ y = x~y + ~xy
+```
+
+#### Add 1 to an interger without using +, -, /, ++, --
+Logic:
+  1. Flip the last bit a ^ 1
+  2. if the last bit is 1 propagate the carry.
+```c
+int add_one(int a) {
+    int carry = 1; // we want to add 1
+    while (carry != 0) {
+        int temp = a ^ carry;        // add without carry
+        carry = (a & carry) << 1;    // compute new carry
+        a = temp;
+    }
+    return a;
+}
+```
+or
+```c
+// using the property -x = ~x + 1
+x + 1 = -(~x)
+```
+
+#### Odd or even
+```c
+return (x & 1)? false: true;
+
+return ((x >> 1) << 1) ==  x
+```
+
+#### Count the consecutive zero bits (trailing) on the right linearly
+```c
+unsigned int v;  // input to count trailing zero bits
+int c;  // output: c will count v's trailing zero bits,
+        // so if v is 1101000 (base 2), then c will be 3
+
+v = (v ^ (v - 1)) >> 1;  // Set v's trailing 0s to 1s and zero rest
+for (c = 0; v; c++)
+  v >>= 1;
+
 ```
