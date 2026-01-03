@@ -2,32 +2,51 @@
 
 [reference](https://graphics.stanford.edu/~seander/bithacks.html)
 
-```c
-// count trailing zeros (GCC/Clang)
-    int tz = __builtin_ctz(n);
-```
+1. [Tips](#tips)
+    1. [Properties](#properties)
+    1. [Set kth bit](#set-kth-bith-in-a-word-x-to-1)
+    1. [Clear kth bit](#clear-the-kth-bit-in-a-word-x)
+    1. [Toggle kth bit](#toggle-the-kth-bit)
+    1. [Remove Last set bit](#remove-the-last-set-bit)
+    1. [Mask of last set bit](#compute-the-mask-of-the-least-significant--in-word)
+    1. [Extract a bit field from a word x](#extract-a-bit-field-from-a-word-x)
+    1. [Set a bit field in word x to a valye y](#set-a-bit-field-in-word-x-to-a-valye-y)
+1. [Swap two integers](#swap-two-integers)
+1. [Min of two integers](#min-of-two-integers)
+1. [Modular Addition](#modular-addition)
+1. [Round up to a Power of 2](#round-up-to-a-power-of-2)
+1. [Counting bits set](#counting-bits-set)
+1. [Check if a no is power of 2](#check-if-a-no-is-power-of-2)
+1. [Check if a no is power of 4](#to-check-power-of-4)
+1. [Check if a no is power of 8](#check-for-power-of-8)
+1. [Find Xor of a number without using XOR operator](#find-xor-of-a-number-without-using-xor-operator)
+1. [Add 1 to an interger](#add-1-to-an-interger)
+1. [Odd or even](#odd-or-even)
+1. [Count the consecutive zero bits (trailing) on the right linearly](#count-the-consecutive-zero-bits-trailing-on-the-right-linearly)
 
+### Tips
+
+#### Properties
 ```c
 x = 0xb011011000
 ~x = 0xb100100111
 -x = 0xb100101000
-```
-```c
+
 // since we have
 x + ~x = -1;
 -x = ~x + 1;
 ```
-#### set kth bith in a word x to 1.
+#### Set kth bith in a word x to 1.
 ```c
 y = x | (1 << k)
 ```
 
-#### clear the kth bit in a word x.
+#### Clear the kth bit in a word x.
 ```c
 y = x & ~(1 << k)
 ```
 
-#### toggle the kth bit
+#### Toggle the kth bit
 ```c
 y = x ^ (1 << k)
 ```
@@ -36,25 +55,24 @@ y = x ^ (1 << k)
 ```c
 x = x & (x - 1)
 ```
-#### Compute the mask of the least-significant ! in word ".
+#### Compute the mask of the least-significant ! in word".
 ```c
 r = x & (-x);
-// 
 ```
 
-#### extract a bit field from a word x
-#### mask and shift
+#### Extract a bit field from a word x
+- mask and shift
 ```c
 (x & mask) >> shift
 ```
 
-#### set a bit field in word x to a valye y.
-#### invert mask to clear, and OR the shifted value.
+#### Set a bit field in word x to a valye y.
+- invert mask to clear, and OR the shifted value.
 ```c
 x = (x & ~mask) | ((y << shift) & mask)
 ```
 
-#### swap two integers
+### Swap two integers
 ```c
 x = x ^ y
 y = x ^ y
@@ -62,7 +80,7 @@ x = x ^ y
 ```
 -> poor at explotiting intruction level parallelism (ILP)
 
-#### Min of two integers
+### Min of two integers
 ```c
 r = (x < y) ? x: y;
 ```
@@ -81,22 +99,24 @@ have y ^ (x ^ y) => x.
 * If x >= y, then -(x < y) => 0. Therefore, we have
 y ^ 0 => y.
 
-#### Modular Addition
+### Modular Addition
 Compute (!%+ ") mod #, assuming that $%! !%< #%
 and $%! "%< #.
+
 ```c
 r = (x + y) % n;
 
 z = x + y;
 r = (z < n) ? z : z - n;
 ```
+
 Sol:
 ```c
 z = x + y;
 r = z - (n & -(z >= n));
 ```
 
-#### Round up to a Power of 2
+### Round up to a Power of 2
 Compute 2 [lg n]
 
 sol:
@@ -114,8 +134,9 @@ n |= n >> 32;       0100000000000000 // populates all bits to right with 1
 ++n         // adjust to substruction done earlier
 ```
 
-#### Counting bits set (naive way)
+### Counting bits set
 
+- Navie Way
 ```c
 unsigned int v; // count the number of bits set in v
 unsigned int c; // c accumulates the total bits set in v
@@ -127,7 +148,7 @@ for (c = 0; v; v >>= 1)
 ```
 The naive approach requires one iteration per bit, until no more bits are set. So on a 32-bit word with only the high set, it will go through 32 iterations.
 
-#### Counting bits set, Brian Kernighan's way
+- Brian Kernighan's way
 ```c
 unsigned int v; // count the number of bits set in v
 unsigned int c; // c accumulates the total bits set in v
@@ -137,10 +158,11 @@ for (c = 0; v; c++)
 }
 ```
 
-#### Check if a no is power of 2
+### Check if a no is power of 2
 ```c
 (x & x - 1) -> 0 then its power of two.
 ```
+
 ### To check power of 4
 - must ensure two conditions:
   1. The number is a power of 2
@@ -160,7 +182,7 @@ int isPowerOfFour(int n) {
     return (n & 0x55555555) == n;
 }
 ```
-#### Check for Power of 8
+### Check for Power of 8
 1. The number is a power of 2
 2. Trailing zeros should be multiple of 3 
 ```c
@@ -175,12 +197,14 @@ int isPowerOfEight(unsigned int n) {
     return (n & 0x09249249) == n;
 }
 ```
-#### Find Xor of a number without using XOR operator:
+### Find Xor of a number without using XOR operator
 ```c
 x ^ y = x~y + ~xy
 ```
 
-#### Add 1 to an interger without using +, -, /, ++, --
+### Add 1 to an interger
+- without using +, -, /, ++, --
+
 Logic:
   1. Flip the last bit a ^ 1
   2. if the last bit is 1 propagate the carry.
@@ -201,14 +225,14 @@ or
 x + 1 = -(~x)
 ```
 
-#### Odd or even
+### Odd or even
 ```c
 return (x & 1)? false: true;
 
 return ((x >> 1) << 1) ==  x
 ```
 
-#### Count the consecutive zero bits (trailing) on the right linearly
+### Count the consecutive zero bits (trailing) on the right linearly
 ```c
 unsigned int v;  // input to count trailing zero bits
 int c;  // output: c will count v's trailing zero bits,
