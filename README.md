@@ -14,11 +14,7 @@
 
 # Implementations and tricks
 - [Bit Hacks](bits_hacks/readme.md)
-<<<<<<< HEAD
-- [String Problems](coding_problems/strings/readme.md)
-=======
 - [Primitive Data Structures](primitive_data_structures/readme.md)
->>>>>>> 43f3627e8390de672ee941839c41f67e49cebd8e
 
 # Contents
 - [Tips](#tips)
