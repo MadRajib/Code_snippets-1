@@ -1,7 +1,60 @@
 # Arrays and Strings
 
 ### Problems
+1. [KMP ALGO](#kmp-algo)
 1. [Rotated Digits](#rotated-digits)
+1. [Maximum Subarray](#maximum-subarray)
+1. [Jump Game](#jump-game)
+
+
+### KMP Algo
+```cpp
+void generate_lps(vector<int> &pattern, vector<int> &lps) {
+    int prev_lps = 0;
+    int i = 1;
+
+    while (i < pattern.size()) {
+        if (pattern[i] == lps[prev_lps]) {
+            lps[i] = prev_lps + 1;
+            prev_lps++;
+            i++;
+        } else {
+            if (prev_lps == 0) {
+                lps[i] = 0;
+                i++;
+            } else {
+                prev_lps = lps[prev_lps - 1];
+            }
+        }
+    }
+}
+
+void kmp(vector<int> &haystack, vector<int> &pattern) {
+
+    int i = 0;  // ptr for hatystack
+    int j = 0;  // ptr for needle
+
+    vector<int> lps(pattern.size(), 0);
+    generate_lps(pattern, lps);
+
+    while (i < len(haystack)) {
+        if (haystack[i] == pattern[i]) {
+            i++;
+            j++;
+        } else {
+            if (j == 0)
+                i++;
+            else
+                j = lps[j - 1];
+        }
+
+        if (j == pattern.size())
+            return i - patter.size();
+    }
+
+    return -1;
+}
+```
 
 ### Rotated Digits
 > An integer x is a good if after rotating each digit individually by 180 degrees, we get a valid number that is different from x. Each digit must be rotated - we cannot choose to leave it alone.
@@ -62,6 +115,80 @@ public:
         }
 
         return res;
+    }
+};
+```
+
+### Maximum Subarray
+> Given an array of integers nums, find the subarray with the largest sum and return the sum.
+
+A subarray is a contiguous non-empty sequence of elements within an array.
+```bash
+Example 1:
+
+Input: nums = [2,-3,4,-2,2,1,-1,4]
+
+Output: 8
+Explanation: The subarray [4,-2,2,1,-1,4] has the largest sum 8.
+
+Example 2:
+
+Input: nums = [-1]
+
+Output: -1
+```
+
+Kadane's Algo:
+
+```cpp
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int best_sum = INT_MIN;
+        int cur_sum = 0;
+        for (auto n: nums) {
+            cur_sum = max(n, cur_sum + n);
+            best_sum = max(best_sum, cur_sum);
+        }
+
+        return best_sum;
+    }
+};
+
+```
+
+### Jump Game
+> You are given an integer array nums where each element nums[i] indicates your maximum jump length at that position.
+
+Return true if you can reach the last index starting from index 0, or false otherwise.
+
+```bash
+Example 1:
+
+Input: nums = [1,2,0,1,0]
+
+Output: true
+Explanation: First jump from index 0 to 1, then from index 1 to 3, and lastly from index 3 to 4.
+
+Example 2:
+
+Input: nums = [1,2,1,0,1]
+
+Output: false
+```
+
+```cpp
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int goal = nums.size() - 1;
+
+        for (int i = nums.size() -2; i >= 0; i--) {
+            if (nums[i] + i >= goal)
+                goal = i;
+        }
+
+        return goal == 0;
     }
 };
 ```

@@ -6,6 +6,9 @@
 1. [Top K Frequent Elements](#4-top-k-frequent-elements)
 1. [K Closest Points to Origin](#5-k-closest-points-to-origin)
 1. [Minimum Cost of ropes](#6-minimum-cost-of-ropes)
+1. [Task Scheduler](#task-scheduler)
+1. [Single Threaded CPU](#single-threaded-cpu)
+1. [Find Median From Data Stream](#find-median-from-data-stream)
 
 Note:
 ```cpp
@@ -310,4 +313,229 @@ int minCost(vector<int>& arr) {
         return res;
     
     }
+```
+
+### Task Scheduler
+> You are given an array of CPU tasks tasks, where tasks[i] is an uppercase english character from A to Z. You are also given an integer n.
+
+Each CPU cycle allows the completion of a single task, and tasks may be completed in any order.
+
+The only constraint is that identical tasks must be separated by at least n CPU cycles, to cooldown the CPU.
+
+Return the minimum number of CPU cycles required to complete all tasks.
+```bash
+Example 1:
+
+Input: tasks = ["X","X","Y","Y"], n = 2
+
+Output: 5
+Explanation: A possible sequence is: X -> Y -> idle -> X -> Y.
+
+Example 2:
+
+Input: tasks = ["A","A","A","B","C"], n = 3
+
+Output: 9
+Explanation: A possible sequence is: A -> B -> C -> Idle -> A -> Idle -> Idle -> Idle -> A.
+```
+
+Apporach:
+    - Create a max heap to store tasks with their frequency
+    - a tasks queue with remaining execution time and next time to run
+    - pick the tasks from the max heap, process a unit and push back to quueue with next running time i.e time + n
+    - after processing pick the next task from front of the queuue if its next running time is equal to curren time
+
+```cpp
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        vector<int> cnt(26, 0);
+        priority_queue<int> max_hp;
+        // execution time, next execution time
+        queue<pair<int, int>> task_q; 
+
+        for (auto t:tasks)
+            cnt[t - 'A']++;
+
+        for (auto c: cnt) {
+            if (c)
+                max_hp.push(c);
+        }
+            
+        
+        int time = 0;
+        while (!task_q.empty() || !max_hp.empty()) {
+            time++;
+            
+            // take the top task and process it
+            if (!max_hp.empty()) {
+                int t = max_hp.top() - 1; // -1 to process 1 unit
+                max_hp.pop();
+        
+                if (t)
+                    task_q.push({t, time + n});
+            }
+
+            // check for tasks in queue to process
+            // check for the first task is ready to submit to max heap
+            if (!task_q.empty() && task_q.front().second ==  time) {
+                max_hp.push(task_q.front().first);
+                task_q.pop();
+            }
+        }
+
+        return time;
+
+    }
+};
+
+```
+### Single Threaded CPU
+> You are given n tasks labeled from 0 to n - 1 represented by a 2D integer array tasks, where tasks[i] = [enqueueTimei, processingTimei] means that the ith task will be available to process at enqueueTime[i] and will take processingTime[i] to finish processing.
+
+You have a single-threaded CPU that can process at most one task at a time and will act in the following way:
+
+If the CPU is idle and there are no available tasks to process, the CPU remains idle.
+If the CPU is idle and there are available tasks, the CPU will choose the one with the shortest processing time. If multiple tasks have the same shortest processing time, it will choose the task with the smallest index.
+Once a task is started to process, the CPU will process the entire task without stopping.
+The CPU can finish a task then start a new one instantly.
+Return the order in which the CPU will process the tasks.
+
+```bash
+Example 1:
+
+Input: tasks = [[1,4],[3,3],[2,1]]
+
+Output: [0,2,1]
+Example 2:
+
+Input: tasks = [[5,2],[4,4],[4,1],[2,1],[3,3]]
+
+Output: [3,4,2,0,1]
+```
+
+
+```cpp
+class Solution {
+public:
+    vector<int> getOrder(vector<vector<int>>& tasks) {
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> available;
+        priority_queue<array<int, 3>, vector<array<int, 3>>, greater<>> pending;
+
+        int n = tasks.size();
+        for (int i = 0; i < n; ++i) {
+            pending.push({tasks[i][0], tasks[i][1], i});
+        }
+
+        vector<int> res;
+        long long time = 0;
+        while (!pending.empty() || !available.empty()) {
+            while (!pending.empty() && pending.top()[0] <= time) {
+                auto [enqueueTime, processTime, index] = pending.top();
+                pending.pop();
+                available.push({processTime, index});
+            }
+
+            if (available.empty()) {
+                time = pending.top()[0];
+                continue;
+            }
+
+            auto [processTime, index] = available.top();
+            available.pop();
+            time += processTime;
+            res.push_back(index);
+        }
+
+        return res;
+    }
+};
+```
+
+### Find Median From Data Stream
+> The median is the middle value in a sorted list of integers. For lists of even length, there is no middle value, so the median is the mean of the two middle values.
+
+For example:
+
+For arr = [1,2,3], the median is 2.
+For arr = [1,2], the median is (1 + 2) / 2 = 1.5
+Implement the MedianFinder class:
+
+MedianFinder() initializes the MedianFinder object.
+void addNum(int num) adds the integer num from the data stream to the data structure.
+double findMedian() returns the median of all elements so far.
+
+```bash
+Example 1:
+
+Input:
+["MedianFinder", "addNum", "1", "findMedian", "addNum", "3" "findMedian", "addNum", "2", "findMedian"]
+
+Output:
+[null, null, 1.0, null, 2.0, null, 2.0]
+
+Explanation:
+MedianFinder medianFinder = new MedianFinder();
+medianFinder.addNum(1);    // arr = [1]
+medianFinder.findMedian(); // return 1.0
+medianFinder.addNum(3);    // arr = [1, 3]
+medianFinder.findMedian(); // return 2.0
+medianFinder.addNum(2);    // arr[1, 2, 3]
+medianFinder.findMedian(); // return 2.0
+```
+
+Intuition:
+- To efficiently find the median while numbers keep coming, we split the
+stream into two halves:
+
+- A max-heap (small) that stores the smaller half of the numbers.
+    - The largest number of this half is on top.
+- A min-heap (large) that stores the larger half of the numbers.
+    - The smallest number of this half is on top.
+
+The goal:
+
+- Ensure both heaps are balanced in size (difference at most 1).
+- Ensure all numbers in small are ≤ all numbers in large.
+
+This setup allows:
+- Median = top of the bigger heap (if odd count)
+- Median = average of both tops (if even count)
+
+This gives O(log n) insert and O(1) median lookup.
+
+```cpp
+class MedianFinder {
+    priority_queue<int, vector<int>, less<int>> smallHeap;
+    priority_queue<int, vector<int>, greater<int>> largeHeap;
+
+public:
+    MedianFinder() {}
+
+    void addNum(int num) {
+        smallHeap.push(num);
+        if (!largeHeap.empty() && smallHeap.top() > largeHeap.top()) {
+            largeHeap.push(smallHeap.top());
+            smallHeap.pop();
+        }
+        if (smallHeap.size() > largeHeap.size() + 1) {
+            largeHeap.push(smallHeap.top());
+            smallHeap.pop();
+        }
+        if (largeHeap.size() > smallHeap.size() + 1) {
+            smallHeap.push(largeHeap.top());
+            largeHeap.pop();
+        }
+    }
+
+    double findMedian() {
+        if (smallHeap.size() == largeHeap.size()) {
+            return (largeHeap.top() + smallHeap.top()) / 2.0;
+        } else if (smallHeap.size() > largeHeap.size()) {
+            return smallHeap.top();
+        } else {
+            return largeHeap.top();
+        }
+    }
+};
 ```

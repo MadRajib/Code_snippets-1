@@ -12,6 +12,7 @@
  1. [(209.) Minimum Size Subarray Sum](#4-209-minimum-size-subarray-sum)
  1. [76. Minimum Window Substring](#5-76-minimum-window-substring)
  1. [424. Longest Repeating Character Replacement](#6-424-longest-repeating-character-replacement)
+ 1. [Longest Palindromic Substring](#longest-palindromic-substring)
 
 Notes: 
 * Subaray: continuous elements
@@ -555,4 +556,64 @@ int characterReplacement(string s, int k) {
     return res;
 }
 
+```
+
+### Longest Palindromic Substring
+> Given a string s, return the longest substring of s that is a palindrome.
+
+A palindrome is a string that reads the same forward and backward.
+
+If there are multiple palindromic substrings that have the same length, return any one of them.
+
+```bash
+Example 1:
+
+Input: s = "ababd"
+
+Output: "bab"
+Explanation: Both "aba" and "bab" are valid answers.
+
+Example 2:
+
+Input: s = "abbc"
+
+Output: "bb"
+```
+
+```cpp
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int resLen = 0, resIdx = 0;
+
+        for (int i = 0; i < s.size(); i++) {
+            // odd length
+            int l = i, r = i;
+            while (l >= 0 && r < s.size() &&
+                   s[l] == s[r]) {
+                if (r - l + 1 > resLen) {
+                    resIdx = l;
+                    resLen = r - l + 1;
+                }
+                l--;
+                r++;
+            }
+
+            // even length
+            l = i;
+            r = i + 1;
+            while (l >= 0 && r < s.size() &&
+                   s[l] == s[r]) {
+                if (r - l + 1 > resLen) {
+                    resIdx = l;
+                    resLen = r - l + 1;
+                }
+                l--;
+                r++;
+            }
+        }
+
+        return s.substr(resIdx, resLen);
+    }
+};
 ```
