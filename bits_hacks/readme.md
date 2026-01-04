@@ -33,6 +33,7 @@
 1. [Find XOR of numbers from the start to end](#find-xor-of-numbers-from-the-start-to-end)
 1. [Count Number of bits to be flipped to convert A to B](#count-number-of-bits-to-be-flipped-to-convert-a-to-b)
 1. [Swap all even and odd bits](#swap-all-even-and-odd-bits)
+1. [Divide two integers without using mult, div or mod](#divide-two-integers-without-using-mult-div-or-mod)
 
 ### Tips
 
@@ -419,4 +420,26 @@ Apporach
   mask = mask << (L - 1);
 
   return x ^ mask;
+```
+
+### Divide two integers without using mult, div or mod
+
+Apporach 1 using Subtracktion:
+- keep subtracking the diviso from the dividend until dividend becomes smaller than divisor.
+
+Apporach 2 using Bit Manipulation:
+```c
+
+// dividen 30 divisor 4
+// 30 = 4 * 2^2 + 4 * 2^1 + 4 * 2^0 + 2
+// for each bit set subtract divisor shifteed to that pos if less than dividend.
+// ORRed all the bit position as we go allong.
+
+for (int i = 31; i >= 0; --i) {
+    // Check if (divisor << i) <= dividend
+    if ((b << i) <= a) {
+      a -= (b << i);
+      quotient |= (1LL << i);
+  }
+}
 ```
