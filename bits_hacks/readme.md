@@ -24,6 +24,7 @@
 1. [Add 1 to an interger](#add-1-to-an-interger)
 1. [Odd or even](#odd-or-even)
 1. [Count the consecutive zero bits (trailing) on the right linearly](#count-the-consecutive-zero-bits-trailing-on-the-right-linearly)
+1. [Single Number III](#single-number-iii)
 
 ### Tips
 
@@ -300,4 +301,19 @@ public:
         return {x, (int)xr^x};
     }
 };
+```
+
+### Convert Uppercase to LowerCase
+```c
+  return (char)(ch | ' ');  // oring with space 32
+```
+
+### Convert Lower to upper
+```c
+  return (char)(ch & '_');
+```
+
+### Invert Alphabet Case
+```c
+  return (char)(ch ^ ' '); // 32
 ```
