@@ -40,6 +40,7 @@
 1. [Reduce a Number to 1](#reduce-a-number-to-1)
 1. [Set mismatch](#set-mismatch)
 1. [Maximum Product of Word Lengths](#maximum-product-of-word-lengths)
+1. [Check If a String Contains All Binary Codes of Size K](#check-if-a-string-contains-all-binary-codes-of-size-k)
 
 ### Tips
 
@@ -699,5 +700,45 @@ int maxProduct(vector<string>& words) {
         ans = max(ans,currans);
       }
     }
+}
+```
+### Check If a String Contains All Binary Codes of Size K
+Given a binary string s and an integer k, return true if every binary code of length k is a substring of s. Otherwise, return false.
+
+```bash
+Example 1:
+
+Input: s = "00110110", k = 2
+Output: true
+Explanation: The binary codes of length 2 are "00", "01", "10" and "11". They can be all found as substrings at indices 0, 1, 3 and 2 respectively.
+
+Example 2:
+
+Input: s = "0110", k = 1
+Output: true
+Explanation: The binary codes of length 1 are "0" and "1", it is clear that both exist as a substring. 
+
+Example 3:
+
+Input: s = "0110", k = 2
+Output: false
+Explanation: The binary code "00" is of length 2 and does not exist in the array.
+```
+
+Apporach:
+- Create all substring from s and check if the set size is 2^k or not
+
+```cpp
+bool hasAllCodes(string s, int k) {
+  int n = s.size();
+  if (k > n)
+    return false;
+
+  unordered_set<string> set;
+  for (int i = 0; i <= n - k; i++) {
+    set.insert(s.substr(i,k));
+  }
+
+  return set.size() == (1 << k);
 }
 ```
