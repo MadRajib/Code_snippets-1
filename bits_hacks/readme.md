@@ -39,6 +39,7 @@
 1. [Detect if two integers have opposite sign](#detect-if-two-integers-have-opposite-sign)
 1. [Reduce a Number to 1](#reduce-a-number-to-1)
 1. [Set mismatch](#set-mismatch)
+1. [Maximum Product of Word Lengths](#maximum-product-of-word-lengths)
 
 ### Tips
 
@@ -651,4 +652,52 @@ public:
         return {xorNotSet, xorSet};
     }
 };
+```
+
+### Maximum Product of Word Lengths
+> Given a string array words, return the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters. If no such two words exist, return 0.
+
+```bash
+Example 1:
+
+Input: words = ["abcw","baz","foo","bar","xtfn","abcdef"]
+Output: 16
+Explanation: The two words can be "abcw", "xtfn".
+
+Example 2:
+
+Input: words = ["a","ab","abc","d","cd","bcd","abcd"]
+Output: 4
+Explanation: The two words can be "ab", "cd".
+
+Example 3:
+
+Input: words = ["a","aa","aaa","aaaa"]
+Output: 0
+Explanation: No such pair of words.
+```
+
+Apporach:
+- conver string to bits a -> 1st bit set b 2nd
+
+```cpp
+int maxProduct(vector<string>& words) {
+  int n = words.size();
+  int ans = 0;
+  vector<int> state(n);
+
+  for(int i=0;i<n;i++){
+    for(char ch:words[i]){
+      //set the bits corresponding to the particular character
+      state[i] |= 1<<(ch-'a');
+    }
+
+    for(int j=0;j<i;j++){
+      //if no common letter between two strings, then find
+      if(!(state[i] & state[j])){
+        int currans = words[i].size()* words[j].size();
+        ans = max(ans,currans);
+      }
+    }
+}
 ```
