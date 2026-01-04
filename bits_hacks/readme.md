@@ -35,6 +35,8 @@
 1. [Swap all even and odd bits](#swap-all-even-and-odd-bits)
 1. [Divide two integers without using mult, div or mod](#divide-two-integers-without-using-mult-div-or-mod)
 1. [SINGLE NUMBER II](#single-number-ii)
+1. [Determine if two ints are equal or not](#determine-if-two-ints-are-equal-or-not)
+1. [Detect if two integers have opposite sign](#detect-if-two-integers-have-opposite-sign)
 
 ### Tips
 
@@ -474,4 +476,17 @@ Appraoch:
   }
 
   return ones;
+```
+### Determine if two ints are equal or not
+
+Apporach
+- XOR : return (a ^ b) == 0;
+- AND : return (a & ~b) == 0;
+
+### Detect if two integers have opposite sign
+
+Apporach:
+- Xor of two opposite number will give a negative number
+```c
+  return (a ^ b) < 0;
 ```
