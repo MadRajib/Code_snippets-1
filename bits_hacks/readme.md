@@ -409,3 +409,14 @@ Apporach
 
   return (e_bits >> 1) | (o_bits << 1 );
 ```
+
+### Toggle Bits from L to R
+
+```c
+  // set bits in that range to all ones
+  mask =  (1 << (R - L + 1)) - 1;
+  // move the range bits to that location
+  mask = mask << (L - 1);
+
+  return x ^ mask;
+```
