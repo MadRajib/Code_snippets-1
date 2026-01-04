@@ -37,6 +37,7 @@
 1. [SINGLE NUMBER II](#single-number-ii)
 1. [Determine if two ints are equal or not](#determine-if-two-ints-are-equal-or-not)
 1. [Detect if two integers have opposite sign](#detect-if-two-integers-have-opposite-sign)
+1. [Reduce a Number to 1](#reduce-a-number-to-1)
 
 ### Tips
 
@@ -489,4 +490,49 @@ Apporach:
 - Xor of two opposite number will give a negative number
 ```c
   return (a ^ b) < 0;
+```
+
+### Reduce a Number to 1
+> Given a number, our task is to reduce the given number N to 1 in the minimum number of steps.
+
+We can perform two types of operations in each step:
+
+- Operation 1: If the number is even then divide the number by 2
+- Operation 2: If the number is odd, then we are allowed to either (N+1) or (N-1)
+
+Approach recursion:
+```c
+int func(int n) {
+  if (n == 1)
+      return 0;
+  
+  if (n % 2 == 0)
+    return 1 + func(n/2);
+
+  return 1 + min(func(n -1), func(n + 1));
+}
+```
+
+Approch 2:
+- every even no can be represented as 4x or 4x + 2;
+- every odd no can be represented as 4x + 1 or 4x + 3;
+
+```c
+int count(int n) {
+  int cnt = 0;
+  while (n > 1) {
+    cnt++;
+
+    if ((n & 1) == 0) // even
+      n >>= 1;  // divide by 2;
+    // odd, n % 4 == 1 or n == 3(edge case), decrement - 1
+    else if (n & 3 == 1 || (n == 3))
+      n -= 1;
+    // n % 4 == 3, increment +1
+    else if ((n & 3) == 3)
+      n += 1
+  }
+
+  return count;
+}
 ```
