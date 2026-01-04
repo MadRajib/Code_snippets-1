@@ -34,6 +34,7 @@
 1. [Count Number of bits to be flipped to convert A to B](#count-number-of-bits-to-be-flipped-to-convert-a-to-b)
 1. [Swap all even and odd bits](#swap-all-even-and-odd-bits)
 1. [Divide two integers without using mult, div or mod](#divide-two-integers-without-using-mult-div-or-mod)
+1. [SINGLE NUMBER II](#single-number-ii)
 
 ### Tips
 
@@ -442,4 +443,35 @@ for (int i = 31; i >= 0; --i) {
       quotient |= (1LL << i);
   }
 }
+```
+
+### SINGLE NUMBER II
+> Given an integer array nums where every element appears thrice times except for one, which appears exactly once. Find the single element and return it.
+
+Appraoch:
+  - We are counting no of bits occurred in two variables ones and twos,
+  - i,e mod of 3.
+  ```c
+    1:
+      ones = (0 ^ 1) & ~(twos=0)    // ones = 1, twos = 0
+      // if added to ones dont add to twos
+      twos = (0 ^ 1) & ~(ones)      // ones = 1, twos = 0.
+    1:
+      ones = (1 ^ 1) & ~(twos=0)    // ones = 0, twos = 0.
+      twos = (0 ^ 1) & ~(ones=0)    // ones = 0, twos = 1
+    1.
+      ones = (0 ^ 1) & ~(twos = 1)  // ones = 0, twos = 1
+      twos = (1 ^ 1) & ~(ones = 0)  // ones = 0, twos = 0
+  ```
+
+```c
+  int ones = 0;
+  int twos = 0;
+
+  for (int i = 0; i < n; i++) {
+    ones = (ones ^ nums[i]) & ~(twos);
+    twos = (twos ^ nums[i]) & ~(ones);
+  }
+
+  return ones;
 ```
