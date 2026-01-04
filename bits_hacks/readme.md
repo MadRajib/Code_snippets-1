@@ -32,6 +32,7 @@
 1. [Calculate XOR from 1 to n](#calculate-xor-from-1-to-n)
 1. [Find XOR of numbers from the start to end](#find-xor-of-numbers-from-the-start-to-end)
 1. [Count Number of bits to be flipped to convert A to B](#count-number-of-bits-to-be-flipped-to-convert-a-to-b)
+1. [Swap all even and odd bits](#swap-all-even-and-odd-bits)
 
 ### Tips
 
@@ -398,4 +399,13 @@ Apporach
 
   return x;
 
+```
+
+### Swap all even and odd bits
+
+```c
+  e_bits = x & 0xAAAAAAAA;
+  o_bits = x & 0x55555555;
+
+  return (e_bits >> 1) | (o_bits << 1 );
 ```
