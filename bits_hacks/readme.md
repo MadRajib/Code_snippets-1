@@ -254,3 +254,50 @@ for (c = 0; v; c++)
   v >>= 1;
 
 ```
+
+### Single Number III
+> Given an integer array nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once. You can return the answer in any order.
+
+```bash
+Example 1:
+
+Input: nums = [1,2,1,3,2,5]
+Output: [3,5]
+Explanation:  [5, 3] is also a valid answer.
+
+Example 2:
+
+Input: nums = [-1,0]
+Output: [-1,0]
+
+Example 3:
+
+Input: nums = [0,1]
+Output: [1,0]
+```
+
+Apporach:
+- After xor all the nums we will be left with no with two no in the xr.
+- Find the mask of last set bit in xr. 
+- xor all nums which have this bit set, this will give the first no.
+  - this remove all the dups no
+
+```cpp
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        long long xr = 0;
+        for (auto n: nums)
+            xr ^= n;
+        
+        long long mask = xr & -xr;
+        int x = 0;
+        for (auto n: nums) {
+            if ((n & mask) > 0)
+                x ^= n;
+        }
+
+        return {x, (int)xr^x};
+    }
+};
+```
