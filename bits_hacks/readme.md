@@ -4,6 +4,7 @@
 
 1. [Tips](#tips)
     1. [Properties](#properties)
+    1. [Check kth bit](#check-kth-bit)
     1. [Set kth bit](#set-kth-bith-in-a-word-x-to-1)
     1. [Clear kth bit](#clear-the-kth-bit-in-a-word-x)
     1. [Toggle kth bit](#toggle-the-kth-bit)
@@ -36,6 +37,13 @@ x = 0xb011011000
 x + ~x = -1;
 -x = ~x + 1;
 ```
+
+#### Check kth bit
+```c
+  mask = 1 << k;
+  return x & mask
+```
+
 #### Set kth bith in a word x to 1.
 ```c
 y = x | (1 << k)
@@ -160,6 +168,9 @@ for (c = 0; v; c++)
 
 ### Check if a no is power of 2
 ```c
+x     = 010000 // all power of 2 have this format
+x - 1 = 001111
+
 (x & x - 1) -> 0 then its power of two.
 ```
 
