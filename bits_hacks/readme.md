@@ -38,6 +38,7 @@
 1. [Determine if two ints are equal or not](#determine-if-two-ints-are-equal-or-not)
 1. [Detect if two integers have opposite sign](#detect-if-two-integers-have-opposite-sign)
 1. [Reduce a Number to 1](#reduce-a-number-to-1)
+1. [Set mismatch](#set-mismatch)
 
 ### Tips
 
@@ -535,4 +536,53 @@ int count(int n) {
 
   return count;
 }
+```
+
+### Set mismatch
+> You have a set of integers s, which originally contains all the numbers from 1 to n. Unfortunately, due to some error, one of the numbers in s got duplicated to another number in the set, which results in repetition of one number and loss of another number.
+
+You are given an integer array nums representing the data status of this set after the error.
+
+Find the number that occurs twice and the number that is missing and return them in the form of an array.
+
+```bash
+Example 1:
+
+Input: nums = [1,2,2,4]
+Output: [2,3]
+
+Example 2:
+
+Input: nums = [1,1]
+Output: [1,2]
+```
+
+Apporach 1:
+- sum of n elements(S)  -> n(n + 1)/2;
+- sum of square of n element(P) -> n(n+1)(2*n + 1)/6;
+- S - s = x - y (s actuall array sum)
+- P - p = (x + y)(x - y)  (p actuall square sum of elements)
+- x and y are the corrupted nums
+
+```cpp
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        long long s1 = 0, s2 = 0, s3 = 0, s4 = 0;
+        long long n = nums.size();
+
+        for(int i : nums){
+            s2 += i;
+            s4 += i * i;
+        }
+
+        s1 = n * (n + 1) / 2;
+        s3 = n * (n + 1) * (2 * n + 1) / 6;
+
+        int dup = ((s2 - s1) + (s4 - s3) / (s2 - s1)) / 2;
+        int mis = dup - (s2 - s1);
+
+        return {dup, mis};
+    }
+};
 ```
