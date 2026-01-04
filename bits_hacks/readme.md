@@ -31,6 +31,7 @@
 1. [Letter Position In alphabet](#letter-position-in-alphabet)
 1. [Calculate XOR from 1 to n](#calculate-xor-from-1-to-n)
 1. [Find XOR of numbers from the start to end](#find-xor-of-numbers-from-the-start-to-end)
+1. [Count Number of bits to be flipped to convert A to B](#count-number-of-bits-to-be-flipped-to-convert-a-to-b)
 
 ### Tips
 
@@ -373,3 +374,28 @@ int findXOR(int n) {
 
 Apporach
 - findXOR(start - 1) ^ findXOR(end)
+
+### Count Number of bits to be flipped to convert A to B
+
+```c
+  xr = A ^ B
+  return count_bits(xr);
+```
+
+### Swap ith and jth bit
+
+- i and j from 1...
+```c
+  // store bits from i and j
+  a = (x >> (i - 1)) && 1;
+  b = (x >> (j - 1)) && 1;
+
+  temp = a ^ b;
+
+  // xor with loc i and j since it will remove previous bit value and place the new one
+  x = x ^ (temp << (i - 1));
+  x = x ^ (temp << (j - 1));
+
+  return x;
+
+```
