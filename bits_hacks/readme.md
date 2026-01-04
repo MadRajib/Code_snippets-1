@@ -586,3 +586,69 @@ public:
     }
 };
 ```
+
+Approach XOR Operation:
+- Calculate the XOR of all numbers from 1 to n
+- Xor all the nums in that array with the previous xor value
+- at last we will only have two required number in that xor value (xr).
+- Find the mask of last set bit in xr.
+- xor all nums which have this bit set form 1 to n and from array, this will give the first no.
+  - this remove all the dups no
+
+```cpp
+
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        int n = nums.size();
+        int xorAll = 0;
+        int xorArray = 0;
+
+     
+        for (int i = 1; i <= n; i++) {
+            xorAll ^= i;
+        }
+
+        
+        for (int num : nums) {
+            xorArray ^= num;
+        }
+
+       
+        int xorResult = xorArray ^ xorAll;
+
+        
+        int rightmostSetBit = xorResult & -xorResult;
+
+        int xorSet = 0;
+        int xorNotSet = 0;
+
+        
+        for (int i = 1; i <= n; i++) {
+            if (i & rightmostSetBit) {
+                xorSet ^= i;
+            } else {
+                xorNotSet ^= i;
+            }
+        }
+
+        for (int num : nums) {
+            if (num & rightmostSetBit) {
+                xorSet ^= num;
+            } else {
+                xorNotSet ^= num;
+            }
+        }
+
+        
+        for (int num : nums) {
+            if (num == xorSet) {
+                return {xorSet, xorNotSet};
+            }
+        }
+
+        
+        return {xorNotSet, xorSet};
+    }
+};
+```
