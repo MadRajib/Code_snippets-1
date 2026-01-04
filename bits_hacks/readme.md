@@ -25,6 +25,10 @@
 1. [Odd or even](#odd-or-even)
 1. [Count the consecutive zero bits (trailing) on the right linearly](#count-the-consecutive-zero-bits-trailing-on-the-right-linearly)
 1. [Single Number III](#single-number-iii)
+1. [Convert Uppercase to LowerCase](#convert-uppercase-to-lowercase)
+1. [Convert Lower to upper](#convert-lower-to-upper)
+1. [Invert Alphabet Case](#invert-alphabet-case)
+1. [Letter Position In alphabet](#letter-position-in-alphabet)
 
 ### Tips
 
@@ -316,4 +320,9 @@ public:
 ### Invert Alphabet Case
 ```c
   return (char)(ch ^ ' '); // 32
+```
+
+### Letter Position In alphabet
+```c
+  return (ch & 31) ; // works with both small and upper case.
 ```
