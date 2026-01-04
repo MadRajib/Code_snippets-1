@@ -29,6 +29,8 @@
 1. [Convert Lower to upper](#convert-lower-to-upper)
 1. [Invert Alphabet Case](#invert-alphabet-case)
 1. [Letter Position In alphabet](#letter-position-in-alphabet)
+1. [Calculate XOR from 1 to n](#calculate-xor-from-1-to-n)
+1. [Find XOR of numbers from the start to end](#find-xor-of-numbers-from-the-start-to-end)
 
 ### Tips
 
@@ -326,3 +328,48 @@ public:
 ```c
   return (ch & 31) ; // works with both small and upper case.
 ```
+
+### Calculate XOR from 1 to n
+
+Obeservation
+```bash
+1     = 1
+1 ^ 2 = 3
+3 ^ 3 = 0
+0 ^ 4 = 4
+4 ^ 5 = 1
+1 ^ 6 = 7
+7 ^ 7 = 0
+0 ^ 8 = 8
+8 ^ 9 = 1
+1 ^ 10 = 11
+11 ^ 11 = 0
+0 ^ 12 = 12
+```
+- if n % 4 == 0 -> n
+- if n % 4 == 1 -> 1
+- if n % 4 == 2 -> n + 1
+- if n % 4 == 3 -> 0
+
+```c
+int findXOR(int n) {
+  int m = n % 4;
+  switch(m) {
+    case 0:
+      return n;
+    case 1:
+      return 1;
+    case 2:
+      return n + 1;
+    case 3:
+      return 0;
+  }
+
+  return -1;
+} 
+```
+
+### Find XOR of numbers from the start to end
+
+Apporach
+- findXOR(start - 1) ^ findXOR(end)
