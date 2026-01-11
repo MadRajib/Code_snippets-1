@@ -9,6 +9,7 @@
 1. [Clone Graph](#clone-graph)
 1. [Surrounded Regions](#surrounded-regions)
 1. [Course Schedule](#course-schedule)
+1. [Graph Valid Tree](#graph-valid-tree)
 
 ### Island Perimeter
 ```bash
@@ -736,6 +737,82 @@ public:
         visited.erase(i);
         course_map[i].clear();
     
+        return true;
+    }
+};
+
+```
+
+### Graph Valid Tree
+> Given n nodes labeled from 0 to n - 1 and a list of undirected edges (each edge is a pair of nodes), write a function to check whether these edges make up a valid tree.
+
+```bash
+Example 1:
+
+Input:
+n = 5
+edges = [[0, 1], [0, 2], [0, 3], [1, 4]]
+
+Output:
+true
+Example 2:
+
+Input:
+n = 5
+edges = [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]]
+
+Output:
+false
+Note:
+
+You can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.
+
+```
+
+
+Apporach:
+- if cycle detected in the graph then not a tree
+- if every node not reachable from root not then not a tree.
+
+```cpp
+class Solution {
+public:
+    unordered_map<int, vector<int>> adj_mat;
+    unordered_set<int> visited;
+
+    bool validTree(int n, vector<vector<int>>& edges) {
+
+        // adj build
+        for (int i = 0; i < n; i++)
+            adj_mat[i] = {};
+
+        for (auto edge: edges) {
+            adj_mat[edge[0]].push_back(edge[1]);
+            adj_mat[edge[1]].push_back(edge[0]);
+        }
+        
+        if (!dfs(0, -1))
+            return false;
+
+        return visited.size() == n;
+    }
+
+    bool dfs(int n, int parent) {
+
+        visited.insert(n);
+        
+        for (auto e: adj_mat[n]) {
+
+            // if not visited visit
+            if (!visited.count(e)) {
+                if (!dfs(e, n))
+                    return false;
+            // already visited ? not parent
+            } else if (e != parent) {
+                return false;
+            }
+        }
+
         return true;
     }
 };
