@@ -6,6 +6,7 @@
 1. [Islands and Treasure](#islands-and-treasure)
 1. [Rotting Fruit](#rotting-fruit)
 1. [Find if Path Exists in Graph](#find-if-path-exists-in-graph)
+1. [Clone Graph](#clone-graph)
 
 ### Island Perimeter
 ```bash
@@ -500,6 +501,88 @@ public:
                 return true;
         }
         return false;
+    }
+};
+```
+
+### Clone Graph
+
+> Given a node in a connected undirected graph, return a deep copy of the graph.
+
+Each node in the graph contains an integer value and a list of its neighbors.
+
+class Node {
+    public int val;
+    public List<Node> neighbors;
+}
+The graph is shown in the test cases as an adjacency list. An adjacency list is a mapping of nodes to lists, used to represent a finite graph. Each list describes the set of neighbors of a node in the graph.
+
+For simplicity, nodes values are numbered from 1 to n, where n is the total number of nodes in the graph. The index of each node within the adjacency list is the same as the node's value (1-indexed).
+
+The input node will always be the first node in the graph and have 1 as the value.
+
+```bash
+Example 1:
+
+
+
+Input: adjList = [[2],[1,3],[2]]
+
+Output: [[2],[1,3],[2]]
+Explanation: There are 3 nodes in the graph.
+Node 1: val = 1 and neighbors = [2].
+Node 2: val = 2 and neighbors = [1, 3].
+Node 3: val = 3 and neighbors = [2].
+
+Example 2:
+
+
+
+Input: adjList = [[]]
+
+Output: [[]]
+Explanation: The graph has one node with no neighbors.
+
+Example 3:
+
+Input: adjList = []
+
+Output: []
+Explanation: The graph is empty.
+```
+
+Observation:
+- seems similar to cloning tree problem i.e recursively building it
+- what if there is cycles ? infinite jumps!
+
+Apporach:
+- For cycle, use map to map old -> new.
+- before cloning a graph at node n, we check if we already saw it.
+- if yes return the cached value else recursively clone it.
+
+```cpp
+class Solution {
+public:
+    unordered_map<Node *, Node *> mp;
+    Node* cloneGraph(Node* node) {
+        return rr_clone(node); 
+    }
+
+    Node* rr_clone(Node* node) {
+        // base
+        if (node == nullptr)
+            return nullptr;
+        
+        if (mp.count(node))
+            return mp[node];
+        
+        Node *clone = new Node(node->val);
+        mp[node] = clone;
+
+        for (auto n:node->neighbors)
+            clone->neighbors.push_back(rr_clone(n));
+        
+        return clone;
     }
 };
 ```
