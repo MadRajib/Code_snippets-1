@@ -10,8 +10,8 @@
 1. [Surrounded Regions](#surrounded-regions)
 1. [Course Schedule](#course-schedule)
 1. [Graph Valid Tree](#graph-valid-tree)
-1. [Cycle Detection In Undirected Graph]
-1. [Cycle Detection In Directed Graph]
+1. [Cycle Detection In Undirected Graph](#cycle-detection-in-undirected-graph)
+1. [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph)
 
 ### Island Perimeter
 ```bash
