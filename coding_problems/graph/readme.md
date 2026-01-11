@@ -910,3 +910,71 @@ bool has_cycle_in_d_graph(int V, vector<int> adj[]) {
     return false;
 }
 ```
+
+### Number of Connected Components in an Undirected Graph
+
+> There is an undirected graph with n nodes. There is also an edges array, where edges[i] = [a, b] means that there is an edge between node a and node b in the graph.
+
+The nodes are numbered from 0 to n - 1.
+
+Return the total number of connected components in that graph.
+
+```bash
+Example 1:
+
+Input:
+n=3
+edges=[[0,1], [0,2]]
+
+Output:
+1
+Example 2:
+
+Input:
+n=6
+edges=[[0,1], [1,2], [2,3], [4,5]]
+
+Output:
+2
+```
+
+Apporach:
+- create adj list from the edge list
+- iterate over all the nodes
+- for each dfs from a new unvisited node we will find a new component.
+
+```cpp
+class Solution {
+public:
+    int countComponents(int n, vector<vector<int>>& edges) {
+        vector<bool> visited(n, false);
+        vector<vector<int>> adj(n);
+    
+        int res = 0;
+        for (auto e: edges) {
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
+        }
+
+        // iterate over all the nodes
+        for (int node = 0; node < n; node++) {
+            // when dfs started for a new node a new component is found!
+            if (!visited[node]) {
+                dfs(node, adj, visited);
+                res++;
+            }
+        }
+
+        return res;
+
+    }
+
+    void dfs(int node, vector<vector<int>>& adj, vector<bool>& visited) {
+        visited[node] = true;
+        for (auto n: adj[node]) {
+            if (!visited[n])
+                dfs(n, adj, visited);
+        }
+    }
+};
+```
