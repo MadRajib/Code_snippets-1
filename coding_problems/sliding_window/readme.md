@@ -484,7 +484,9 @@ string minWindow(string s, string t) {
         /* increase matched chars if needed no.of letter found */
         if (mp.find(s[r]) != mp.end() && win[s[r]] == mp[s[r]])
             match_count++;
-            
+        
+        // reducing an element can still make the window valid
+        // hence check for all the possibilities
         while (match_count ==  mp.size()) {
             if (r - l + 1 < min_len) {
                 l_min = l;
