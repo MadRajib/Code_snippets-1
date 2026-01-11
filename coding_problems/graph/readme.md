@@ -7,6 +7,7 @@
 1. [Rotting Fruit](#rotting-fruit)
 1. [Find if Path Exists in Graph](#find-if-path-exists-in-graph)
 1. [Clone Graph](#clone-graph)
+1. [Surrounded Regions](#surrounded-regions)
 
 ### Island Perimeter
 ```bash
@@ -583,6 +584,85 @@ public:
             clone->neighbors.push_back(rr_clone(n));
         
         return clone;
+    }
+};
+```
+
+### Surrounded Regions
+> You are given a 2-D matrix board containing 'X' and 'O' characters.
+
+If a continous, four-directionally connected group of 'O's is surrounded by 'X's, it is considered to be surrounded.
+
+Change all surrounded regions of 'O's to 'X's and do so in-place by modifying the input board.
+
+```bash 
+Example 1:
+
+Input: board = [
+  ["X","X","X","X"],
+  ["X","O","O","X"],
+  ["X","O","O","X"],
+  ["X","X","X","O"]
+]
+
+Output: [
+  ["X","X","X","X"],
+  ["X","X","X","X"],
+  ["X","X","X","X"],
+  ["X","X","X","O"]
+]
+```
+
+Apporach:
+- lets dfs from all the 4 edges when it has O
+- mark all the O reachable from the edge O as # this
+- after traversal, all the boarded O will remain O but the the O connected to corners O will be marked as #
+
+```cpp
+class Solution {
+public:
+    void solve(vector<vector<char>>& board) {
+        int ROW = board.size();
+        int COL = board[0].size();
+
+        for (int j = 0; j < COL; j++) {
+            if (board[0][j] == 'O')
+                dfs(board, 0, j);
+        
+            if (board[ROW - 1][j] == 'O')
+                dfs(board, ROW - 1, j);
+        }
+        
+        for (int i = 0; i < ROW; i++) {
+            if (board[i][0] == 'O')
+                dfs(board, i, 0);
+        
+            if (board[i][COL - 1] == 'O')
+                dfs(board, i, COL - 1);
+        }
+        
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if (board[i][j] == '#')
+                    board[i][j] = 'O';
+                else if (board[i][j] == 'O')
+                    board[i][j] = 'X';
+            }
+        }
+
+    }
+
+    void dfs(vector<vector<char>>& board, int i, int j) {
+        //base
+        if (i < 0 || j < 0 || i >= board.size() || j >= board[0].size() || board[i][j] != 'O')
+            return;
+
+        board[i][j] = '#';
+        
+        dfs(board, i + 1, j);
+        dfs(board, i - 1, j);
+        dfs(board, i, j + 1);
+        dfs(board, i, j - 1);
     }
 };
 ```
