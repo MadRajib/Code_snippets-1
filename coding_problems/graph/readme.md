@@ -10,6 +10,8 @@
 1. [Surrounded Regions](#surrounded-regions)
 1. [Course Schedule](#course-schedule)
 1. [Graph Valid Tree](#graph-valid-tree)
+1. [Cycle Detection In Undirected Graph]
+1. [Cycle Detection In Directed Graph]
 
 ### Island Perimeter
 ```bash
@@ -817,4 +819,94 @@ public:
     }
 };
 
+```
+
+### Cycle Detection In Undirected Graph
+
+Algo:
+- We keep track of visited nodes.
+- For every adjacent node v of u:
+    - If v is not visited, recurse for v.
+    - If v is visited and v != parent, then a cycle is detected.
+
+```cpp
+bool dfs_ud_graph(int u, int parent, vector<int> adj[], vector<bool>& visited) {
+    
+    visited[u] = true;
+    
+    for (int v : adj[u]) {
+        if (!visited[v]) {
+            if (dfs_ud_graph(v, u, adj, visited))
+                return true;
+        }
+        // If visited and not the parent, it's a cycle
+        else if (v != parent) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool has_cycle_in_ud_graph(int V, vector<int> adj[]) {
+    vector<bool> visited(V, false);
+    
+    for (int i = 0; i < V; i++) {
+        if (!visited[i]) {
+            if (dfs_ud_graph(i, -1, adj, visited))
+                return true;
+        }
+    }
+    return false;
+}
+```
+
+### Cycle Detection In directed Graph
+
+- Why above logic wont work always for directed graph ?
+    - due to cross edges
+
+Track the following state:
+- **Unvisited**: Not yet processed.
+- **Visiting**: Currently in the recursion stack (ancestor).
+- **Visited**: Fully processed and popped off the stack.
+
+Algo:
+- Maintain a recursionStack (or use the "Visiting" state).
+- For each neighbor v of u:
+    - If v is in the recursionStack, Cycle Found.
+    - If v is unvisited, recurse.
+- Once all neighbors are processed, remove u from the recursionStack.
+
+```cpp
+bool dfs_d_graph(int u, vector<int> adj[], vector<bool>& visited, vector<bool>& recStack) {
+    visited[u] = true;
+    recStack[u] = true; // Add to current path
+
+    for (int v : adj[u]) {
+        if (!visited[v]) {
+            if (dfs_d_graph(v, adj, visited, recStack))
+                return true;
+        }
+        // If it's already in the recursion stack, it's a back edge
+        else if (recStack[v]) {
+            return true;
+        }
+    }
+
+    recStack[u] = false; // Remove from path before backtracking
+    return false;
+}
+
+bool has_cycle_in_d_graph(int V, vector<int> adj[]) {
+    vector<bool> visited(V, false);
+    vector<bool> recStack(V, false);
+    
+    for (int i = 0; i < V; i++) {
+        if (!visited[i]) {
+            if (dfs_d_graph(i, adj, visited, recStack))
+                return true;
+        }
+    }
+    return false;
+}
 ```
