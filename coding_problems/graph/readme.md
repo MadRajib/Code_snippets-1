@@ -8,6 +8,7 @@
 1. [Find if Path Exists in Graph](#find-if-path-exists-in-graph)
 1. [Clone Graph](#clone-graph)
 1. [Surrounded Regions](#surrounded-regions)
+1. [Course Schedule](#course-schedule)
 
 ### Island Perimeter
 ```bash
@@ -665,4 +666,78 @@ public:
         dfs(board, i, j - 1);
     }
 };
+```
+
+### Course Schedule
+
+> You are given an array prerequisites where prerequisites[i] = [a, b] indicates that you must take course b first if you want to take course a.
+
+The pair [0, 1], indicates that must take course 1 before taking course 0.
+
+There are a total of numCourses courses you are required to take, labeled from 0 to numCourses - 1.
+
+Return true if it is possible to finish all courses, otherwise return false.
+
+```bash
+Example 1:
+
+Input: numCourses = 2, prerequisites = [[0,1]]
+
+Output: true
+Explanation: First take course 1 (no prerequisites) and then take course 0.
+
+Example 2:
+
+Input: numCourses = 2, prerequisites = [[0,1],[1,0]]
+
+Output: false
+Explanation: In order to take course 1 you must take course 0, and to take course 0 you must take course 1. So it is impossible.
+```
+
+Apporach:
+- use dfs to find cycle detection
+- We can erase the course which has no cycle
+
+```cpp
+class Solution {
+public:
+    unordered_map<int, vector<int>> course_map;
+    unordered_set<int> visited;
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        
+        // Build adj matrix
+        for (int i = 0; i < numCourses; i++)
+            course_map[i] = {};
+        
+        for (auto el: prerequisites)
+            course_map[el[0]].push_back(el[1]);
+        
+        for (int i = 0; i < numCourses; i++) {
+            if (!dfs(i))
+                return false;
+        }
+
+        return true;
+    }
+
+    bool dfs(int i) {
+        // cycle detection
+        if (visited.count(i))
+            return false;
+        
+        if (course_map[i].empty())
+            return true;
+
+        visited.insert(i);
+        for (auto el: course_map[i])
+            if(!dfs(el))
+                return false;
+        
+        visited.erase(i);
+        course_map[i].clear();
+    
+        return true;
+    }
+};
+
 ```
