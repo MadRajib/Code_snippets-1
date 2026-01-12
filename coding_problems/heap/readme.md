@@ -352,6 +352,10 @@ Explanation: A possible sequence is: A -> B -> C -> Idle -> A -> Idle -> Idle ->
 ```
 
 Apporach:
+- We will execute 1 unit of work on each execution
+- We will pick tasks which has max execution time
+- pick a task from task queue and add it to heap to run
+
 - Create a max heap to store tasks with their frequency
 - a tasks queue with remaining execution time and next time to run
 - pick the tasks from the max heap, process a unit and push back to quueue with next running time i.e time + n
