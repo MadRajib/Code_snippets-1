@@ -49,6 +49,13 @@ Output: 7 .
 
 ```
 
+Apporach:
+- use max heap for kth smallest element
+- use min heap for kth largest element
+- why the oposite ? 
+    - kth smallest i.e Array_Len - kth + 1 largest element
+    - it will be the largest in kth size array
+
 ```cpp
     KthSmallest(int k, vector<int>& nums) {
         priority_queue<int> maxheap;
