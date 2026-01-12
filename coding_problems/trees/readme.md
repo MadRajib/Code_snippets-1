@@ -24,6 +24,7 @@
 
 ### Interesting Problems
 1. [Inorder Successor and Inorder Traversal in a BST with Parent Pointer](#inorder-successor-and-inorder-traversal-in-a-bst-with-parent-pointer)
+1. [Find the post order successor of a node with no root](#find-the-post-order-successor-of-a-node-with-no-root)
 
 ```cpp
 left_child  = 2 * i + 1;
@@ -1100,4 +1101,58 @@ void traversal(node* root) {
     std::cout << std::endl;
 }
 
+```
+
+### Find the post order successor of a node with no root
+
+There has to be a pointer to parent from the node.
+
+Apporach: We need to consider nodes as siblings no left or right
+- Case 1: No parent to the node
+    - return null
+- Case 2: if the node is last sibling
+    - return parent node
+- Case 3: if the node has siblings
+    - go to next sibling and find the left most node.
+    - if no left most sibling node than return the parent.
+
+Practice here : [Practice](../../custom_codes_template/find_post_order_successor.c)
+
+```c
+TreeNode* findPostOrderSuccessor(TreeNode* node) {
+
+//     typedef struct TreeNode {
+//      int data;
+//      struct TreeNode* parent;
+//      struct TreeNode* children[MAX_CHILDREN];
+//      int childCount;
+//     } TreeNode;
+
+    // Sanity
+    if (!node)
+        return NULL;
+
+    // case 1: no parent node
+    if (!node->parent)
+        return NULL;
+
+    // case 2: if last sbiling
+    TreeNode* parent = node->parent;
+    if (parent->children[parent->childCount - 1] == node)
+        return parent;
+
+    // case 3: if has siblings
+    int i = 0;
+    for (; i < parent->childCount; i++) {
+        if (parent->children[i] == node)
+            break;
+    }
+
+    TreeNode* itr = parent->children[i + 1];
+    while (itr->childCount) {
+            itr = itr->children[0];
+    }
+
+    return itr;
+}
 ```
