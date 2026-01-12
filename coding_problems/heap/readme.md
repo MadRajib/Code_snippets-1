@@ -26,7 +26,7 @@ priority_queue<vector<int>, vector<vector<int>>, CustomCompare> mxhp;
 ```
 
 Note:
-- for compartor(a,b) think in this way "should a lose to b ?"
+- for compartor(a,b) think in this way "should a lose to b ?" i,e should b has more priority than a ?
     - if yes then return true
     - if no then return false
 
