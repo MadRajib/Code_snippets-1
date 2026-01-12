@@ -476,9 +476,9 @@ Output: 9
 ```
 
 Apporach:
-    * for any building, water at top of the building will be BW[i] =  min(MAX_L, MAX_R) - B_height;
-    * sum of building water will give the ans
-    * We will maintain two array maxl, maxr;  these track what was the max bound found on the left and right of that element.
+- for any building, water at top of the building will be BW[i] =  min(MAX_L, MAX_R) - B_height;
+- sum of building water will give the ans
+- We will maintain two array maxl, maxr;  these track what was the max bound found on the left and right of that element.
 
 ```cpp
 vector<int> maxl, maxr;
