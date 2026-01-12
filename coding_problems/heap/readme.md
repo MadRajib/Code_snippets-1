@@ -352,10 +352,10 @@ Explanation: A possible sequence is: A -> B -> C -> Idle -> A -> Idle -> Idle ->
 ```
 
 Apporach:
-    - Create a max heap to store tasks with their frequency
-    - a tasks queue with remaining execution time and next time to run
-    - pick the tasks from the max heap, process a unit and push back to quueue with next running time i.e time + n
-    - after processing pick the next task from front of the queuue if its next running time is equal to curren time
+- Create a max heap to store tasks with their frequency
+- a tasks queue with remaining execution time and next time to run
+- pick the tasks from the max heap, process a unit and push back to quueue with next running time i.e time + n
+- after processing pick the next task from front of the queuue if its next running time is equal to curren time
 
 ```cpp
 class Solution {
