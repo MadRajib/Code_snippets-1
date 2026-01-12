@@ -430,6 +430,11 @@ Input: tasks = [[5,2],[4,4],[4,1],[2,1],[3,3]]
 Output: [3,4,2,0,1]
 ```
 
+Apporach:
+- pending min heap, gives tasks priority based on their scheduled time.
+- available min heap, gives tasks priority based on their execution time.
+- Move all the tasks from pending to available if their time has come to execute.
+- Execute the tasks having min execution time from available
 
 ```cpp
 class Solution {
