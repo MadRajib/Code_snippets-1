@@ -25,6 +25,11 @@ struct CustomCompare {
 priority_queue<vector<int>, vector<vector<int>>, CustomCompare> mxhp;
 ```
 
+Note:
+- for compartor(a,b) think in this way "should a lose to b ?"
+    - if yes then return true
+    - if no then return false
+
 ### Aproach & Identification
     1. if find k largest -> min heap
     2. if find k smallest -> max heap
