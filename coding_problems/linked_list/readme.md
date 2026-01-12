@@ -14,6 +14,9 @@
 1. [Merge K Sorted list](#merge-k-sorted-list)
 1. [Insert Greatest Common Divisors in Linked List](#insert-greatest-common-divisors-in-linked-list)
 
+## Interview Questions
+1. [Decrease Node and Reinsert in Sorted DLL](#decrease-node-and-reinsert-in-sorted-dll)
+
 ### Reverse A Linked List
 - prev = nullptr
 - cur = head
@@ -894,4 +897,70 @@ public:
         return a;
     }
 };
+```
+
+
+## Interview Questions
+
+### Decrease Node and Reinsert in Sorted DLL
+> Given a sorted doubly link list and two numbers C and K. You need to decrease the info of node with data K by C and insert the new node formed at its correct position such that the list remains sorted.
+
+To practice use: [Practice template](../../custom_codes_template/decrease_node_and_reinsert_in_sorted_dll.c)
+
+Note:
+- Handle edge cases
+    - if single node
+    - if K node is first or last
+    - if C is zero
+
+```c
+Node* decreaseAndReinsert(Node* head, int C, int K) {
+    
+    if (!head || !C)
+        return head;
+    
+    Node *itr = head;
+    Node *temp = NULL;
+    
+    while (itr && itr->data != K)
+        itr = itr->next;
+    
+    // if no node found
+    if (!itr)
+        return head;
+    
+    // first node
+    if (!itr->prev) {
+        itr->data -= C;
+        return head;
+    }
+
+    itr->prev->next = itr->next;
+    // if last node
+    if (itr->next) {
+        itr->next->prev = itr->prev;
+    }
+    
+    temp = itr;
+    temp->data -= C;
+    temp->next = NULL;
+    
+    itr = temp->prev;
+    temp->prev = NULL;
+    
+    while (itr && itr->data > temp->data)
+        itr = itr->prev;
+    
+    if (!itr) { // insert at the front
+        temp->next = head;
+        head->prev = temp;
+        head = temp;
+    } else {
+        temp->next = itr->next;
+        temp->prev = itr;
+        itr->next = temp;
+    }
+    
+    return head;
+}
 ```
