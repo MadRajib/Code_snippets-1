@@ -34,6 +34,8 @@ parent      = (i - 1) / 2;
 
 ## DFS
 ```cpp
+
+// recursive
 void dfs(*root) {
     if (!root)
         return;
@@ -43,6 +45,22 @@ void dfs(*root) {
     // process in order node
     dfs(root->right);
     // process post order node
+}
+
+// Iterative
+vector<int> dfs(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> stack;
+        stack.push(root);
+
+        while (!stack.empty()) {
+           TreeNode *cur = stack.top();
+           stack.pop();
+           if (cur->right) stack.push(stack.right); 
+           if (cur->left) stack.push(stack.left); // left will be processed first
+        }
+
+        return res;
 }
 
 // Iterative
