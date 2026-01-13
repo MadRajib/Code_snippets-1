@@ -25,6 +25,11 @@ Identification :
 
 BT = Controllered Recursion + Pass by Reference
 
+
+Note:
+- If items are in sorted order than we dont need multi choice for loop it can be done using normal recursion 0/1
+- if not than for loop is required
+
 ```bash
 Recursion:  * Choices and Decions
 |           * Ans at leaf nodes
