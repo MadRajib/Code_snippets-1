@@ -103,17 +103,15 @@ public:
         slow = head;
         fast = head->next;
 
-        while (slow != fast) {
-            if (!fast || !fast->next)
-                break;
-            slow = slow->next;
+        while (fast && fast->next) {
+            if (slow == fast)
+                return true;
+
             fast = fast->next->next;
+            slow = slow->next;
         }
-
-        if (slow == fast)
-            res = true;
-
-        return res;
+        
+        return false;
     }
 };
 ```
