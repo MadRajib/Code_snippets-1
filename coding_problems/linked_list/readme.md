@@ -915,7 +915,7 @@ Example 3:
 
 Input: lists = [[]]
 Output: []
-```bash
+```
 
 ```cpp
 class Solution {
