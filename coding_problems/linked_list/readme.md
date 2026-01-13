@@ -458,6 +458,29 @@ public:
 ```
 
 ### Find the Duplicate Number
+> Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
+
+There is only one repeated number in nums, return this repeated number.
+
+You must solve the problem without modifying the array nums and using only constant extra space.
+
+ 
+```bash
+Example 1:
+
+Input: nums = [1,3,4,2,2]
+Output: 2
+
+Example 2:
+
+Input: nums = [3,1,3,4,2]
+Output: 3
+
+Example 3:
+
+Input: nums = [3,3,3,3,3]
+Output: 3
+```
 - consider each value in array to be a pointer pointing to next pointer
 - slow and fast pointer
 - to point to the start of the cycle move another pointer from 0 and slow from the intersection of fast and slow
