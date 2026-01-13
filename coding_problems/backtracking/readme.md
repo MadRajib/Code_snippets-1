@@ -502,6 +502,26 @@ public:
             }
         }
     }
+
+    // without iterating to all options
+    void dfs(int s, int target, vector<int>& nums) {
+
+        if (target == 0) {
+            res.push_back(comb);
+            return;
+        }
+
+        if (s >= nums.size())
+            return;
+
+        if (nums[s] <= target) {
+            comb.push_back(nums[s]);
+            dfs(s, target - nums[s], nums);
+            comb.pop_back();
+        }
+        
+        dfs(s + 1, target, nums);
+    }
 };
 
 ```
