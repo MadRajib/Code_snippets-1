@@ -10,7 +10,8 @@
 1. [Letter Combinations of a Phone Number](#letter-combinations-of-a-phone-number)
 1. [Combination Sum](#combination-sum)
 1. [Combination Sum II](#combination-sum-ii)
-1. [Word Search](#word-search) 
+1. [Word Search](#word-search)
+1. [Restore IP Addresses](#restore-ip-addresses)
 
 Identification :
     
@@ -641,4 +642,67 @@ public:
     }
 };
 
+```
+
+### Restore IP Addresses
+> A valid IP address consists of exactly four integers separated by single dots. Each integer is between 0 and 255 (inclusive) and cannot have leading zeros.
+
+For example, "0.1.2.201" and "192.168.1.1" are valid IP addresses, but "0.011.255.245", "192.168.1.312" and "192.168@1.1" are invalid IP addresses.
+Given a string s containing only digits, return all possible valid IP addresses that can be formed by inserting dots into s. You are not allowed to reorder or remove any digits in s. You may return the valid IP addresses in any order.
+
+
+```bash
+Example 1:
+
+Input: s = "25525511135"
+Output: ["255.255.11.135","255.255.111.35"]
+Example 2:
+
+Input: s = "0000"
+Output: ["0.0.0.0"]
+Example 3:
+
+Input: s = "101023"
+Output: ["1.0.10.23","1.0.102.3","10.1.0.23","10.10.2.3","101.0.2.3"]
+```
+
+
+```cpp
+class Solution {
+public:
+    vector<string> res;
+    vector<string> restoreIpAddresses(string s) {
+        bk(0, {}, s);
+        return res;
+    }
+
+    void bk(int start, vector<string> part, string& s) {
+        // Base Case: If we have 4 segments
+        if (part.size() == 4) {
+            // If we've also reached the end of the string, it's valid
+            if (start == s.length()) {
+                res.push_back(part[0] + "." + part[1] + "." + part[2] + "." + part[3]);
+            }
+            return;
+        }
+
+        // check segments 1 to 3
+        for (int i = 1; i < 4; i++) {
+            if (start + i > s.length())
+                break;
+            
+            if (i > 1 && s[start] == '0')
+                continue;
+            
+            string seg = s.substr(start, i);
+            int val = stoi(seg);
+            if ( val >= 0 && val <= 255) {
+                part.push_back(seg);
+                bk(start + i, part, s);
+                part.pop_back();
+            }
+
+        }
+    }
+};
 ```
