@@ -250,6 +250,26 @@ public:
 ```
 
 ### Remove Node From End of Linked List
+> Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+```bash
+Example 1:
+
+Input: head = [1,2,3,4,5], n = 2
+Output: [1,2,3,5]
+
+
+Example 2:
+
+Input: head = [1], n = 1
+Output: []
+
+Example 3:
+
+Input: head = [1,2], n = 1
+Output: [1]
+```
+
 - if we move a ptr from nth loc from start and another from start
 - when ptr reaches the end, another pointer reaches nth location from last.
 - but we want to remove it, so lets have a sentinal pointer and start the another pointer from it.
