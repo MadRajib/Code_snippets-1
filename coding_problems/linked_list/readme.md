@@ -599,7 +599,7 @@ lRUCache.get(4);    // return 4
 
 Approach:
 - DLL to store the nodes
-- most used notes always at the end
+- most used nodes always at the end
 - least recently used will be in front 
 - hash map to know if the node is present or not
 - count and capacity variables
