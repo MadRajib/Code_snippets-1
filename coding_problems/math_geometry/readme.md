@@ -590,12 +590,12 @@ countSquares.count([2, 1]);   // return 2.
 ```
 
 Apporach:
-    * find the diagonal points(Px, Py) for the given point (X, Y)
-    * if its diagonal then delta(X) == delta(Y)
-    * then the two point at (X, Px) and (Py, Y)
-    * check if these points are present or not if present calculate the no of square.
-    * if more than 1 points are present in the same location then it will create that no of squares.
-    * res +=  nofpoints(X,Px) * nofpoints(Py, Y); 
+- find the diagonal points(Px, Py) for the given point (X, Y)
+- if its diagonal then delta(X) == delta(Y)
+- then the two point at (X, Px) and (Py, Y)
+- check if these points are present or not if present calculate the no of square.
+- if more than 1 points are present in the same location then it will create that no of squares.
+- res +=  nofpoints(X,Px) * nofpoints(Py, Y); 
 
 ```cpp
 class CountSquares {
