@@ -6,9 +6,9 @@
 - DP = recursion + storage
 
 Knapsack Problem
-    - Fractional Knapsack : GREEDY
-    - 0-1 Knapsack : DP
-    - Unbouned Knapsack : We can fill one items any no of times
+- Fractional Knapsack : GREEDY
+- 0-1 Knapsack : DP
+- Unbouned Knapsack : We can fill one items any no of times
 
 1. [0-1 knapsack problem](#0-1-knapsack-problem)
     - [Subset sum](#subset-sum)
