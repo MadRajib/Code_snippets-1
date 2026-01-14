@@ -124,10 +124,10 @@ public:
 ```
 
 Better Aproach:
-    * Basically we are trying to find the cycle if it present then:
-        * if the cycle is at 1 then its happy
-        * else its not
-    * We can use slow-fast algo of 2 pointers to solve this
+- Basically we are trying to find the cycle if it present then:
+    - if the cycle is at 1 then its happy
+    - else its not
+- We can use slow-fast algo of 2 pointers to solve this
 
 ```cpp
  class Solution {
