@@ -917,8 +917,8 @@ Approach:
 - build LCS table
 - start from i = 0 and j = 0; until i < n && j < m
     - if s1[i] == s2[j] i++, j++, store char
-    else if t[i+1][j] > t[i][j+1], store text1[i] i = i++; 
-    else store text2[j] j++; 
+    - else if t[i+1][j] > t[i][j+1], store text1[i] i = i++; 
+    - else store text2[j] j++; 
 
 ```cpp
 class Solution {
@@ -980,8 +980,8 @@ public:
 
 Apporach:
 - find LCS
-- inserstion  = text1.len - LCS
-- deletion = text2.len - LCS
+- deletion = text1.len - LCS
+- inserstion = text2.len - LCS
 - result = insertion + deletion;
 
 ```cpp
