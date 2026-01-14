@@ -1032,7 +1032,9 @@ Apporach:
 ### Longest repeating subsequence
 
 Apporach:
-    - LCS variants on same string, just dont check same index 
+- LCS variants on same string, just dont check same index
+- if the subsequence is reapting in string a large part will be common in LCS(s, s)
+
 ```cpp
         for (int i = text1.length() -1; i >= 0; i--) {
             for (int j = text2.length() -1 ; j >= 0; j--) {
