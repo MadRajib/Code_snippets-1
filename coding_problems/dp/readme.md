@@ -1049,6 +1049,7 @@ Apporach:
 ```
 
 ### Sequence Pattern Matching
+Given two string s and t, return true if s is a subsequence of t, or false otherwise.
 
 Apporach
 -  LCS(pattern, target) == pattern.len
