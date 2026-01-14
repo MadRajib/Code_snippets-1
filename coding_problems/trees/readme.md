@@ -814,6 +814,17 @@ public:
 ```
 
 ### Construct Binary Tree from Preorder and Inorder Traversal
+
+```bash
+Example 1
+Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+Output: [3,9,20,null,null,15,7]
+
+Example 2:
+Input: preorder = [-1], inorder = [-1]
+Output: [-1]
+```
+
 - take node from preorder
 - locate where to place it by lookin in left and right in inorder
 - use hashmap to store inorder nodes index
