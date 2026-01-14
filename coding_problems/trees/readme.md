@@ -996,6 +996,10 @@ Output: 40
 Explanation: The path is 15 -> 20 -> 5 with a sum of 15 + 20 + 5 = 40.
 ```
 Approach:
+- Here we want to caculate max path that can exits
+    - this can be caculated while caculating max path sum for the node. i,e
+    - root->val + max(path_sum_left, path_sum_right)
+    - now that we have max path sum for node we can caculate the actual result including the node and both subtrees
 
 - return root->val + max(max_left, max_right)
 - root + left or root + right for a path not both. 
