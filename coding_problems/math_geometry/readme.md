@@ -1,7 +1,7 @@
 # Math and Geometry Problems
 
 1. [Excel Sheet Column Title](#excel-sheet-column-title)
-1. [Non Cyclical Number](#no-cyclical-number)
+1. [Non Cyclical Number](#non-cyclical-number)
 1. [POW(x, n)](#pow)
 1. [Rotate Image](#rotate-image)
 1. [Spiral Matrix](#spiral-matrix)
