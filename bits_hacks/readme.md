@@ -17,6 +17,7 @@
 1. [Modular Addition](#modular-addition)
 1. [Round up to a Power of 2](#round-up-to-a-power-of-2)
 1. [Counting bits set](#counting-bits-set)
+1. [Find most significant set bit of a number](#find-most-significant-set-bit-of-a-number)
 1. [Check if a no is power of 2](#check-if-a-no-is-power-of-2)
 1. [Check if a no is power of 4](#to-check-power-of-4)
 1. [Check if a no is power of 8](#check-for-power-of-8)
@@ -180,6 +181,25 @@ unsigned int c; // c accumulates the total bits set in v
 for (c = 0; v; c++)
 {
   v &= v - 1; // clear the least significant bit set
+}
+```
+
+### Find most significant set bit of a number
+```c
+// O(log n)
+int setBitNumber(int n)
+{
+    if (n == 0)
+        return 0;
+
+    int msb = 0;
+    n = n / 2;
+    while (n != 0) {
+        n = n / 2;
+        msb++;
+    }
+
+    return (1 << msb);
 }
 ```
 
