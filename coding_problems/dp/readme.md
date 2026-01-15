@@ -543,6 +543,29 @@ Apporach:
 - price of each length give
 - items -> each length size is item. L1 L2 L3 L4...
 
+Recursion
+```cpp
+int cutRod(vector<int> &price) { 
+    int total_len = price.size();
+    return rr(1, total_len, price);
+}
+
+int rr(int i, int L, vector<int> &price) {
+    // base, len becomes 0
+    if (L == 0 || i > price.size())
+        return 0;
+    
+    if (i <= L) {
+        return max(rr(i, L - i, price) + price[i-1],
+                    rr(i + 1, L, price));
+    }
+    
+    return rr(i + 1, L, price);
+}
+```
+
+Memolisation
+
 ```cpp
 class Solution {
   public:
