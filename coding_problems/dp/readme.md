@@ -1585,6 +1585,46 @@ public:
 };
 
 ```
+Bottom Up
+```cpp
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+         if (nums.size() == 1) return nums[0];
+
+        vector<int> tb(nums.size() + 1, 0);
+        
+        // first we will go from house 1st to n - 1 i.e skipping the last
+        tb[nums.size()] = 0; // when no element
+        tb[nums.size() - 1] = nums[nums.size() - 1]; // when only one element
+
+        for (int i = nums.size() - 2; i >= 1 ; i--) {
+            tb[i] = max(
+                tb[i + 2] + nums[i],
+                tb[i + 1]);
+        }
+
+        int temp = tb[1];
+        fill(tb.begin(), tb.end(), 0);
+
+         // second we will go from house 2st to nth i.e skipping the first
+        tb[nums.size() - 1] = 0; 
+        tb[nums.size() - 2] = nums[nums.size() - 2];
+
+        for (int i = nums.size() - 3; i >= 0 ; i--) {
+            tb[i] = max(
+                tb[i + 2] + nums[i],
+                tb[i + 1]);
+        }
+
+        // finding the max of both
+        return max(tb[0], temp);
+    }
+};
+
+```
+
+
 ### Decode Ways
 > A string consisting of uppercase english characters can be encoded to a number using the following mapping:
 
