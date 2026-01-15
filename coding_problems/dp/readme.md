@@ -1004,7 +1004,8 @@ public:
 Apporach:
 - find LCS
 - deletion = text1.len - LCS
-- inserstion = text2.len - LCS
+- inserstion = text2.len - LCS
+
 - result = insertion + deletion;
 
 ```cpp
@@ -1416,7 +1417,26 @@ public:
         return climbStairs(n-2) + climbStairs(n-1);
     }
 };
+```
 
+Bottom Up
+```cpp
+class Solution {
+public:
+    unordered_map<int, int> dp;
+    int climbStairs(int n) {
+        vector<int> tb(n + 1, 0);
+        tb[0] = 0;
+        tb[1] = 1;
+        tb[2] = 2;
+
+        for (int i = 3; i <= n; i++) {
+            tb[i] = tb[i - 1] + tb[i - 2];
+        }
+
+        return tb[n];
+    }
+};
 ```
 
 ### House Robber
