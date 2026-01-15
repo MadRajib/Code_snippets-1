@@ -1505,6 +1505,28 @@ public:
 
 ```
 
+Bottom up
+
+```cpp
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        vector<int> tb(nums.size() + 1, 0);
+        tb[nums.size()] = 0; // when no element
+        tb[nums.size() - 1] = nums[nums.size() - 1]; // when only one element
+
+        for (int i = nums.size() - 2; i >= 0 ; i--) {
+            tb[i] = max(
+                tb[i + 2] + nums[i],
+                tb[i + 1]);
+        }
+
+        return tb[0];
+    } 
+};
+
+```
+
 ### House Robber II
 > You are given an integer array nums where nums[i] represents the amount of money the ith house has. The houses are arranged in a circle, i.e. the first house and the last house are neighbors.
 
