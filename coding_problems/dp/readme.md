@@ -940,8 +940,8 @@ Approach:
 - build LCS table
 - start from i = 0 and j = 0; until i < n && j < m
     - if s1[i] == s2[j] i++, j++, store char
-    else if t[i+1][j] > t[i][j+1], store text1[i] i = i++; 
-    else store text2[j] j++; 
+    - else if t[i+1][j] > t[i][j+1], store text1[i] i = i++; 
+    - else store text2[j] j++; 
 
 ```cpp
 class Solution {
@@ -1003,8 +1003,8 @@ public:
 
 Apporach:
 - find LCS
-- inserstion  = text1.len - LCS
-- deletion = text2.len - LCS
+- deletion = text1.len - LCS
+- inserstion = text2.len - LCS
 - result = insertion + deletion;
 
 ```cpp
@@ -1055,7 +1055,9 @@ Apporach:
 ### Longest repeating subsequence
 
 Apporach:
-    - LCS variants on same string, just dont check same index 
+- LCS variants on same string, just dont check same index
+- if the subsequence is reapting in string a large part will be common in LCS(s, s)
+
 ```cpp
         for (int i = text1.length() -1; i >= 0; i--) {
             for (int j = text2.length() -1 ; j >= 0; j--) {
@@ -1070,6 +1072,7 @@ Apporach:
 ```
 
 ### Sequence Pattern Matching
+Given two string s and t, return true if s is a subsequence of t, or false otherwise.
 
 Apporach
 -  LCS(pattern, target) == pattern.len
