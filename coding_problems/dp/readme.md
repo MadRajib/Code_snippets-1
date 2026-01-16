@@ -631,6 +631,36 @@ Explanation: Since all coin denominations are greater than sum, no combination c
 Apporach:
 - Same as subset sum problem
 
+Recursion:
+```cpp
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int tmp = rr(0, amount, coins);
+        return (tmp == INT_MAX)? -1 : tmp;
+    }
+
+    int rr(int i, int C, vector<int>& coins) {
+        if (!C)
+            return 0;
+        
+        if (i >= coins.size() || C < 0)
+            return INT_MAX;
+
+        int res = rr(i + 1, C, coins);
+
+        if (coins[i] <= C) {
+            int tmp = rr(i, C - coins[i], coins);
+            // INT_MAX + 1 can over flow
+            if (tmp != INT_MAX)
+                res = min(res, 1 + tmp);
+        }
+
+        return res;
+    }
+};
+```
+
 ```cpp
 class Solution {
   public:
