@@ -1360,6 +1360,17 @@ public:
             }
         }
         return false;
+
+        // this is also correct 
+        //
+        // bool res = false;
+        // for (int j = i; j < s.size(); j++) {
+        //     // if first part is present than only check other part
+        //     if (mp.find(s.substr(i, j - i + 1)) != mp.end()) {
+        //         res = res || rr(s, mp, j + 1);
+        //     }
+        // }
+        // return res;
     }
 };
 ```
