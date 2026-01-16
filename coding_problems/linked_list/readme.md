@@ -91,6 +91,8 @@ public:
 - slow and fast pointer
 - if fast pointer reaches null then no cycle
 - else slow and fast will be the same
+- Note: if we start slow from head and not from head->next,
+    -  while finding the node from where cycle starts, will become infinite loop!
 ```cpp
 class Solution {
 public:
@@ -100,6 +102,8 @@ public:
         if (!head)
             return false;
 
+        // Important ! : start slow from slow = head ->next
+        // check note section
         slow = head;
         fast = head->next;
 
@@ -112,6 +116,43 @@ public:
         }
         
         return false;
+    }
+};
+```
+
+### Linked List Cycle II
+
+Find the node from where cycle starts
+
+- Important start slow from head->next otherwise next while loop will go infinite
+```cpp
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode *slow;
+        ListNode *fast;
+
+        if (!head || !head->next)
+            return nullptr;
+        
+        // dont start from slow = head
+        slow = head->next;
+        fast = head->next->next;
+
+        while (slow != fast) {
+            if (!fast || !fast->next)
+                return nullptr;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        fast = head;
+        while (fast != slow) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+
+        return fast;
     }
 };
 ```
