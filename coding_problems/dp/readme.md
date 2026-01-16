@@ -47,6 +47,7 @@ Knapsack Problem
 1. [Last Stone Weight II](#last-stone-weight-ii)
 1. [Edit Distance](#edit-distance)
 1. [Best Time to Buy and Sell Stock with Cooldown](#best-time-to-buy-and-sell-stock-with-cooldown)
+1. [Longest Increasing Subsequence](#longest-increasing-subsequence)
 
 
 ### 0-1 knapsack Problem
@@ -2096,6 +2097,48 @@ private:
             int sell = dfs(i + 2, !choice, prices) + prices[i];
             return max(sell, cooldown);
         }
+    }
+};
+```
+
+### Longest Increasing Subsequence
+
+> Given an integer array nums, return the length of the longest strictly increasing subsequence.
+
+A subsequence is a sequence that can be derived from the given sequence by deleting some or no elements without changing the relative order of the remaining characters.
+
+```bash
+For example, "cat" is a subsequence of "crabt".
+Example 1:
+
+Input: nums = [9,1,4,2,3,3,7]
+
+Output: 4
+Explanation: The longest increasing subsequence is [1,2,3,7], which has a length of 4.
+
+Example 2:
+
+Input: nums = [0,3,1,3,2,3]
+
+Output: 4
+```
+
+```cpp
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        return rr(0, INT_MIN, nums);
+    }
+
+    int rr(int s, int prev, vector<int>& nums) {
+        if (s >= nums.size())
+            return 0;
+
+        int len = rr(s + 1, prev, nums);
+        if (prev < nums[s])
+            len = max(len, 1 + rr(s + 1, nums[s], nums));
+        
+        return len;
     }
 };
 ```
