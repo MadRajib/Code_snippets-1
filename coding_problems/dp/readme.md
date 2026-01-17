@@ -47,7 +47,9 @@ Knapsack Problem
 1. [Last Stone Weight II](#last-stone-weight-ii)
 1. [Edit Distance](#edit-distance)
 1. [Best Time to Buy and Sell Stock with Cooldown](#best-time-to-buy-and-sell-stock-with-cooldown)
-1. [Longest Increasing Subsequence](#longest-increasing-subsequence)
+1. [Interesting DP Problems](#interesting-dp-problems)
+    1. [Longest Increasing Subsequence](#longest-increasing-subsequence)
+    1. [Filling Bookcase Shelves](#filling-bookcase-shelves)
 
 
 ### 0-1 knapsack Problem
@@ -2100,6 +2102,8 @@ private:
     }
 };
 ```
+
+## Interesting DP Problems
 
 ### Longest Increasing Subsequence
 
