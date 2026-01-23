@@ -10,6 +10,7 @@
 1. [Same Tree](#same-tree)
 1. [Subtree of Another Tree](#subtree-of-another-tree)
 1. [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree)
+1. [Lowest Common Ancestor of a Binary Tree](#lowest-common-ancestor-of-a-binary-tree)
 1. [Insert into a Binary Search Tree](#insert-into-a-binary-search-tree)
 1. [Delete Node in a BST](#delete-node-in-a-bst)
 1. [Binary Tree Level Order Traversal](#binary-tree-level-order-traversal)
@@ -486,6 +487,51 @@ public:
 };
 
 ```
+
+### Lowest Common Ancestor of a Binary Tree
+> Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+```bash
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+Explanation: The LCA of nodes 5 and 1 is 3.
+
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+Output: 5
+Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
+
+Input: root = [1,2], p = 1, q = 2
+Output: 1
+```
+
+Apporach:
+- a bit different form binary tree, since no ordering is involved
+- we will use post order traversal.
+- check if any node is present in left and if any node if present in right
+- if both are present then root is the LCA
+- else if no right then left
+- else if no left then right
+- else root
+
+```cpp
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+       if(!root ||root ==p||root==q) return root;
+        
+        TreeNode * left = lowestCommonAncestor(root->left,p,q);
+        TreeNode * right = lowestCommonAncestor(root->right,p,q);
+        
+        if(left && right) return root;
+        else if(!right) return left;
+        else if(!left) return right;
+        else return root; 
+    }
+};
+```
+
 ### Insert into a Binary Search Tree
 - if root is null return new node
 - if smaller than root, root->left = insert(left)
