@@ -50,6 +50,7 @@ Knapsack Problem
 1. [Interesting DP Problems](#interesting-dp-problems)
     1. [Longest Increasing Subsequence](#longest-increasing-subsequence)
     1. [Filling Bookcase Shelves](#filling-bookcase-shelves)
+    1. [Maximum Profit in Job Scheduling](#maximum-profit-in-job-scheduling)
 
 
 ### 0-1 knapsack Problem
@@ -2201,6 +2202,59 @@ public:
             res = min(res, rr(i + 1, SW - books[i][0], max(maxH, books[i][1]), books));
         
         return res;
+    }
+};
+```
+
+### Maximum Profit in Job Scheduling
+
+> You are given n jobs described with three arrays: startTime, endTime, and profit. The i--th job starts at startTime[i], ends at endTime[i], and yields a profit of profit[i].
+
+Return the maximum profit achievable by selecting a subset of jobs such that no two selected jobs overlap in their time ranges.
+
+Note: If a job ends at time X, you are allowed to start another job that begins exactly at time X.
+
+```bash
+Input: startTime = [4,2,4,8,2], endTime = [5,5,5,10,8], profit = [1,2,8,10,4]
+
+Output: 18
+
+Explanation: The subset to choose to get maximum profit is the third and fourth job (8 + 10 = 18).
+
+Input: startTime = [2,3,4,5,7], endTime = [4,6,11,7,10], profit = [100,100,180,150,140]
+
+Output: 390
+
+Explanation: The subset to choose to get maximum profit is the first, second and fifth job (100 + 140 + 150 = 390).
+```
+
+```cpp
+class Solution {
+public:
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+        vector<vector<int>> cmb;
+
+        for (int i = 0; i < startTime.size(); i++) {
+            cmb.push_back({startTime[i], endTime[i], profit[i]});
+        }
+
+        sort(cmb.begin(), cmb.end());
+
+        return rr(0, -1, cmb);
+
+    }
+
+    int rr(int i, int prev, vector<vector<int>>& cm) {
+        if (i >= cm.size())
+            return 0;
+        
+
+        int res = rr(i + 1, prev, cm);
+        if (cm[i][0] >= prev)
+            res = max(res, rr(i + 1, cm[i][1], cm) + cm[i][2]);
+
+        return res;
+
     }
 };
 ```
