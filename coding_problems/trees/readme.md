@@ -26,6 +26,7 @@
 ### Interesting Problems
 1. [Inorder Successor and Inorder Traversal in a BST with Parent Pointer](#inorder-successor-and-inorder-traversal-in-a-bst-with-parent-pointer)
 1. [Find the post order successor of a node with no root](#find-the-post-order-successor-of-a-node-with-no-root)
+1. [Build Tree From Preorder Traversal string](#build-tree-from-preorder-traversal-string)
 
 ```cpp
 left_child  = 2 * i + 1;
@@ -1253,5 +1254,52 @@ TreeNode* findPostOrderSuccessor(TreeNode* node) {
     }
 
     return itr;
+}
+```
+
+### Build Tree From Preorder Traversal string
+```bash
+1. "1-2-3"
+2. "1-2--3--4-5"
+
+no of depth indicates the depth of the node.
+1 has zero depth
+2 5 are at depth 1
+3 4 are at depth 2
+```
+
+```cpp
+int pos = 0;
+TreeNode *rr(string& s, int req_depth) {
+    int depth = 0;
+    int j = pos;
+    while (pos < s.length() && s[j] == '-') {
+        depth++;
+        j++;
+    }
+    
+    if (depth != req_depth)
+        return nullptr;
+    
+    pos = j;
+    
+    int num = 0;
+    while(pos < s.length() && isdigit(s[pos])) {
+        num = 10*num + s[pos] - '0';
+        pos++;
+    }
+    
+    TreeNode *root = new TreeNode(num);
+    root->left = rr(s, depth + 1);
+    root->right = rr(s, depth + 1);
+    
+    return root;
+}
+
+TreeNode *buildTree(string s) {
+    if (s == "")
+        return nullptr;
+    pos = 0;
+    return rr(s, 0);
 }
 ```
