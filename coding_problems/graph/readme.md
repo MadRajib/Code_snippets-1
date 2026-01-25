@@ -10,8 +10,11 @@
 1. [Surrounded Regions](#surrounded-regions)
 1. [Course Schedule](#course-schedule)
 1. [Graph Valid Tree](#graph-valid-tree)
-1. [Cycle Detection In Undirected Graph](#cycle-detection-in-undirected-graph)
-1. [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph)
+1. [Course Schedule II](#course-schedule-ii)
+1. [Graph Alogrithms](#graph-alogrithms)
+    1. [Cycle Detection In Undirected Graph](#cycle-detection-in-undirected-graph)
+    1. [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph)
+    1. [Dijkstras Algorithm](#dijkstras-algorithm)
 
 ### Island Perimeter
 ```bash
@@ -820,6 +823,89 @@ public:
 };
 
 ```
+### Course Schedule II
+
+> You are given an array prerequisites where prerequisites[i] = [a, b] indicates that you must take course b first if you want to take course a.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+There are a total of numCourses courses you are required to take, labeled from 0 to numCourses - 1.
+
+Return a valid ordering of courses you can take to finish all courses. If there are many valid answers, return any of them. If it's not possible to finish all courses, return an empty array.
+
+```bash
+Example 1:
+
+Input: numCourses = 3, prerequisites = [[1,0]]
+
+Output: [0,1,2]
+Explanation: We must ensure that course 0 is taken before course 1.
+
+Example 2:
+
+Input: numCourses = 3, prerequisites = [[0,1],[1,2],[2,0]]
+
+Output: []
+Explanation: It's impossible to finish all courses.
+
+```
+
+Apporach:
+- Same as COURSE SCHEDULE I
+- save the course if no cycle is found for a start course
+
+```cpp
+class Solution {
+public:
+    vector<int> output;
+    unordered_map<int, vector<int>> prereq;
+
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        
+
+        vector<bool> visited(numCourses, false);
+        vector<bool> recStack(numCourses, false);
+
+        // build adjacency list
+        for (const auto& pair : prerequisites) {
+            prereq[pair[0]].push_back(pair[1]);
+        }
+
+        for (int i = 0; i < numCourses; i++) {
+            if (!visited[i]) {
+                // return true if cycle detected else returns false
+                if (dfs_d_graph(i, visited, recStack))
+                    return {};
+            }
+
+        }
+        return output;
+    }
+
+    bool dfs_d_graph(int node, vector<bool>& visited, vector<bool>& recStack) {
+        visited[node] = true;
+
+        // add to recursion stack
+        recStack[node] = true;
+        for (auto n: prereq[node]) {
+            if (!visited[n]) {
+                if (dfs_d_graph(n, visited, recStack))
+                    return true;
+            // if visited and still present in rescursion stack
+            // cycle present
+            } else if (recStack[n]) 
+                return true;
+        }
+
+        // remove from the recursionstack
+        recStack[node] = false;
+        output.push_back(node);
+
+        return false;
+    }
+};
+```
+
+## Graph Alogrithms
 
 ### Cycle Detection In Undirected Graph
 
@@ -979,84 +1065,50 @@ public:
 };
 ```
 
-### Course Schedule II
-
-> You are given an array prerequisites where prerequisites[i] = [a, b] indicates that you must take course b first if you want to take course a.
-
-For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
-There are a total of numCourses courses you are required to take, labeled from 0 to numCourses - 1.
-
-Return a valid ordering of courses you can take to finish all courses. If there are many valid answers, return any of them. If it's not possible to finish all courses, return an empty array.
-
-```bash
-Example 1:
-
-Input: numCourses = 3, prerequisites = [[1,0]]
-
-Output: [0,1,2]
-Explanation: We must ensure that course 0 is taken before course 1.
-
-Example 2:
-
-Input: numCourses = 3, prerequisites = [[0,1],[1,2],[2,0]]
-
-Output: []
-Explanation: It's impossible to finish all courses.
-
-```
+### Dijkstra's Algorithm
 
 Apporach:
-- Same as COURSE SCHEDULE I
-- save the course if no cycle is found for a start course
+- Greedy Aporach
+- pick the sortest edge from the neighbours using heap
 
 ```cpp
 class Solution {
 public:
-    vector<int> output;
-    unordered_map<int, vector<int>> prereq;
+    unordered_map<int, int> shortestPath(int n, vector<vector<int>>& edges, int src) {
+        unordered_map<int, int> res;
 
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        unordered_map<int, vector<vector<int>>> adj_list;
+        for (auto x: edges) {
+            adj_list[x[0]].push_back({x[1], x[2]});
+        }
+
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> hp;
+        hp.push({0, src});
+
+        vector<int> node;
         
-
-        vector<bool> visited(numCourses, false);
-        vector<bool> recStack(numCourses, false);
-
-        // build adjacency list
-        for (const auto& pair : prerequisites) {
-            prereq[pair[0]].push_back(pair[1]);
-        }
-
-        for (int i = 0; i < numCourses; i++) {
-            if (!visited[i]) {
-                // return true if cycle detected else returns false
-                if (dfs_d_graph(i, visited, recStack))
-                    return {};
+        while (!hp.empty()) {
+            node = hp.top();
+            hp.pop();
+            // skip already visted nodes
+            if (res.count(node[1]))
+                continue;
+            
+            res[node[1]] = node[0];
+            
+            for (auto x: adj_list[node[1]]) {
+                if (!res.count(x[0]));
+                    hp.push({node[0] + x[1], x[0]});
             }
-
-        }
-        return output;
-    }
-
-    bool dfs_d_graph(int node, vector<bool>& visited, vector<bool>& recStack) {
-        visited[node] = true;
-
-        // add to recursion stack
-        recStack[node] = true;
-        for (auto n: prereq[node]) {
-            if (!visited[n]) {
-                if (dfs_d_graph(n, visited, recStack))
-                    return true;
-            // if visited and still present in rescursion stack
-            // cycle present
-            } else if (recStack[n]) 
-                return true;
         }
 
-        // remove from the recursionstack
-        recStack[node] = false;
-        output.push_back(node);
+        for (int i =0; i < n; i++) {
+            if (!res.count(i))
+                res[i] = -1;
+        }
 
-        return false;
+        return res;    
     }
 };
+
 ```
