@@ -15,6 +15,7 @@
     1. [Cycle Detection In Undirected Graph](#cycle-detection-in-undirected-graph)
     1. [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph)
     1. [Dijkstras Algorithm](#dijkstras-algorithm)
+1. [Network Delay Time](#network-delay-time)
 
 ### Island Perimeter
 ```bash
@@ -1111,4 +1112,64 @@ public:
     }
 };
 
+```
+
+### Network Delay Time
+> You are given a network of n directed nodes, labeled from 1 to n. You are also given times, a list of directed edges where times[i] = (ui, vi, ti).
+
+ui is the source node (an integer from 1 to n)
+vi is the target node (an integer from 1 to n)
+ti is the time it takes for a signal to travel from the source to the target node (an integer greater than or equal to 0).
+You are also given an integer k, representing the node that we will send a signal from.
+
+Return the minimum time it takes for all of the n nodes to receive the signal. If it is impossible for all the nodes to receive the signal, return -1 instead.
+
+```bash
+Example 1:
+Input: times = [[1,2,1],[2,3,1],[1,4,4],[3,4,1]], n = 4, k = 1
+
+Output: 3
+
+Example 2:
+Input: times = [[1,2,1],[2,3,1]], n = 3, k = 2
+Output: -1
+```
+Apporach:
+- Use Dijkstra algo
+```cpp
+class Solution {
+public:
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        unordered_map<int, vector<vector<int>>> adj_m;
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> hp;
+        unordered_map<int, int> res;
+        int ret = 0;
+
+        for (auto x: times) {
+            adj_m[x[0]].push_back({x[1], x[2]});
+        }
+
+        hp.push({0, k});
+
+        vector<int> node;
+        while (!hp.empty()) {
+            node = hp.top();
+            hp.pop();
+
+            // already visited
+            if (res.count(node[1]))
+                continue;
+
+            res[node[1]] = node[0];
+            ret = node[0];
+
+            for (auto x: adj_m[node[1]]) {
+                if (!res.count(x[0]))
+                    hp.push({node[0] + x[1], x[0]});
+            }
+        }
+
+        return res.size() == n ? ret : -1;
+    }
+};
 ```
