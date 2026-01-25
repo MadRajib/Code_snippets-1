@@ -16,6 +16,7 @@
     1. [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph)
     1. [Dijkstras Algorithm](#dijkstras-algorithm)
 1. [Network Delay Time](#network-delay-time)
+1. [Alien Dictionary](#alien-dictionary)
 
 ### Island Perimeter
 ```bash
@@ -1172,4 +1173,108 @@ public:
         return res.size() == n ? ret : -1;
     }
 };
+```
+
+### Alien Dictionary
+> There is a foreign language which uses the latin alphabet, but the order among letters is not "a", "b", "c" ... "z" as in English.
+
+You receive a list of non-empty strings words from the dictionary, where the words are sorted lexicographically based on the rules of this new language.
+
+Derive the order of letters in this language. If the order is invalid, return an empty string. If there are multiple valid order of letters, return any of them.
+
+A string a is lexicographically smaller than a string b if either of the following is true:
+
+The first letter where they differ is smaller in a than in b.
+a is a prefix of b and a.length < b.length.
+```bash
+Example 1:
+
+Input: ["z","o"]
+
+Output: "zo"
+Explanation:
+From "z" and "o", we know 'z' < 'o', so return "zo".
+
+Example 2:
+
+Input: ["hrn","hrf","er","enn","rfnn"]
+
+Output: "hernf"
+Explanation:
+
+from "hrn" and "hrf", we know 'n' < 'f'
+from "hrf" and "er", we know 'h' < 'e'
+from "er" and "enn", we know get 'r' < 'n'
+from "enn" and "rfnn" we know 'e'<'r'
+so one possibile solution is "hernf"
+```
+
+Apporach:
+- Topological Sort
+- Two things:
+    - there should be no cycle and
+    - strings should be legically sorted
+
+```cpp
+class Solution {
+public:
+    unordered_map<char, vector<char>> adj_m;
+    unordered_map<char, bool> visited;
+    unordered_map<char, bool> r_stk;
+    string foreignDictionary(vector<string>& words) {
+        // Neccessary as there can be disconnected graphs as well
+        for (const string& w : words) {
+            for (char c : w) {
+                if (adj_m.find(c) == adj_m.end()) {
+                    adj_m[c] = {};
+                }
+            }
+        }
+
+        for (int i = 0; i < words.size() - 1; i++) {
+            string w1 = words[i];
+            string w2 = words[i + 1];
+
+            int min_len = min(w1.length(), w2.length());
+
+            // check for lexical ordered
+            if (w1.length() > w2.length() && w1.substr(0, min_len) == w2)
+                return "";
+            
+            for (int j = 0; j < min_len; j++) {
+                if (w1[j] != w2[j]) {
+                    adj_m[w1[j]].push_back(w2[j]);
+                    break; // break because rest characters will not give any info
+                }
+            }
+        }
+
+        string res = "";
+        for(auto x: adj_m) {
+            if (dfs(x.first, res))
+                return "";
+        }
+
+        reverse(res.begin(), res.end());
+        return res;
+    }
+
+    bool dfs(char x, string& res) {
+        if (r_stk[x]) return true;  // Cycle found
+        if (visited[x]) return false; // Already processed
+        
+        visited[x] = true;
+        r_stk[x] = true;
+
+        for (auto n: adj_m[x]) {
+            if (dfs(n, res))
+                return true;
+        }
+
+        r_stk[x] = false;
+        res += x;
+        return false;
+    }
+};
+
 ```
