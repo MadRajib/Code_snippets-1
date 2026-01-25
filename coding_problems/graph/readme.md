@@ -15,8 +15,10 @@
     1. [Cycle Detection In Undirected Graph](#cycle-detection-in-undirected-graph)
     1. [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph)
     1. [Dijkstras Algorithm](#dijkstras-algorithm)
+    1. [Union Find](#union-find)
 1. [Network Delay Time](#network-delay-time)
 1. [Alien Dictionary](#alien-dictionary)
+1. [Redundant Connection](#redundant-connection)
 
 ### Island Perimeter
 ```bash
@@ -71,6 +73,59 @@ public:
         return 0;
     }
 };
+```
+
+### Union Find
+
+Algo:
+- Two main functions:
+    1. __find(x)__ -> find the representetive of the group which x belongs to.
+    1. __union(x,y)__ -> combine both in the same group.
+
+```cpp
+class Solution {
+public:
+    vector<int> parent;
+
+    int _find(int x) {
+        if (parent[x] != x)
+            return _find(parent[x]);
+        return x;
+    }
+
+    void _union(int x, int y) {
+        int p1 = _find(x);
+        int p2 = _find(y);
+        parent[p2] = p1;
+    }
+};
+```
+Issues:
+- while finding parent of a node x, we need to traverse up,
+- if the tree is too tall it will take time
+- better if we can flatten the tree.
+- SOl:
+    - Always attach the smaller tree under the root of the larger tree. This prevents the tree from becoming too tall.
+    - Keep track of rank of each node, to track which is bigger.
+- Initially each node has rank 0.
+```cpp
+
+_union (int i, int j) {
+    int root_i = find(i);
+    int root_j = find(j);
+
+    if (root_i != root_j) {
+        if (rank[root_i] < rank[root_j]) {
+            parent[root_i] = root_j;
+        } else if (rank[root_i] > rank[root_j]) {
+            parent[root_j] = root_i;
+        } else {
+            parent[root_i] = root_j;
+            rank[root_j]++;
+        }
+    }
+}
+
 ```
 
 ### Number of Islands
@@ -1277,4 +1332,66 @@ public:
     }
 };
 
+```
+
+### Redundant Connection
+> You are given a connected undirected graph with n nodes labeled from 1 to n. Initially, it contained no cycles and consisted of n-1 edges.
+
+We have now added one additional edge to the graph. The edge has two different vertices chosen from 1 to n, and was not an edge that previously existed in the graph.
+
+The graph is represented as an array edges of length n where edges[i] = [ai, bi] represents an edge between nodes ai and bi in the graph.
+
+Return an edge that can be removed so that the graph is still a connected non-cyclical graph. If there are multiple answers, return the edge that appears last in the input edges.
+
+```bash
+Input: edges = [[1,2],[1,3],[3,4],[2,4]]
+
+Output: [2,4]
+Example 2:
+
+
+Input: edges = [[1,2],[1,3],[1,4],[3,4],[4,5]]
+Output: [3,4]
+```
+
+Apporach:
+- Use Union Find Algo
+
+```cpp
+class Solution {
+public:
+    vector<int> parent;
+
+    int _find(int x) {
+        if (parent[x] != x)
+            return _find(parent[x]);
+        return x;
+    }
+
+    bool _union(int x, int y) {
+        int p1 = _find(x);
+        int p2 = _find(y);
+
+        if (p1 == p2)
+            return false;
+
+        parent[p2] = p1;
+        return true; 
+    }
+
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        int n = edges.size();
+        
+        parent.assign(n + 1, 0);
+        for (int i = 0; i <= n; i++)
+            parent[i] = i;
+
+        for (const auto& edge : edges) {
+            if (!_union(edge[0], edge[1]))
+                return vector<int>{edge[0], edge[1] };
+        }
+
+        return {};
+    }
+};
 ```
