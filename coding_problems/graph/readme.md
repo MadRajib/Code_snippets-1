@@ -1074,6 +1074,60 @@ public:
 };
 ```
 
+### Dijkstra's Algorithm
+
+Apporach:
+- Greedy Aporach
+- pick the sortest edge from the neighbours using heap
+
+```cpp
+class Solution {
+public:
+    unordered_map<int, int> shortestPath(int n, vector<vector<int>>& edges, int src) {
+        unordered_map<int, int> res;
+
+        unordered_map<int, vector<vector<int>>> adj_list;
+        for (auto x: edges) {
+            adj_list[x[0]].push_back({x[1], x[2]});
+        }
+
+        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> hp;
+        hp.push({0, src});
+
+        vector<int> node;
+        
+        while (!hp.empty()) {
+            node = hp.top();
+            hp.pop();
+            // skip already visted nodes
+            if (res.count(node[1]))
+                continue;
+            
+            res[node[1]] = node[0];
+            
+            for (auto x: adj_list[node[1]]) {
+                if (!res.count(x[0]));
+                    hp.push({node[0] + x[1], x[0]});
+            }
+        }
+
+        for (int i =0; i < n; i++) {
+            if (!res.count(i))
+                res[i] = -1;
+        }
+
+        return res;    
+    }
+};
+
+```
+
+### Prims's Algorithm
+
+```cpp
+
+```
+
 ### Union Find
 
 Algo:
@@ -1157,60 +1211,6 @@ void dfs(int u) {
     }
     res.push_back(u); // Post-order: All edges from u are "done"
 }
-```
-
-### Dijkstra's Algorithm
-
-Apporach:
-- Greedy Aporach
-- pick the sortest edge from the neighbours using heap
-
-```cpp
-class Solution {
-public:
-    unordered_map<int, int> shortestPath(int n, vector<vector<int>>& edges, int src) {
-        unordered_map<int, int> res;
-
-        unordered_map<int, vector<vector<int>>> adj_list;
-        for (auto x: edges) {
-            adj_list[x[0]].push_back({x[1], x[2]});
-        }
-
-        priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> hp;
-        hp.push({0, src});
-
-        vector<int> node;
-        
-        while (!hp.empty()) {
-            node = hp.top();
-            hp.pop();
-            // skip already visted nodes
-            if (res.count(node[1]))
-                continue;
-            
-            res[node[1]] = node[0];
-            
-            for (auto x: adj_list[node[1]]) {
-                if (!res.count(x[0]));
-                    hp.push({node[0] + x[1], x[0]});
-            }
-        }
-
-        for (int i =0; i < n; i++) {
-            if (!res.count(i))
-                res[i] = -1;
-        }
-
-        return res;    
-    }
-};
-
-```
-
-### Prims's Algorithm
-
-```cpp
-
 ```
 
 ### Network Delay Time
