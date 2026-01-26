@@ -80,90 +80,6 @@ public:
 };
 ```
 
-### Union Find
-
-Algo:
-- Two main functions:
-    1. __find(x)__ -> find the representetive of the group which x belongs to.
-    1. __union(x,y)__ -> combine both in the same group.
-
-```cpp
-class Solution {
-public:
-    vector<int> parent;
-
-    int _find(int x) {
-        if (parent[x] != x)
-            return _find(parent[x]);
-        return x;
-    }
-
-    void _union(int x, int y) {
-        int p1 = _find(x);
-        int p2 = _find(y);
-        parent[p2] = p1;
-    }
-};
-```
-Issues:
-- while finding parent of a node x, we need to traverse up,
-- if the tree is too tall it will take time
-- better if we can flatten the tree.
-- SOl:
-    - Always attach the smaller tree under the root of the larger tree. This prevents the tree from becoming too tall.
-    - Keep track of rank of each node, to track which is bigger.
-- Initially each node has rank 0.
-```cpp
-
-_union (int i, int j) {
-    int root_i = find(i);
-    int root_j = find(j);
-
-    if (root_i != root_j) {
-        if (rank[root_i] < rank[root_j]) {
-            parent[root_i] = root_j;
-        } else if (rank[root_i] > rank[root_j]) {
-            parent[root_j] = root_i;
-        } else {
-            parent[root_i] = root_j;
-            rank[root_j]++;
-        }
-    }
-}
-
-```
-### Topological sort && Hierholzer's Algorithm
-
-- Both uses POST order DFS alog
-- In Topological : 
-    - is about taking a set of tasks with dependencies and finding a valid linear sequence in which to perform them.
-    - It works in DAG
-    - Visits every Node at least once.
-- In Hierholzer’s (Eulerian Path):
-    - Visits every Edge exactly once.
-    - Cycles are required (Eulerian).
-    - Directed or Undirected Graph.
-
-```cpp
-// Topological Sort Snippet
-void dfs(int u) {
-    visited[u] = true;
-    for (int v : adj[u]) {
-        if (!visited[v]) dfs(v);
-    }
-    res.push_back(u); // Post-order: Node is "done"
-}
-
-// Hierholzer's Snippet
-void dfs(int u) {
-    while (!adj[u].empty()) {
-        int v = adj[u].back();
-        adj[u].pop_back(); // Edge is "done" (removed)
-        dfs(v);
-    }
-    res.push_back(u); // Post-order: All edges from u are "done"
-}
-```
 ### Number of Islands
 > Given a 2D grid grid where '1' represents land and '0' represents water, count and return the number of islands.
 
@@ -1158,6 +1074,91 @@ public:
 };
 ```
 
+### Union Find
+
+Algo:
+- Two main functions:
+    1. __find(x)__ -> find the representetive of the group which x belongs to.
+    1. __union(x,y)__ -> combine both in the same group.
+
+```cpp
+class Solution {
+public:
+    vector<int> parent;
+
+    int _find(int x) {
+        if (parent[x] != x)
+            return _find(parent[x]);
+        return x;
+    }
+
+    void _union(int x, int y) {
+        int p1 = _find(x);
+        int p2 = _find(y);
+        parent[p2] = p1;
+    }
+};
+```
+Issues:
+- while finding parent of a node x, we need to traverse up,
+- if the tree is too tall it will take time
+- better if we can flatten the tree.
+- SOl:
+    - Always attach the smaller tree under the root of the larger tree. This prevents the tree from becoming too tall.
+    - Keep track of rank of each node, to track which is bigger.
+- Initially each node has rank 0.
+```cpp
+
+_union (int i, int j) {
+    int root_i = find(i);
+    int root_j = find(j);
+
+    if (root_i != root_j) {
+        if (rank[root_i] < rank[root_j]) {
+            parent[root_i] = root_j;
+        } else if (rank[root_i] > rank[root_j]) {
+            parent[root_j] = root_i;
+        } else {
+            parent[root_i] = root_j;
+            rank[root_j]++;
+        }
+    }
+}
+
+```
+### Topological sort && Hierholzer's Algorithm
+
+- Both uses POST order DFS alog
+- In Topological : 
+    - is about taking a set of tasks with dependencies and finding a valid linear sequence in which to perform them.
+    - It works in DAG
+    - Visits every Node at least once.
+- In Hierholzer’s (Eulerian Path):
+    - Visits every Edge exactly once.
+    - Cycles are required (Eulerian).
+    - Directed or Undirected Graph.
+
+```cpp
+// Topological Sort Snippet
+void dfs(int u) {
+    visited[u] = true;
+    for (int v : adj[u]) {
+        if (!visited[v]) dfs(v);
+    }
+    res.push_back(u); // Post-order: Node is "done"
+}
+
+// Hierholzer's Snippet
+void dfs(int u) {
+    while (!adj[u].empty()) {
+        int v = adj[u].back();
+        adj[u].pop_back(); // Edge is "done" (removed)
+        dfs(v);
+    }
+    res.push_back(u); // Post-order: All edges from u are "done"
+}
+```
+
 ### Dijkstra's Algorithm
 
 Apporach:
@@ -1203,6 +1204,12 @@ public:
         return res;    
     }
 };
+
+```
+
+### Prims's Algorithm
+
+```cpp
 
 ```
 
