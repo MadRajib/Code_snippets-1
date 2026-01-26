@@ -19,6 +19,8 @@
 1. [Network Delay Time](#network-delay-time)
 1. [Alien Dictionary](#alien-dictionary)
 1. [Redundant Connection](#redundant-connection)
+1. [Word Ladder](#word-ladder)
+
 
 ### Island Perimeter
 ```bash
@@ -1394,4 +1396,89 @@ public:
         return {};
     }
 };
+```
+
+### Word Ladder
+> You are given two words, beginWord and endWord, and also a list of words wordList. All of the given words are of the same length, consisting of lowercase English letters, and are all distinct.
+
+Your goal is to transform beginWord into endWord by following the rules:
+
+You may transform beginWord to any word within wordList, provided that at exactly one position the words have a different character, and the rest of the positions have the same characters.
+You may repeat the previous step with the new word that you obtain, and you may do this as many times as needed.
+Return the minimum number of words within the transformation sequence needed to obtain the endWord, or 0 if no such sequence exists.
+
+```bash
+Example 1:
+
+Input: beginWord = "cat", endWord = "sag", wordList = ["bat","bag","sag","dag","dot"]
+
+Output: 4
+Explanation: The transformation sequence is "cat" -> "bat" -> "bag" -> "sag".
+
+Example 2:
+
+Input: beginWord = "cat", endWord = "sag", wordList = ["bat","bag","sat","dag","dot"]
+
+Output: 0
+Explanation: There is no possible transformation sequence from "cat" to "sag" since the word "sag" is not in the wordList.
+```
+Approach
+- We need to find string which is 1 edit distance away from src to destination
+- we will save patterns instead of word, hot -> *ot, h*t, ho*.
+```bash
+*ot -> hot, dot
+h*t -> hot, hit, htt,
+ho* -> hot, hog, hoc 
+```
+- Next is just using BFS to find the level where the destination node is found
+
+```cpp
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_map<string, vector<string>> adj_m;
+
+        for (auto w: wordList) {
+            for (int i = 0; i < w.length(); i++) {
+                string _w = w;
+                _w[i] = '*';
+                adj_m[_w].push_back(w);
+            }
+        }
+
+        queue<string> q;
+        unordered_map<string, bool> visited;
+        visited[beginWord] = true;
+
+        q.push(beginWord);
+
+        int res = 1;
+        while(!q.empty()) {
+            int size = q.size();
+            for (int k = 0; k < size; k++) {
+                string w = q.front();
+                q.pop();
+
+                if (w == endWord)
+                    return res;
+
+                // Generate patterns for the current word
+                for (int j = 0; j < w.length(); j++) {
+                    string pattern = w;
+                    pattern[j] = '*';
+                    
+                    for (const string& neighbor : adj_m[pattern]) {
+                        if (visited.find(neighbor) == visited.end()) {
+                            visited[neighbor] = true;
+                            q.push(neighbor);
+                        }
+                    }
+                }
+            }
+            res += 1;
+        }
+        return 0;
+    }
+};
+
 ```
