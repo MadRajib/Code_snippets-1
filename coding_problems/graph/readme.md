@@ -21,6 +21,7 @@
 1. [Alien Dictionary](#alien-dictionary)
 1. [Redundant Connection](#redundant-connection)
 1. [Word Ladder](#word-ladder)
+1. [Reconstruct Flight Path](#reconstruct-flight-path)
 
 
 ### Island Perimeter
