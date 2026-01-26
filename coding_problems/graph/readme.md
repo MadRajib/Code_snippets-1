@@ -16,6 +16,7 @@
     1. [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph)
     1. [Dijkstras Algorithm](#dijkstras-algorithm)
     1. [Union Find](#union-find)
+    1. [Topological Sort and Hierholzers Algo](#topological-sort--hierholzers-algorithm)
 1. [Network Delay Time](#network-delay-time)
 1. [Alien Dictionary](#alien-dictionary)
 1. [Redundant Connection](#redundant-connection)
@@ -129,7 +130,38 @@ _union (int i, int j) {
 }
 
 ```
+### Topological sort && Hierholzer's Algorithm
 
+- Both uses POST order DFS alog
+- In Topological : 
+    - is about taking a set of tasks with dependencies and finding a valid linear sequence in which to perform them.
+    - It works in DAG
+    - Visits every Node at least once.
+- In Hierholzer’s (Eulerian Path):
+    - Visits every Edge exactly once.
+    - Cycles are required (Eulerian).
+    - Directed or Undirected Graph.
+
+```cpp
+// Topological Sort Snippet
+void dfs(int u) {
+    visited[u] = true;
+    for (int v : adj[u]) {
+        if (!visited[v]) dfs(v);
+    }
+    res.push_back(u); // Post-order: Node is "done"
+}
+
+// Hierholzer's Snippet
+void dfs(int u) {
+    while (!adj[u].empty()) {
+        int v = adj[u].back();
+        adj[u].pop_back(); // Edge is "done" (removed)
+        dfs(v);
+    }
+    res.push_back(u); // Post-order: All edges from u are "done"
+}
+```
 ### Number of Islands
 > Given a 2D grid grid where '1' represents land and '0' represents water, count and return the number of islands.
 
