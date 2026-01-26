@@ -1124,8 +1124,35 @@ public:
 
 ### Prims's Algorithm
 
+- Same as dijsktra but little modification
+- Here we are not truing to find min cost to destination node but
+- we are trying to fin min cost to add all the nodes together
+
 ```cpp
 
+    hp.push({0, 0});
+    int cost = 0;
+
+    vector<int> node;
+    while (!hp.empty()) {
+        node = hp.top();
+        hp.pop();
+
+        // already visited
+        if (visited.count(node[1]))
+            continue;
+
+        cost += node[0];   
+        visited[node[1]] = true;
+
+        for (auto x: adj[node[1]]) {
+            // just keep next edge node
+            if (!visited.count(x[1]))
+                hp.push({x[0], x[1]});
+        }
+    }
+
+    return cost;
 ```
 
 ### Union Find
