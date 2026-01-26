@@ -1514,3 +1514,64 @@ public:
 };
 
 ```
+### Reconstruct Flight Path
+You are given a list of flight tickets tickets where tickets[i] = [from_i, to_i] represent the source airport and the destination airport.
+
+Each from_i and to_i consists of three uppercase English letters.
+
+Reconstruct the itinerary in order and return it.
+
+All of the tickets belong to someone who originally departed from "JFK". Your objective is to reconstruct the flight path that this person took, assuming each ticket was used exactly once.
+
+If there are multiple valid flight paths, return the lexicographically smallest one.
+
+For example, the itinerary ["JFK", "SEA"] has a smaller lexical order than ["JFK", "SFO"].
+You may assume all the tickets form at least one valid flight path.
+
+```bash
+Example 1:
+
+Input: tickets = [["BUF","HOU"],["HOU","SEA"],["JFK","BUF"]]
+
+Output: ["JFK","BUF","HOU","SEA"]
+Example 2:
+
+Input: tickets = [["HOU","JFK"],["SEA","JFK"],["JFK","SEA"],["JFK","HOU"]]
+
+Output: ["JFK","HOU","JFK","SEA","JFK"]
+Explanation: Another possible reconstruction is ["JFK","SEA","JFK","HOU","JFK"] but it is lexicographically larger.
+```
+
+Apporach:
+- question is to find Eulerian Path
+
+```cpp
+class Solution {
+public:
+    vector<string> findItinerary(vector<vector<string>>& tickets) {
+        unordered_map<string, deque<string>> adj;
+        for (auto& ticket : tickets) {
+            adj[ticket[0]].push_back(ticket[1]);
+        }
+        for (auto& [src, dests] : adj) {
+            sort(dests.rbegin(), dests.rend());
+        }
+
+        vector<string> res;
+        dfs("JFK", adj, res);
+        reverse(res.begin(), res.end());
+        return res;
+    }
+
+private:
+    void dfs(const string& src, unordered_map<string,
+             deque<string>>& adj, vector<string>& res) {
+        while (!adj[src].empty()) {
+            string dst = adj[src].back();
+            adj[src].pop_back();
+            dfs(dst, adj, res);
+        }
+        res.push_back(src);
+    }
+};
+```
