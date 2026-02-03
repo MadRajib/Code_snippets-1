@@ -5,8 +5,9 @@
 1. [Post Order Traversal](#post-order-traversal)
 1. [Invert Binary tree](#invert-binary-tree)
 1. [Maximum Depth of Binary Tree](#maximum-depth-of-binary-tree)
-1. [Diameter of Binary Tree](#diameter-of-binary-tree)
-1. [Balanced Binary Tree](#balanced-binary-tree)
+    1. [Diameter of Binary Tree](#diameter-of-binary-tree)
+    1. [Balanced Binary Tree](#balanced-binary-tree)
+    1. [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum)
 1. [Same Tree](#same-tree)
 1. [Subtree of Another Tree](#subtree-of-another-tree)
 1. [Lowest Common Ancestor of a Binary Search Tree](#lowest-common-ancestor-of-a-binary-search-tree)
@@ -20,7 +21,6 @@
 1. [Construct Binary Tree from Preorder and Inorder Traversal](#construct-binary-tree-from-preorder-and-inorder-traversal)
 1. [House Robber III](#house-robber-iii)
 1. [Delete Leaves With a Given Value](#delete-leaves-with-a-given-value)
-1. [Binary Tree Maximum Path Sum](#binary-tree-maximum-path-sum)
 1. [Serialize and Deserialize BT](#serialize-and-deserialize-bt)
 
 ### Interesting Problems
@@ -371,6 +371,59 @@ public:
     }
 };
 
+```
+### Binary Tree Maximum Path Sum
+> Given the root of a non-empty binary tree, return the maximum path sum of any non-empty path.
+
+A path in a binary tree is a sequence of nodes where each pair of adjacent nodes has an edge connecting them. A node can not appear in the sequence more than once. The path does not necessarily need to include the root.
+
+The path sum of a path is the sum of the node's values in the path
+
+```bash
+Input: root = [1,2,3]
+
+Output: 6
+Explanation: The path is 2 -> 1 -> 3 with a sum of 2 + 1 + 3 = 6.
+
+Input: root = [-15,10,20,null,null,15,5,-5]
+
+Output: 40
+Explanation: The path is 15 -> 20 -> 5 with a sum of 15 + 20 + 5 = 40.
+```
+Approach:
+- Here we want to caculate max path that can exits
+    - this can be caculated while caculating max path sum for the node. i,e
+    - root->val + max(path_sum_left, path_sum_right)
+    - now that we have max path sum for node we can caculate the actual result including the node and both subtrees
+
+- return root->val + max(max_left, max_right)
+- root + left or root + right for a path not both. 
+- while traversing update the max
+    - current_max = max(currnt_max, r->val + leftMax + rightMaxt)
+
+```cpp
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+       int res = root->val;
+       dfs(root, res);
+       return res;
+    }
+
+    int dfs(TreeNode* root, int &res) {
+        if (!root)
+            return 0;
+        // get max from left and right
+        int leftMax = max(dfs(root->left, res), 0);
+        int rightMax = max(dfs(root->right, res), 0);
+
+        // update the current max
+        res =  max(res, root->val + leftMax +  rightMax);
+
+        // for a node max path will be either from left max or right max not both
+        return root->val + max(leftMax, rightMax);
+    }
+};
 ```
 
 ### Same Tree
@@ -1021,59 +1074,6 @@ public:
             return nullptr;
             
         return root;
-    }
-};
-```
-### Binary Tree Maximum Path Sum
-> Given the root of a non-empty binary tree, return the maximum path sum of any non-empty path.
-
-A path in a binary tree is a sequence of nodes where each pair of adjacent nodes has an edge connecting them. A node can not appear in the sequence more than once. The path does not necessarily need to include the root.
-
-The path sum of a path is the sum of the node's values in the path
-
-```bash
-Input: root = [1,2,3]
-
-Output: 6
-Explanation: The path is 2 -> 1 -> 3 with a sum of 2 + 1 + 3 = 6.
-
-Input: root = [-15,10,20,null,null,15,5,-5]
-
-Output: 40
-Explanation: The path is 15 -> 20 -> 5 with a sum of 15 + 20 + 5 = 40.
-```
-Approach:
-- Here we want to caculate max path that can exits
-    - this can be caculated while caculating max path sum for the node. i,e
-    - root->val + max(path_sum_left, path_sum_right)
-    - now that we have max path sum for node we can caculate the actual result including the node and both subtrees
-
-- return root->val + max(max_left, max_right)
-- root + left or root + right for a path not both. 
-- while traversing update the max
-    - current_max = max(currnt_max, r->val + leftMax + rightMaxt)
-
-```cpp
-class Solution {
-public:
-    int maxPathSum(TreeNode* root) {
-       int res = root->val;
-       dfs(root, res);
-       return res;
-    }
-
-    int dfs(TreeNode* root, int &res) {
-        if (!root)
-            return 0;
-        // get max from left and right
-        int leftMax = max(dfs(root->left, res), 0);
-        int rightMax = max(dfs(root->right, res), 0);
-
-        // update the current max
-        res =  max(res, root->val + leftMax +  rightMax);
-
-        // for a node max path will be either from left max or right max not both
-        return root->val + max(leftMax, rightMax);
     }
 };
 ```
