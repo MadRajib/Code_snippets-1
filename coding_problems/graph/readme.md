@@ -1079,6 +1079,7 @@ public:
 
         unordered_map<int, vector<vector<int>>> adj_list;
         for (auto x: edges) {
+            // src node, destination node, weight
             adj_list[x[0]].push_back({x[1], x[2]});
         }
 
@@ -1668,4 +1669,5 @@ public:
 
 
 ```
+
 
