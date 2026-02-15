@@ -8,15 +8,15 @@
 1. [Find if Path Exists in Graph](#find-if-path-exists-in-graph)
 1. [Clone Graph](#clone-graph)
 1. [Surrounded Regions](#surrounded-regions)
-1. [Course Schedule](#course-schedule)
-1. [Graph Valid Tree](#graph-valid-tree)
-1. [Course Schedule II](#course-schedule-ii)
 1. [Graph Alogrithms](#graph-alogrithms)
     1. [Cycle Detection In Undirected Graph](#cycle-detection-in-undirected-graph)
     1. [Cycle Detection In Directed Graph](#cycle-detection-in-directed-graph)
     1. [Dijkstras Algorithm](#dijkstras-algorithm)
     1. [Union Find](#union-find)
     1. [Topological Sort and Hierholzers Algo](#topological-sort--hierholzers-algorithm)
+1. [Course Schedule](#course-schedule)
+1. [Graph Valid Tree](#graph-valid-tree)
+1. [Course Schedule II](#course-schedule-ii)
 1. [Network Delay Time](#network-delay-time)
 1. [Alien Dictionary](#alien-dictionary)
 1. [Redundant Connection](#redundant-connection)
@@ -716,45 +716,44 @@ Apporach:
 ```cpp
 class Solution {
 public:
-    unordered_map<int, vector<int>> course_map;
     unordered_set<int> visited;
+    unordered_set<int> onPath;
+    unordered_map<int, vector<int>> adj_mat;
+
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        
-        // Build adj matrix
-        for (int i = 0; i < numCourses; i++)
-            course_map[i] = {};
-        
-        for (auto el: prerequisites)
-            course_map[el[0]].push_back(el[1]);
-        
+
+        for (auto c: prerequisites) {
+            adj_mat[c[0]].push_back(c[1]);
+        }
+
         for (int i = 0; i < numCourses; i++) {
-            if (!dfs(i))
+            // We must check every node because the graph might be disconnected
+            if (has_cycle(i))
                 return false;
         }
 
-        return true;
+        return true;    
     }
 
-    bool dfs(int i) {
-        // cycle detection
-        if (visited.count(i))
-            return false;
-        
-        if (course_map[i].empty())
-            return true;
+    bool has_cycle(int node) {
+        if (onPath.count(node))
+            return true; // Found a back-edge!
 
-        visited.insert(i);
-        for (auto el: course_map[i])
-            if(!dfs(el))
-                return false;
-        
-        visited.erase(i);
-        course_map[i].clear();
+        if (visited.count(node))
+            return false; // Already processed this path
     
-        return true;
+        visited.insert(node);
+        onPath.insert(node);
+    
+        for (int neighbor : adj_mat[node]) {
+            if (has_cycle(neighbor))
+                return true;
+        }
+
+        onPath.erase(node); // Backtrack: remove from current path
+        return false;
     }
 };
-
 ```
 
 ### Graph Valid Tree
@@ -1674,5 +1673,6 @@ public:
         return res.size() == n ? ret : -1;
     }
 };
+
 
 ```
