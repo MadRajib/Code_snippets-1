@@ -865,49 +865,41 @@ Apporach:
 class Solution {
 public:
     vector<int> output;
-    unordered_map<int, vector<int>> prereq;
+    unordered_set<int> visited;
+    unordered_set<int> onPath;
+    unordered_map<int, vector<int>> adj_mat;
 
     vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        
-
-        vector<bool> visited(numCourses, false);
-        vector<bool> recStack(numCourses, false);
-
-        // build adjacency list
-        for (const auto& pair : prerequisites) {
-            prereq[pair[0]].push_back(pair[1]);
+        for (auto c: prerequisites) {
+            adj_mat[c[0]].push_back(c[1]);
         }
 
         for (int i = 0; i < numCourses; i++) {
-            if (!visited[i]) {
-                // return true if cycle detected else returns false
-                if (dfs_d_graph(i, visited, recStack))
-                    return {};
-            }
-
+            // We must check every node because the graph might be disconnected
+            if (has_cycle(i))
+                return {};
         }
         return output;
     }
 
-    bool dfs_d_graph(int node, vector<bool>& visited, vector<bool>& recStack) {
-        visited[node] = true;
+    bool has_cycle(int node) {
+        if (onPath.count(node))
+            return true; // Found a back-edge!
 
-        // add to recursion stack
-        recStack[node] = true;
-        for (auto n: prereq[node]) {
-            if (!visited[n]) {
-                if (dfs_d_graph(n, visited, recStack))
-                    return true;
-            // if visited and still present in rescursion stack
-            // cycle present
-            } else if (recStack[n]) 
+        if (visited.count(node))
+            return false; // Already processed this path
+    
+        visited.insert(node);
+        onPath.insert(node);
+    
+        for (int neighbor : adj_mat[node]) {
+            if (has_cycle(neighbor))
                 return true;
         }
 
-        // remove from the recursionstack
-        recStack[node] = false;
+        onPath.erase(node); // Backtrack: remove from current path
         output.push_back(node);
-
+    
         return false;
     }
 };
@@ -1676,3 +1668,4 @@ public:
 
 
 ```
+
