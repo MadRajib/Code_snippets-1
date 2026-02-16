@@ -1,6 +1,7 @@
 # Arrays and Strings
 
 ### Problems
+1. [Find All Duplicates in an Array - Explanation](#find-all-duplicates-in-an-array---explanation)
 1. [KMP ALGO](#kmp-algo)
 1. [Rotated Digits](#rotated-digits)
 1. [Maximum Subarray](#maximum-subarray)
@@ -9,6 +10,49 @@
 ### TODO:
 1. Maximum Product Subarray
 
+### Find All Duplicates in an Array - Explanation
+>Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears at most twice, return an array of all the integers that appears twice.
+
+You must write an algorithm that runs in O(n) time and uses only constant auxiliary space, excluding the space needed to store the output
+
+```bash
+
+Example 1:
+
+Input: nums = [4,3,2,7,8,2,3,1]
+Output: [2,3]
+Example 2:
+
+Input: nums = [1,1,2]
+Output: [1]
+Example 3:
+
+Input: nums = [1]
+Output: []
+```
+
+Apporach:
+- since all elements are in the range 1 - n
+    - then v can be mapped to v - 1
+    - we will negatively mark, i.e for v we will mark v-1 as neg indicating that we have seen v;
+
+```cpp
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        
+        vector<int> res;
+        int x = nums[0];
+        for (int i = 1; i< nums.size(); i++) {
+            x = x ^ nums[i];
+            if ()
+                res.push_back(nums[i]);
+        }
+
+        return res;
+    }
+};
+```
 
 ### KMP Algo
 ```cpp
