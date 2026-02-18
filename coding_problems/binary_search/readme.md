@@ -1,20 +1,21 @@
 # Binary Search Problems
 
 ### Problems
-1. [Binary Search](#1-binary-search)
-1. [Order Agonostic Search](#2-order-agonostic-search)
-1. [First and Last occurrence of an element](#3-first-and-last-occurrence-of-an-element)
-1. [Count No of Elements in a Sorted Array](#4-count-no-of-elements-in-a-sorted-array)
-1. [How many times a S Array is rotated](#5-how-many-times-a-s-array-is-rotated)
-1. [Find an Element in a Rotated Sorted Array](#6-find-an-element-in-a-rotated-sorted-array)
-1. [Find floor or ceil of an element](#7-find-floor-or-ceil-of-an-element)
-1. [Find pos in infinite soreted array](#8-find-pos-in-infinite-soreted-array)
-1. [Find index of 1st 1 in the Sorted Array](#9-find-index-of-1st-1-in-the-sorted-array)
-1. [Minimum Difference Element in a Sorted Array](#10-minimum-difference-element-in-a-sorted-array)
-1. [Search in row wise and col wise sorted matrix](#11-search-in-row-wise-and-col-wise-sorted-matrix)
-1. [Allocate min no of pages](#12-allocate-min-no-of-pages)
-1. [Search a 2D Matrix](#13-search-a-2d-matrix)
-1. [Koko Eating Bananas](#14-koko-eating-bananas)
+1. [Binary Search](#binary-search)
+1. [Order Agonostic Search](#order-agonostic-search)
+1. [First and Last occurrence of an element](#first-and-last-occurrence-of-an-element)
+1. [Count No of Elements in a Sorted Array](#count-no-of-elements-in-a-sorted-array)
+1. [How many times a S Array is rotated](#how-many-times-a-s-array-is-rotated)
+1. [Find an Element in a Rotated Sorted Array](#find-an-element-in-a-rotated-sorted-array)
+1. [Find floor or ceil of an element](#find-floor-or-ceil-of-an-element)
+1. [Find pos in infinite soreted array](#find-pos-in-infinite-soreted-array)
+1. [Find index of 1st 1 in the Sorted Array](find-index-of-1st-1-in-the-sorted-array)
+1. [Minimum Difference Element in a Sorted Array](#minimum-difference-element-in-a-sorted-array)
+1. [Search in row wise and col wise sorted matrix](#search-in-row-wise-and-col-wise-sorted-matrix)
+1. [Kth Smallest Element in a Sorted Matrix](#kth-smallest-element-in-a-sorted-matrix)
+1. [Allocate min no of pages](#allocate-min-no-of-pages)
+1. [Search a 2D Matrix](#search-a-2d-matrix)
+1. [Koko Eating Bananas](#koko-eating-bananas)
 1. [Time Based Key-Value Store](#15-time-based-key-value-store)
 
 Identification :
@@ -25,7 +26,7 @@ Apporach:
 * find mid.
 * if not mid then where to jump left or right, determine the condition
 
-### 1. Binary Search
+### Binary Search
 
 > mid = (s + e) / 2; //Can cause OOB
 
@@ -67,13 +68,13 @@ What if Key is Absent ?
 * *high* will point to the first ekement smaller than the key ie. floor
 * *low* position where to place the element in the sorted array.
 
-### 2. Order Agonostic Search
+### Order Agonostic Search
 ```cpp
 // first check
 bool accending_order =  arr[0] < arr[1];
 ```
 
-### 3. First and Last occurrence of an element
+### First and Last occurrence of an element
 > Given a sorted array arr[] with possibly some duplicates, the task is to find the first and last occurrences of an element x in the given array.
 
 Note: If the number x is not found in the array then return both the indices as -1.
@@ -130,13 +131,13 @@ int find_last_occurence (arr, x) {
 }
 ```
 
-### 4. Count No of Elements in a Sorted Array
+### Count No of Elements in a Sorted Array
 Solution: 
 ```bash
     return find_last_occurence(arr, x) - find_first_occurence(arr, x) + 1;
 ```
 
-### 5. How many times a S Array is rotated
+### How many times a S Array is rotated
 > Given a sorted array arr[] (in strictly increasing order) that has been right-rotated k times. A right rotation means the last element is moved to the first position, and the remaining elements are shifted one position to the right. Find the value of k the number of times the array was right-rotated from its originally sorted form.
 
 ```bash
@@ -217,7 +218,7 @@ int find_min(arr) {
 }
 ```
 
-### 6. Find an Element in a Rotated Sorted Array
+### Find an Element in a Rotated Sorted Array
 > There is an integer array nums sorted in ascending order (with distinct values).
 
 > Prior to being passed to your function, nums is possibly left rotated at an unknown index k (1 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be left rotated by 3 indices and become [4,5,6,7,0,1,2].
@@ -274,7 +275,7 @@ public:
     return (A[l] == target) ? l : -1;
 };
 ```
-### 7. Find floor or Ceil of an element
+### Find floor or Ceil of an element
 * Greteast element smaller than the target
 * Smallest element greater than the target
 
@@ -304,7 +305,7 @@ int find_ceil(A)
 }
 ```
 
-### 8. Find pos in infinite soreted array
+### Find pos in infinite soreted array
 > Given a sorted array arr[] of infinite numbers. The task is to search for an element k in the array.
 
 ```bash
@@ -327,7 +328,7 @@ while (key > A[h]) {
 BS(low, high, A)
 ```
 
-### 9. Find index of 1st 1 in the Sorted Array
+### Find index of 1st 1 in the Sorted Array
 > Given an infinite sorted array consisting 0s and 1s. The problem is to find the index of first ‘1’ in that array. As the array is infinite, therefore it is guaranteed that number '1' will be present in the array.
 
 ```bash
@@ -347,7 +348,7 @@ find_first_occurence(A, 1);
 
 ```
 
-### 10. Minimum Difference Element in a Sorted Array
+### Minimum Difference Element in a Sorted Array
 > Find the element which has min difference with the target
 
 * i,e min abs() diff element
@@ -373,7 +374,7 @@ int bs(A, x) {
 }
 ```
 
-### 11. Search in row wise and col wise sorted matrix
+### Search in row wise and col wise sorted matrix
 > Given a matrix mat[][] and an integer x, the task is to check if x is present in mat[][] or not. Every row and column of the matrix is sorted in increasing order.
 
 ```cpp
@@ -410,7 +411,7 @@ return false;
 }
 ```
 
-### 12. Allocate min no of pages
+### Allocate min no of pages
 Same as __Painter's Partitions problem__ and __koko eating bananas__
 
 > Given an array arr[], where arr[i] represents the number of pages in the i-th book, and an integer k denoting the total number of students, allocate all books to the students such that:
@@ -510,7 +511,7 @@ validate_no_students(p,k) {
 }
 ```
 
-### 13. Search a 2D Matrix
+### Search a 2D Matrix
 > You are given an m x n 2-D integer array matrix and an integer target.
 
 * Each row in matrix is sorted in non-decreasing order.
@@ -619,7 +620,72 @@ public:
 };
 ```
 
-### 14. Koko Eating Bananas
+### Kth Smallest Element in a Sorted Matrix
+> Given an n x n matrix where each of the rows and columns is sorted in ascending order, return the kth smallest element in the matrix.
+
+Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+You must find a solution with a memory complexity better than O(n2).
+
+```bash
+
+Example 1:
+
+Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+Output: 13
+Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+Example 2:
+
+Input: matrix = [[-5]], k = 1
+Output: -5
+```
+
+Approach:
+- we will count no of elements <= mid elements.
+- if the count is k then we stop and return the kth index i.e low.
+
+```cpp
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int n = matrix.size();
+        int s = matrix[0][0];
+        int e = matrix[n - 1][n - 1];
+
+        while (s <= e) {
+            int m = s + (e -s )/ 2;
+            if (elementsLessThanX(matrix, m) < k)
+                s = m + 1;
+            else
+                e = m - 1;
+        }
+
+        return s;
+    }
+
+    int elementsLessThanX(vector<vector<int>>& matrix, int x) {
+        int n =  matrix.size();
+        int r = n - 1;
+        int c = 0;
+        int count = 0;
+        //start from bottom left,
+        //  if element is smaller than x add the entire col count
+        // else move up one row
+        while (r >= 0 && c < n) {
+            if (matrix[r][c] <= x) {
+                count += r + 1; // add all the elements of this col to count
+                c++;
+            } else {
+                r--;
+            }
+        }
+
+        return count;
+    }
+};
+```
+
+### Koko Eating Bananas
 > You are given an integer array piles where piles[i] is the number of bananas in the ith pile. You are also given an integer h, which represents the number of hours you have to eat all the bananas.
 
 > You may decide your bananas-per-hour eating rate of k. Each hour, you may choose a pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, you may finish eating the pile but you can not eat from another pile in the same hour.
@@ -721,7 +787,7 @@ public:
 };
 ```
 
-### 15. Time Based Key Value Store
+### Time Based Key Value Store
 > mplement a time-based key-value data structure that supports:
 
 > Storing multiple values for the same key at specified time stamps
