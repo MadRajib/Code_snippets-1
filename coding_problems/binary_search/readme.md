@@ -6,6 +6,7 @@
 1. [First and Last occurrence of an element](#first-and-last-occurrence-of-an-element)
 1. [Count No of Elements in a Sorted Array](#count-no-of-elements-in-a-sorted-array)
 1. [How many times a S Array is rotated](#how-many-times-a-s-array-is-rotated)
+1. [Search in Rotated Sorted Array II](#search-in-rotated-sorted-array-ii)
 1. [Find an Element in a Rotated Sorted Array](#find-an-element-in-a-rotated-sorted-array)
 1. [Find floor or ceil of an element](#find-floor-or-ceil-of-an-element)
 1. [Find pos in infinite soreted array](#find-pos-in-infinite-soreted-array)
@@ -275,6 +276,65 @@ public:
     return (A[l] == target) ? l : -1;
 };
 ```
+### Search in Rotated Sorted Array II
+There is an integer array nums sorted in non-decreasing order (not necessarily with distinct values).
+
+```bash
+Example 1:
+
+Input: nums = [2,5,6,0,0,1,2], target = 0
+Output: true
+Example 2:
+
+Input: nums = [2,5,6,0,0,1,2], target = 3
+Output: false
+
+Example 3:
+input: nums = [1,0,1,1,1], target = 0
+Output: true
+```
+
+Apporach:
+- we must handle duplicates
+- reduce the search window
+```cpp
+class Solution {
+public:
+    bool search(vector<int>& A, int target) {
+        int l = 0, h = A.size()-1;
+        
+        while(l <= h){
+            int m = l + (h-l)/2;
+            if(A[m] == target)
+                return true;
+            
+            // handle duplicates
+            if((A[l] == A[m]) && (A[m] == A[h])) {
+                l++;
+                h--;
+            } else if (A[l] <= A[m]) { // first half is sorted then find there first
+                // if target is in between then make s to m the range
+                if (A[l] <= target && target < A[m] )
+                    h = m - 1;
+                else
+                    // jmp to unsorted half
+                    l = m + 1;
+            // second half is sorted
+            } else {
+                // make m + 1 to h the new range if target is in btw
+                if(A[m] < target && target <= A[h] )
+                    l = m + 1;
+                else
+                // jmp to unsorted half
+                    h = m - 1;
+            }
+    }
+
+        return  false;
+    }
+};
+```
+
 ### Find floor or Ceil of an element
 * Greteast element smaller than the target
 * Smallest element greater than the target
