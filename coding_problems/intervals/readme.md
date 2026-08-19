@@ -26,6 +26,10 @@ Input: intervals = [(5,8),(9,15)]
 
 Output: true
 ```
+1. We need to sort wrt to start time for each interval.
+2. We can then check if a interval overlaps with any other intervals.
+3. One way is to check each interval with all other.
+4. More efficent way is to check overlap with previous interval making use of the sorting feature that was applied.
 
 ```cpp
 class Solution {
@@ -70,6 +74,13 @@ Input: intervals = [[1,2],[3,5],[9,10]], newInterval = [6,7]
 Output: [[1,2],[3,5],[6,7],[9,10]]
 ```
 
+1. Sort all the intervals.
+2. Now lets take care of intervals when they dont overlap.
+    1. if new interval lies in front of current interval, copy the new interval and rest at the back of the result and we are done.
+    2. if new interval lies post the current interval i.e n.s > i.e, then we can copy the interval to res and move on to find overlapping with the rest.
+3. Now if there is an overlap, we will create a new interval with:
+   1. start = min of both overlapping interval
+   2. end = max of both overlapping interval
 
 Apporach:
 1. If n->e < c->s ; push(n); push(c); ret;
