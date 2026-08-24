@@ -2258,3 +2258,27 @@ public:
     }
 };
 ```
+Tabular dp apporach 
+```cpp
+class Solution {
+public:
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+        vector<vector<int>> intervals;
+        vector<int> dp(startTime.size() + 1, 0);
+
+        for (int i = 0; i < startTime.size(); i++) {
+            intervals.push_back({startTime[i],  endTime[i], profit[i]});
+        }
+
+        sort(intervals.begin(), intervals.end());
+        for (int i = startTime.size() - 1; i >=0 ; --i) {
+            auto it = lower_bound(intervals.begin() + i + 1, intervals.end(), std::vector<int>{intervals[i][1], 0, 0});
+            int next_index = distance(intervals.begin(), it);
+
+            dp[i] = max(dp[i + 1], dp[next_index] + intervals[i][2]);
+        }
+
+        return dp[0];
+    }
+};
+```
