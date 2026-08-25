@@ -83,6 +83,21 @@ Iterative
 
 ```cpp
 // Iterative
+function DFS_iterative_v2(graph, start):
+    visited = {start}
+    stack = [start]
+
+    while stack is not empty:
+        node = stack.pop()
+        process(node)
+
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                stack.push(neighbor)
+```
+Example
+```cpp
 vector<int> dfs(TreeNode* root) {
         vector<int> res;
         stack<TreeNode*> stack;
@@ -98,25 +113,30 @@ vector<int> dfs(TreeNode* root) {
         return res;
 }
 
-// Iterative
-vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> res;
-        stack<TreeNode*> stack;
-        TreeNode* cur = root;
+# For graph
+void dfs(int start, vector<vector<int>>& adj, int V) {
+    vector<bool> visited(V, false);
+    stack<int> st;
+    st.push(start);
 
-        while (cur || !stack.empty()) {
-            while (cur) {
-                stack.push(cur);
-                cur = cur->left;
+    while (!st.empty()) {
+        int node = st.top();
+        st.pop();
+
+        if (!visited[node]) {
+            visited[node] = true;
+            cout << node << " ";   // process node
+
+            // push neighbors in reverse order to match recursive DFS order
+            for (auto it = adj[node].rbegin(); it != adj[node].rend(); ++it) {
+                if (!visited[*it]) {
+                    st.push(*it);
+                }
             }
-            cur = stack.top();
-            stack.pop();
-            res.push_back(cur->val);
-            cur = cur->right;
         }
-
-        return res;
+    }
 }
+
 ```
 ## BFS
 ```cpp
@@ -176,6 +196,26 @@ public:
         return;
     }
 };
+
+// Iterative
+vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> stack;
+        TreeNode* cur = root;
+
+        while (cur || !stack.empty()) {
+            while (cur) {
+                stack.push(cur);
+                cur = cur->left;
+            }
+            cur = stack.top();
+            stack.pop();
+            res.push_back(cur->val);
+            cur = cur->right;
+        }
+
+        return res;
+}
 ```
 
 ### Pre order Traversal
