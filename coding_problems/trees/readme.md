@@ -38,15 +38,36 @@ parent      = (i - 1) / 2;
 ```cpp
 
 // recursive
-void dfs(*root) {
-    if (!root)
-        return;
+function DFS(graph, node, visited):
+    if node in visited:
+        return
+    visited.add(node)
+    process(node)                 // visit node
 
-    // process pre order node
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            DFS(graph, neighbor, visited)
+DFS(graph, start, {})
+eg. For BST no visited is not required!
+void dfs(TreeNode* root) {
+    if (!root) return;
+
+    // process root
+
     dfs(root->left);
-    // process in order node
     dfs(root->right);
-    // process post order node
+}
+eg for graphs
+void dfs(TreeNode* root, unordered_map<TreeNode*, bool>& visited) {
+    if (!root) return;
+    if (visited.find(root) != visited.end())
+        return;          // already visited, stop
+
+    visited[root] = true;
+    // process root
+
+    dfs(root->left, visited);
+    dfs(root->right, visited);
 }
 
 // Iterative
