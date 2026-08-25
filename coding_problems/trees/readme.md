@@ -256,6 +256,58 @@ public:
         return;
     }
 };
+
+//Iterative
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> stk;
+
+        if (!root)
+            return res;
+
+        stk.push(root);
+
+        while (!stk.empty()) {
+            TreeNode* node = stk.top();
+            res.push_back(node->val);
+            stk.pop();
+
+            if (node->right)
+                stk.push(node->right);
+
+            if (node->left)
+                stk.push(node->left);
+        }
+
+        return res;
+    }
+};
+
+// same 
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> stk;
+        TreeNode* cur = root;
+
+        while (cur || !stk.empty()) {
+            if (cur) {
+                res.push_back(cur->val);
+                if (cur->right)
+                    stk.push(cur->right);
+                cur = cur->left;
+            } else {
+                cur = stk.top();
+                stk.pop();
+            }
+        }
+
+        return res;
+    }
+};
 ```
 
 ### Post order traversal
