@@ -35,6 +35,7 @@ parent      = (i - 1) / 2;
 ```
 
 ## DFS
+Recurvise
 ```cpp
 
 // recursive
@@ -48,6 +49,13 @@ function DFS(graph, node, visited):
         if neighbor not in visited:
             DFS(graph, neighbor, visited)
 DFS(graph, start, {})
+```
+Note: Visited data structrue is only required for non directed graph, for two reasons \
+    1. **Avoid infinite recursion between two connected nodes** \
+    2. **Avoid infinite recursion on cycles** 
+
+Examples
+```cpp
 eg. For BST no visited is not required!
 void dfs(TreeNode* root) {
     if (!root) return;
@@ -57,6 +65,7 @@ void dfs(TreeNode* root) {
     dfs(root->left);
     dfs(root->right);
 }
+
 eg for graphs
 void dfs(TreeNode* root, unordered_map<TreeNode*, bool>& visited) {
     if (!root) return;
@@ -69,7 +78,10 @@ void dfs(TreeNode* root, unordered_map<TreeNode*, bool>& visited) {
     dfs(root->left, visited);
     dfs(root->right, visited);
 }
+```
+Iterative
 
+```cpp
 // Iterative
 vector<int> dfs(TreeNode* root) {
         vector<int> res;
